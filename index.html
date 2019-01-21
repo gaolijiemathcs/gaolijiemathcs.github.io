@@ -323,8 +323,7 @@
             <p>对于两个不同进位制，转换的问题。</p>
 <p>对于一个P进位制的数字，如果要转换为Q进位制，需要分为两步:<br>①将P进位制数x转换为十进制的数字y</p>
 <p>对于一个十进位制的数</p>
-<p>$$<br>y=d_1d_2..d_n<br>$$</p>
-<p>它可以写成这个形式: </p>
+<p>$$<br>y=d_1d_2..d_n<br>$$<br>它可以写成这个形式: </p>
 <p>$$<br>y=d_1<em>10^{n-1}+d_2</em>10^{n-2}+…+d_{n-1}*10+d_n<br>$$<br>这个公式可以容易的使用循环来实现:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> y = <span class="number">0</span>, product = <span class="number">1</span>;   <span class="comment">//product在循环中会不断乘P，得到1、P、P^2、P^3.。</span></span><br><span class="line"><span class="keyword">while</span>(x != <span class="number">0</span>) &#123;</span><br><span class="line">	y = y + (x % <span class="number">10</span>) * product; <span class="comment">//x % 10是为了每次获取x的个位数</span></span><br><span class="line">	x = x / <span class="number">10</span>;</span><br><span class="line">	product = product * P;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>因式分解成为</p>
