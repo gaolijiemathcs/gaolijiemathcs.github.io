@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="C/C++,">
+  <meta name="keywords" content="PAT刷题,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="对于两个不同进位制，转换的问题。 对于一个P进位制的数字，如果要转换为Q进位制，需要分为两步:①将P进位制数x转换为十进制的数字y 对于一个十进位制的数 $$y=d_1d_2..d_n$$它可以写成这个形式:  $$y=d_110^{n-1}+d_210^{n-2}+…+d_{n-1}*10+d_n$$这个公式可以容易的使用循环来实现: 123456int y = 0, product = 1;">
-<meta name="keywords" content="C&#x2F;C++">
+<meta name="description" content="对于输入输出 以及字符下标的对应 一定要注意！ 1234567891011121314151617181920212223242526272829303132333435363738#include&amp;lt;cstdio&amp;gt;#include&amp;lt;cstring&amp;gt; int main() &amp;#123;	char S[100];	scanf(&quot;%s&quot;, S);	int n1, n2, n3;">
+<meta name="keywords" content="PAT刷题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="进位制转换">
-<meta property="og:url" content="http://yoursite.com/2019/01/21/进位制转换/index.html">
+<meta property="og:title" content="A1031题解">
+<meta property="og:url" content="http://yoursite.com/2019/01/26/A1031题解/index.html">
 <meta property="og:site_name" content="GaoLijie&#39;s Blog">
-<meta property="og:description" content="对于两个不同进位制，转换的问题。 对于一个P进位制的数字，如果要转换为Q进位制，需要分为两步:①将P进位制数x转换为十进制的数字y 对于一个十进位制的数 $$y=d_1d_2..d_n$$它可以写成这个形式:  $$y=d_110^{n-1}+d_210^{n-2}+…+d_{n-1}*10+d_n$$这个公式可以容易的使用循环来实现: 123456int y = 0, product = 1;">
+<meta property="og:description" content="对于输入输出 以及字符下标的对应 一定要注意！ 1234567891011121314151617181920212223242526272829303132333435363738#include&amp;lt;cstdio&amp;gt;#include&amp;lt;cstring&amp;gt; int main() &amp;#123;	char S[100];	scanf(&quot;%s&quot;, S);	int n1, n2, n3;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-21T05:27:48.825Z">
+<meta property="og:updated_time" content="2019-01-25T16:49:28.495Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="进位制转换">
-<meta name="twitter:description" content="对于两个不同进位制，转换的问题。 对于一个P进位制的数字，如果要转换为Q进位制，需要分为两步:①将P进位制数x转换为十进制的数字y 对于一个十进位制的数 $$y=d_1d_2..d_n$$它可以写成这个形式:  $$y=d_110^{n-1}+d_210^{n-2}+…+d_{n-1}*10+d_n$$这个公式可以容易的使用循环来实现: 123456int y = 0, product = 1;">
+<meta name="twitter:title" content="A1031题解">
+<meta name="twitter:description" content="对于输入输出 以及字符下标的对应 一定要注意！ 1234567891011121314151617181920212223242526272829303132333435363738#include&amp;lt;cstdio&amp;gt;#include&amp;lt;cstring&amp;gt; int main() &amp;#123;	char S[100];	scanf(&quot;%s&quot;, S);	int n1, n2, n3;">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/21/进位制转换/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/26/A1031题解/">
 
 
 
 
 
-  <title>进位制转换 | GaoLijie's Blog</title>
+  <title>A1031题解 | GaoLijie's Blog</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/进位制转换/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/A1031题解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Gao Lijie">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">进位制转换</h1>
+          <h1 class="post-title" itemprop="name headline">A1031题解</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T11:48:57+08:00">
-                2019-01-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T00:42:41+08:00">
+                2019-01-26
               </time>
             
 
@@ -320,20 +320,8 @@
       
 
       
-        <p>对于两个不同进位制，转换的问题。</p>
-<p>对于一个P进位制的数字，如果要转换为Q进位制，需要分为两步:<br>①将P进位制数x转换为十进制的数字y</p>
-<p>对于一个十进位制的数</p>
-<p>$$<br>y=d_1d_2..d_n<br>$$<br>它可以写成这个形式: </p>
-<p>$$<br>y=d_1<em>10^{n-1}+d_2</em>10^{n-2}+…+d_{n-1}*10+d_n<br>$$<br>这个公式可以容易的使用循环来实现:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> y = <span class="number">0</span>, product = <span class="number">1</span>;   <span class="comment">//product在循环中会不断乘P，得到1、P、P^2、P^3.。</span></span><br><span class="line"><span class="keyword">while</span>(x != <span class="number">0</span>) &#123;</span><br><span class="line">	y = y + (x % <span class="number">10</span>) * product; <span class="comment">//x % 10是为了每次获取x的个位数</span></span><br><span class="line">	x = x / <span class="number">10</span>;</span><br><span class="line">	product = product * P;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>因式分解成为</p>
-<p>$$<br>y=a_n + P(a_{n-1}+P(a_{n-2}+P(a_{n-3}+P(…….(P(a_2+Pa_{1})))))….)<br>$$<br>这样就可以将P进位制转换为十进制</p>
-<p>②将十进制y转换为Q进位制z。</p>
-<p>采用“除基取余法”。所谓的“基”就是指将要转为成的进位制度Q，仅此除基取余的意思就是每次将待转换数除以Q，然后将得到的余数作为低位存储，而商则继续除以Q并进行上面的操作，最后将当商为0时，将所有位从高到低输出就可以得到z。举一个例子，现在将十进位制11转换为二进位制：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">11除以2，得商为5，余数为1</span><br><span class="line">5除以2，得商为2，余数为1；</span><br><span class="line">2除以2，得商为1，余数为0</span><br><span class="line">1除以2，得商为0，余数为1，算法终止。</span><br><span class="line">将余数从后往前输出，得到1011即为11的二进制数</span><br></pre></td></tr></table></figure>
-<p>由此可以得到实现的代码(将十进制数y换为Q进制，结果存放于数组z)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int z[40], num = 0; //数组z存放于Q进位制y的每一位，num为位数</span><br><span class="line">do&#123;</span><br><span class="line">	z[num++] = y % Q; //除基取余</span><br><span class="line">	y = y / Q; </span><br><span class="line">&#125; while(y != 0);  //当商不为0时继续进行循环</span><br></pre></td></tr></table></figure>
-<p>这样就顺利的z数组会从高位z[num-1]到低位的z[0]即为Q进制的z,进位制转换就完成了。注意我们需要使用do…while而不使用while：如果十进制数y恰好等于0,那么while会直接跳出来出错（因为正确的是数组z中要存放一个z[0]=0）。</p>
+        <p>对于输入输出 以及字符下标的对应 一定要注意！</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">char</span> S[<span class="number">100</span>];</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>, S);</span><br><span class="line">	<span class="keyword">int</span> n1, n2, n3;</span><br><span class="line">	<span class="keyword">int</span> N = <span class="built_in">strlen</span>(S);		<span class="comment">//字符串长度</span></span><br><span class="line">	<span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= N; i++) &#123;</span><br><span class="line">		n2 = i;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n2; j++) &#123;</span><br><span class="line">			n1 = j;</span><br><span class="line">			n3 = j;</span><br><span class="line">			<span class="keyword">if</span>(n1 + n2 + n3 - <span class="number">2</span> == N)&#123;</span><br><span class="line">				<span class="keyword">if</span>(j &gt; max) &#123;</span><br><span class="line">					max = j;</span><br><span class="line">				&#125;				</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	n1 = max;</span><br><span class="line">	n2 = N + <span class="number">2</span> - n1 * <span class="number">2</span>;	</span><br><span class="line">	n3 = max;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//printf("%d %d %d\n", n1, n2, n3);</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; max - <span class="number">1</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%c"</span>, S[i]);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n2 - <span class="number">2</span>; j++) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%c\n"</span>, S[N - i - <span class="number">1</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = n1 - <span class="number">1</span>; i &lt;= n1 + n2 - <span class="number">2</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%c"</span>, S[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -351,7 +339,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C-C/" rel="tag"># C/C++</a>
+            <a href="/tags/PAT刷题/" rel="tag"># PAT刷题</a>
           
         </div>
       
@@ -364,8 +352,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/21/博客前言/" rel="next" title="博客前言">
-                <i class="fa fa-chevron-left"></i> 博客前言
+              <a href="/2019/01/26/A1006题解/" rel="next" title="A1006题解">
+                <i class="fa fa-chevron-left"></i> A1006题解
               </a>
             
           </div>
@@ -374,8 +362,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/21/sort函数/" rel="prev" title="sort函数">
-                sort函数 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/26/A1019题解/" rel="prev" title="A1019题解">
+                A1019题解 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
