@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="思想,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="帮家里做事情 有一段时间没做题 已经达到一种想做题目的状态了。。。 从递归思想重拾刷题感觉。。。 全排列和八皇后问题息息相关 hashTable的运用也是十分关键，这部分还是要好好体会一下才会比较好。递归要抓住 递归边界与递归表这两东西，尤其在全排列当中。 先放一个阶乘递归的简单代码： 1234567891011#include&amp;lt;cstdio&amp;gt; int F(int n) &amp;#123;">
+<meta name="keywords" content="思想">
+<meta property="og:type" content="article">
+<meta property="og:title" content="递归思想的应用---全排列">
+<meta property="og:url" content="http://yoursite.com/2019/02/06/递归思想的应用-全排列/index.html">
+<meta property="og:site_name" content="GaoLijie&#39;s Blog">
+<meta property="og:description" content="帮家里做事情 有一段时间没做题 已经达到一种想做题目的状态了。。。 从递归思想重拾刷题感觉。。。 全排列和八皇后问题息息相关 hashTable的运用也是十分关键，这部分还是要好好体会一下才会比较好。递归要抓住 递归边界与递归表这两东西，尤其在全排列当中。 先放一个阶乘递归的简单代码： 1234567891011#include&amp;lt;cstdio&amp;gt; int F(int n) &amp;#123;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-06T14:27:06.638Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="递归思想的应用---全排列">
+<meta name="twitter:description" content="帮家里做事情 有一段时间没做题 已经达到一种想做题目的状态了。。。 从递归思想重拾刷题感觉。。。 全排列和八皇后问题息息相关 hashTable的运用也是十分关键，这部分还是要好好体会一下才会比较好。递归要抓住 递归边界与递归表这两东西，尤其在全排列当中。 先放一个阶乘递归的简单代码： 1234567891011#include&amp;lt;cstdio&amp;gt; int F(int n) &amp;#123;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/06/递归思想的应用-全排列/">
+
+
+
+
+
+  <title>递归思想的应用---全排列 | GaoLijie's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GaoLijie's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello world</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/递归思想的应用-全排列/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">递归思想的应用---全排列</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-06T21:05:38+08:00">
+                2019-02-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>帮家里做事情 有一段时间没做题 已经达到一种想做题目的状态了。。。</p>
+<p>从递归思想重拾刷题感觉。。。</p>
+<p>全排列和八皇后问题息息相关 hashTable的运用也是十分关键，这部分还是要好好体会一下才会比较好。递归要抓住 <strong>递归边界与递归表</strong>这两东西，尤其在全排列当中。</p>
+<p>先放一个阶乘递归的简单代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt; </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">F</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;	<span class="comment">//当到达递归边界时F(0)是 </span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> F(n - <span class="number">1</span>) * n;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, F(n));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure>
+<p>再放一个简单的斐波那契数列</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">F</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(n == <span class="number">0</span> || n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;	<span class="comment">//递归边界</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> F(n - <span class="number">1</span>) + F(n - <span class="number">2</span>);	<span class="comment">//递归式 </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, F(n));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>接下来引入全排列的思想：</p>
+<p>一般是将1~n这n个整数按某个顺序摆放的结果称为全排列。从递归的角度考虑，如果把问题描述为“输出以1开头的全排列” “输出以2开头的全排列” … “输出以n开头的全排列” 。因此可以不妨设置一个数组P 用来存放当前的排列；再设定一个散列数组hashTable，其中hashTable[x]当整数x已经在数组P当中时为true。</p>
+<p>现在按顺序往P的第1位到第n位中填入数字。不妨假设当前已经填写好了P[1]~P[index - 1]正准备填写P[index]。显然需要枚举1~n，如果当前枚举的数字x还没有在P[1]~P[index - 1]中（即hashTable[x] == false)，那么就把它填入P[index]， 同时将hashTable[x]设置为true，然后去处理P的第index+1位(即进行递归)；当递归完成时，再将hashTable[x]还原为false 以便P[index]填写下一个数字</p>
+<p>递归边界的问题，就是index达到n+1的时候就说明了P的第1~n位已经填写好了 这个时候就可以将数组P输出，表示生成了一个排列，然后直接return就可以。n=3的时候的全排列生成代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">11</span>;</span><br><span class="line"><span class="comment">//P为当前排列 hashTable记录整数x是否已经在P中</span></span><br><span class="line"><span class="keyword">int</span> n, P[maxn], hashTable[maxn] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line"><span class="comment">//当前处理排列的第index号位</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">generateP</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(index == n + <span class="number">1</span>) &#123;	<span class="comment">//递归边界，已经处理完排列的1~n位</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d"</span>, P[i]);		<span class="comment">//输出当前的排列 </span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">		<span class="keyword">return</span>;  </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">1</span>; x &lt;= n; x++) &#123;	<span class="comment">//枚举1~n,试图将x填入P[index] </span></span><br><span class="line">		<span class="keyword">if</span>(hashTable[x] == <span class="literal">false</span>) &#123;</span><br><span class="line">			P[index] = x;	<span class="comment">//令P的第index位为x, 即吧x加入当前排列</span></span><br><span class="line">			hashTable[x] = <span class="literal">true</span>;	<span class="comment">//记x已经在P中</span></span><br><span class="line">			generateP(index + <span class="number">1</span>);	<span class="comment">//处理排列的第index + 1号位 </span></span><br><span class="line">			hashTable[x] = <span class="literal">false</span>; 	<span class="comment">//已处理完P[index]为x的子问题 还原状态 </span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	n = <span class="number">3</span>;	<span class="comment">//输出3的全排列</span></span><br><span class="line">	generateP(<span class="number">1</span>);	<span class="comment">//从P[1]开始填</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">123</span></span><br><span class="line"><span class="number">132</span></span><br><span class="line"><span class="number">213</span></span><br><span class="line"><span class="number">231</span></span><br><span class="line"><span class="number">312</span></span><br><span class="line"><span class="number">321</span></span><br></pre></td></tr></table></figure>
+<p>一定要注意 他是递归到最底层才开始返回输出的</p>
+<p>最后我们看一下n皇后的问题。n皇后的问题是在一个N*N的国际象棋的棋盘当中放置n个皇后，使得这n个皇后两两都不在一同一行同一列，同一对角线上，求合法的方案数目。</p>
+<p>对于这个问题如果采用组合数的方式枚举就要<br>$$<br>C_{n*n}^n<br>$$<br>的枚举量。n=8就要极大的数字 n再往上大就溢出了。</p>
+<p>考虑到每一行只可以放置一个皇后、每列就只可以放一个额化工后。那就换思路将n列的皇后所在的行号依次写出，那么就可以是1~n的一个排列总共只会有n！的枚举次数做法优秀很多。</p>
+<p>所以可以基于全排列的代码基础上进行修改。由于当达到递归边界时就表示生成了一个排列所以需要在其内部判断是否为合法方案，即遍历每两个皇后，判断是否是在同一个对角线上。（不在同一列同一行是显然的）若不是则累计计数变量count即可。主要代码如下n = 8时count为92:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">generateP</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(index == n + <span class="number">1</span>) &#123;	<span class="comment">//递归上界，生成一个排列 </span></span><br><span class="line">		<span class="keyword">bool</span> flag = <span class="literal">true</span>;	<span class="comment">//flag为true表示当前的排列为一个合法方案</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;	<span class="comment">//遍历任意两个皇后 </span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt;= n; j++) &#123;	</span><br><span class="line">				<span class="keyword">if</span>(<span class="built_in">abs</span>(i - j) == <span class="built_in">abs</span>(P[i] - P[j])) &#123;	<span class="comment">//如果在一条对角线上行号之差等于列号之差 </span></span><br><span class="line">					flag = <span class="literal">false</span>;	<span class="comment">//不合法 </span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125; </span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">if</span>(flag) count++;	<span class="comment">//若当前方案合法，令count加1</span></span><br><span class="line">		<span class="keyword">return</span>; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">1</span>; x &lt;= n; x++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(hashTable[x] == <span class="literal">false</span>) &#123;</span><br><span class="line">			P[index] = x;</span><br><span class="line">			hashTable[x] = <span class="literal">true</span>; </span><br><span class="line">			generateP(index + <span class="number">1</span>);</span><br><span class="line">			hashTable[x] = <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样枚举所有情况，然后判断每一种情况暴力判断。事实上通过思考当放置了一部分的皇后的时候 剩余的皇后无论通过怎么样的方式放置都不可能合法了，此时不必继续递归。直接返回上层即可。这样可以减少很多的计算。</p>
+<p>一般，如果在到达递归边界前的某一层，由于一些事实导致已经不需要往任何一个子问题去递归，就可以返回上一层这种方法叫做回溯法。</p>
+<p>下面我们使用回朔法来写皇后的问题：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">generateP</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(index == n + <span class="number">1</span>) &#123;	<span class="comment">//递归边界 生成一个合法方案</span></span><br><span class="line">		count++;	<span class="comment">//能到这里的一定是合法的 </span></span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">1</span>; x &lt;= n; x++) &#123;	<span class="comment">//第x行 </span></span><br><span class="line">		<span class="keyword">if</span>(hashTable[x] == <span class="literal">false</span>) &#123;		<span class="comment">//第x行还没有皇后 </span></span><br><span class="line">			<span class="keyword">bool</span> flag = <span class="literal">true</span>;	<span class="comment">//flag为true表示当前皇后不会和之前的皇后冲突 </span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> pre = <span class="number">1</span>; pre &lt; index; pre++) &#123;	<span class="comment">//遍历之前的皇后 </span></span><br><span class="line">				<span class="keyword">if</span>(<span class="built_in">abs</span>(index - pre) == <span class="built_in">abs</span>(x - P[pre])) &#123;</span><br><span class="line">					flag = <span class="literal">false</span>;	<span class="comment">//与之前的皇后在一条对角线冲突</span></span><br><span class="line">					<span class="keyword">break</span>; </span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(flag) &#123;	<span class="comment">//如果可以将皇后放在第x行 </span></span><br><span class="line">				P[index] = x;	<span class="comment">//令第index列皇后的行号记为x</span></span><br><span class="line">				hashTable[x] = <span class="literal">true</span>;	<span class="comment">//第x行已经被占用</span></span><br><span class="line">				generateP(index + <span class="number">1</span>);	<span class="comment">//递归处理完第index + 1行的皇后</span></span><br><span class="line">				hashTable[x] = <span class="literal">false</span>; </span><br><span class="line">			&#125; </span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/思想/" rel="tag"># 思想</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/28/A1025题解/" rel="next" title="A1025题解">
+                <i class="fa fa-chevron-left"></i> A1025题解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Gao Lijie">
+            
+              <p class="site-author-name" itemprop="name">Gao Lijie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gaolijiemathcs" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="gaolijiemathcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gao Lijie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
