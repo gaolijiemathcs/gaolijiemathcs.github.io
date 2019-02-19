@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="STL用法,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="priority_queue又称为优先队列。在优先队列中，队首元素一定是当前队列中优先级最高的一个。例如在队列中有如下元素，且定义好了优先级： 123桃子(优先级3)梨子(优先级4)苹果(优先级1) 那么出队的顺序为梨子(4)-&amp;gt;桃子(3)-&amp;gt;苹果(1). 当然，可以在任何时候往优先队列里加入元素(push),而优先队列底层的数据结构堆(heap)会随时调整结构，使得每次的队首元素都是">
+<meta name="keywords" content="STL用法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="priority_queue的常见用法详解">
+<meta property="og:url" content="http://yoursite.com/2019/02/18/priority-queue的常见用法详解/index.html">
+<meta property="og:site_name" content="GaoLijie&#39;s Blog">
+<meta property="og:description" content="priority_queue又称为优先队列。在优先队列中，队首元素一定是当前队列中优先级最高的一个。例如在队列中有如下元素，且定义好了优先级： 123桃子(优先级3)梨子(优先级4)苹果(优先级1) 那么出队的顺序为梨子(4)-&amp;gt;桃子(3)-&amp;gt;苹果(1). 当然，可以在任何时候往优先队列里加入元素(push),而优先队列底层的数据结构堆(heap)会随时调整结构，使得每次的队首元素都是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-19T15:26:40.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="priority_queue的常见用法详解">
+<meta name="twitter:description" content="priority_queue又称为优先队列。在优先队列中，队首元素一定是当前队列中优先级最高的一个。例如在队列中有如下元素，且定义好了优先级： 123桃子(优先级3)梨子(优先级4)苹果(优先级1) 那么出队的顺序为梨子(4)-&amp;gt;桃子(3)-&amp;gt;苹果(1). 当然，可以在任何时候往优先队列里加入元素(push),而优先队列底层的数据结构堆(heap)会随时调整结构，使得每次的队首元素都是">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/18/priority-queue的常见用法详解/">
+
+
+
+
+
+  <title>priority_queue的常见用法详解 | GaoLijie's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GaoLijie's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello world</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/18/priority-queue的常见用法详解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">priority_queue的常见用法详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T20:40:01+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>priority_queue又称为优先队列。在优先队列中，队首元素一定是当前队列中优先级最高的一个。例如在队列中有如下元素，且定义好了优先级：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">桃子(优先级3)</span><br><span class="line">梨子(优先级4)</span><br><span class="line">苹果(优先级1)</span><br></pre></td></tr></table></figure>
+<p>那么出队的顺序为梨子(4)-&gt;桃子(3)-&gt;苹果(1).</p>
+<p>当然，可以在任何时候往优先队列里加入元素(push),而优先队列底层的数据结构堆(heap)会随时调整结构，使得<strong>每次的队首元素都是优先级最大的。</strong></p>
+<p>关于这里的优先级规则是规定出来的，例如上面的例子中，也可以规定数字越小的优先级越大。</p>
+<p><strong>1.priority_queue的定义</strong></p>
+<p>要使用优先级队列，应该首先添加头文件#include<queue>，并且在头文件中加上using namespace std; 然后就可以使用了。</queue></p>
+<p>其定义的写法和其他STL的容器相同，typename可以是任意基本数据类型也可以是容器。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt; <span class="keyword">typename</span> &gt; name;</span><br></pre></td></tr></table></figure>
+<p><strong>2.priority_queue容器内的元素的访问</strong></p>
+<p>和队列不一样，优先队列没有front()函数与back()函数，而只能够通过top()函数来访问队首元素(也可以称为堆顶元素)也就是优先级最高的元素。</p>
+<p>例子如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	priority_queue&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">	q.push(<span class="number">3</span>);</span><br><span class="line">	q.push(<span class="number">4</span>);</span><br><span class="line">	q.push(<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, q.top());</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p><strong>3.priority_queue常用函数实例解析</strong></p>
+<p><strong>(1)push()</strong></p>
+<p>push(x)将令x入队，时间复杂度为O(logN),其中N为当前优先队列中的元素个数。实例见”priority_queue容器内元素的访问”。</p>
+<p><strong>(2)top()</strong></p>
+<p>top()可以获得队首元素(即堆顶元素)， 时间复杂度为O(1)，实例见“priority_queue容器内元素的访问”。</p>
+<p><strong>(3)pop()</strong></p>
+<p>pop()令队首元素(即堆顶元素)出队，时间复杂度为O(logN)，其中N为当前优先队列的元素个数。</p>
+<p>实例如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	priority_queue&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">	q.push(<span class="number">3</span>);</span><br><span class="line">	q.push(<span class="number">4</span>);</span><br><span class="line">	q.push(<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, q.size());	<span class="comment">//优先队列中有三个元素 </span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p><strong>4.priority_queue内元素优先级的设置</strong></p>
+<p>如何定义优先级队列内元素的优先级是运用好优先队列的关键，下面分别介绍基本数据类型(例如int、double、char)与结构体类型的优先方法。</p>
+<p><strong>(1)基本数据类型的优先级设置</strong></p>
+<p>此处指的基本数据类型是int型、double型、char型等可以用来直接使用的数据类型，优先队列对它们的优先级设置一般是数字大的优先级高，因此队首元素就是优先级队列内元素最大的那个(如果是char类型 就是字典序最大的)。对基本数据类型而言，下面两种优先级队列的定义是等价的(以int型为例，注意最后两个&gt;之间是有空格的)：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">priority_queue&lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;, less&lt;<span class="keyword">int</span>&gt; &gt; q;</span><br></pre></td></tr></table></figure>
+<p>可以发现，第二种定义方式的尖括号多出了两个参数：一个参数是vector<int>,另外一个是less<int>.其中vector<int>(也就是第二个参数) 填写的是来承载底层数据结构(heap)的容器，如果第一个参数是double或者是char类型，则此处只需要填写vector<double> 或者 vector<char>; 而第三个参数less<int>则是对第一个参数的比较类，<strong>less<int>表示数字大的优先级越大，而greater<int>表示数字小的优先级越大。</int></int></strong></int></char></double></int></int></int></p>
+<p>因此如果需要修改默认的数字大的优先级大，修改为让优先级队列总是把最小的元素放在队首，则只需要对其进行如下的定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;, greater&lt;<span class="keyword">int</span>&gt; &gt; q;</span><br></pre></td></tr></table></figure>
+<p>栗子如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	priority_queue&lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;, greater&lt;<span class="keyword">int</span>&gt; &gt; q;</span><br><span class="line">	q.push(<span class="number">3</span>);</span><br><span class="line">	q.push(<span class="number">4</span>);</span><br><span class="line">	q.push(<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, q.top());</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>事实上，即使是基本数据类型，也可以使用下面讲解的结构体的优先级设置方法，只不过第三个参数的写法不太一样了，下面来看结构体的优先级设置方法。</p>
+<p><strong>(2)结构体的优先级设置</strong></p>
+<p>本节的最开头举了一个水果的例子，可以对水果的名称和价格来建立一个结构体如下所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">fruit</span> &#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="keyword">int</span> price;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>现在希望按照水果的价格高的为优先级高，就需要重载(overload)小于号”&lt;”。重载是指对已经有的运算符进行重新的定义，也就是说，可以改变小于号的功能(例如可以将小于号重载为大于号的功能)， 此处只要知道写法就可以。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">fruit</span> &#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="keyword">int</span> price;</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (fruit f1, fruit f2) &#123;</span><br><span class="line">        <span class="keyword">return</span> f1.price &lt; f2.price;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>其中friend为友元，后面的”bool operator &lt; (friend f1, fruit f2)”对fruit类型的操作符”&lt;”进行了重载(重载大于号会编译错误，因为从数学上考虑只需要重载小于号即可，即f1&gt;f2等价于f2&lt;f1，而f1 == f2等价于!(f1 &lt; f2) &amp;&amp; !(f2 &lt; f1))，函数内部为”return f1.price &lt; f2.price”,因此重载后小于号还是小于号的作用。此时就可以直接定义fruit类型的优先级队列，其内部就是以价格高的水果为优先级高，如下所示:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;fruit&gt; q;</span><br></pre></td></tr></table></figure>
+<p>同理，如果想要以价格低的水果为优先级高，那么只需要把return中的小于号改为大于号即可，栗子如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">fruit</span> &#123;</span></span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="keyword">int</span> price;</span><br><span class="line">    <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (fruit f1, fruit f2) &#123;</span><br><span class="line">        <span class="keyword">return</span> f1.price &gt; f2.price;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>栗子如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">fruit</span> &#123;</span></span><br><span class="line">	<span class="built_in">string</span> name;</span><br><span class="line">	<span class="keyword">int</span> price;</span><br><span class="line">	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (fruit f1, fruit f2) &#123;</span><br><span class="line">		<span class="keyword">return</span> f1.price &gt; f2.price;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;f1, f2, f3;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	priority_queue&lt;fruit&gt; q;</span><br><span class="line">	f1.name = <span class="string">"桃子"</span>;</span><br><span class="line">	f1.price = <span class="number">3</span>;</span><br><span class="line">	f2.name = <span class="string">"梨子"</span>;</span><br><span class="line">	f2.price = <span class="number">4</span>;</span><br><span class="line">	f3.name = <span class="string">"苹果"</span>;</span><br><span class="line">	f3.price = <span class="number">1</span>;</span><br><span class="line">	q.push(f1);</span><br><span class="line">	q.push(f2);</span><br><span class="line">	q.push(f3);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; q.top().name &lt;&lt; <span class="string">" "</span> &lt;&lt; q.top().price &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">苹果 <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>我们发现，此处对小于号的重载与排序函数sort函数中的cmp用法有点像，参数都是两个变量，函数内部都是return 了true或者false.事实上，作用还是相似的们只不过效果上似乎是”相反”的，在排序中，如果”return f1.price &gt; f2.price”那么则是按照价格从高到低，但是在优先队列中是吧价格低的放在队首，原因是，优先队列本身默认的就是优先级高的放在队首，因此吧小于号重载为大于号的功能时只能是把规则反。如果没有办法理解，就不妨直接记住即可，<strong>优先队列的这个函数与sort函数中的cmp函数的效果是相反的。</strong></p>
+<p>那么有没有办法跟sort函数中的cmp函数一样写到结构体的外面呢？自然是有办法的，只需要把friend去掉，把小于号改成一对小括号，然后把重载的函数写在结构体外面，同时将其用struct包装起来，如下所示(注意对比)：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmp</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span> <span class="params">()</span> <span class="params">(fruit f1, fruit f2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> f1.price &gt; f2.price;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在这种情况下，需要用之前讲解的第二种定义方式来定义优先队列:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;fruit, <span class="built_in">vector</span>&lt;fruit&gt;, cmp&gt; q;</span><br></pre></td></tr></table></figure>
+<p>可以看到，此处只是把greater&lt;&gt;部分换成了cmp。示例如下:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">fruit</span> &#123;</span></span><br><span class="line">	<span class="built_in">string</span> name;</span><br><span class="line">	<span class="keyword">int</span> price;</span><br><span class="line">&#125;f1, f2, f3;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmp</span> &#123;</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">operator</span> <span class="params">()</span> <span class="params">(fruit f1, fruit f2)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> f1.price &gt; f2.price;			<span class="comment">//优先级低的放在前面 </span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	priority_queue&lt;fruit, <span class="built_in">vector</span>&lt;fruit&gt;, cmp&gt; q;</span><br><span class="line">	f1.name = <span class="string">"桃子"</span>;</span><br><span class="line">	f1.price = <span class="number">3</span>;</span><br><span class="line">	f2.name = <span class="string">"梨子"</span>;</span><br><span class="line">	f2.price = <span class="number">4</span>;</span><br><span class="line">	f3.name = <span class="string">"苹果"</span>;</span><br><span class="line">	f3.price = <span class="number">1</span>;</span><br><span class="line">	q.push(f1);</span><br><span class="line">	q.push(f2);</span><br><span class="line">	q.push(f3);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; q.top().name &lt;&lt; <span class="string">" "</span> &lt;&lt; q.top().price &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">苹果 <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>修改重载符号则为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">fruit</span> &#123;</span></span><br><span class="line">	<span class="built_in">string</span> name;</span><br><span class="line">	<span class="keyword">int</span> price;</span><br><span class="line">&#125;f1, f2, f3;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmp1</span> &#123;</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">operator</span> <span class="params">()</span> <span class="params">(fruit f1, fruit f2)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> f1.price &gt; f2.price;			<span class="comment">//优先级低的放在前面 </span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmp2</span> &#123;</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">operator</span> <span class="params">()</span> <span class="params">(fruit f1, fruit f2)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> f1.price &lt; f2.price;			<span class="comment">//优先级低的放在前面 </span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	priority_queue&lt;fruit, <span class="built_in">vector</span>&lt;fruit&gt;, cmp1&gt; q1;</span><br><span class="line">	priority_queue&lt;fruit, <span class="built_in">vector</span>&lt;fruit&gt;, cmp2&gt; q2;</span><br><span class="line">	f1.name = <span class="string">"桃子"</span>;</span><br><span class="line">	f1.price = <span class="number">3</span>;</span><br><span class="line">	f2.name = <span class="string">"梨子"</span>;</span><br><span class="line">	f2.price = <span class="number">4</span>;</span><br><span class="line">	f3.name = <span class="string">"苹果"</span>;</span><br><span class="line">	f3.price = <span class="number">1</span>;</span><br><span class="line">	q1.push(f1);</span><br><span class="line">	q1.push(f2);</span><br><span class="line">	q1.push(f3);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; q1.top().name &lt;&lt; <span class="string">" "</span> &lt;&lt; q1.top().price &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	q2.push(f1);</span><br><span class="line">	q2.push(f2);</span><br><span class="line">	q2.push(f3);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; q2.top().name &lt;&lt; <span class="string">" "</span> &lt;&lt; q2.top().price &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">苹果 <span class="number">1</span></span><br><span class="line">梨子 <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>我们应该可以想到，<strong>即便是基本数据类型或者是其他STL容器(例如set)， 也可以通过这样的方式起来定义优先级。</strong></p>
+<p>最后我们可以发现，如果结构体内的数据较为庞大(例如出现了字符串或者数组)，建议使用引用来提高效率，此时比较类的参数需要加上”const”和“&amp;”，如下图所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> fruit &amp;f1, <span class="keyword">const</span> fruit &amp;f2) &#123;</span><br><span class="line">    <span class="keyword">return</span> f1.price &gt; f2.price;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">operator</span> <span class="params">()</span> <span class="params">(<span class="keyword">const</span> fruit &amp;f1, <span class="keyword">const</span> fruit &amp;f2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> f1.price &gt; f2.price;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>5.priority_queue的常见用途</strong></p>
+<p>priority_queue可以解决一些贪心问题，也可以对Dijkstra算法进行优化(优先队列本身是堆)</p>
+<p>有一点需要注意,使用top()函数前，必须使用empty()判断优先队列是否为空，否则可能因为队列为空而出现错误。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/STL用法/" rel="tag"># STL用法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/18/queue的常见用法详解/" rel="next" title="queue的常见用法详解">
+                <i class="fa fa-chevron-left"></i> queue的常见用法详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Gao Lijie">
+            
+              <p class="site-author-name" itemprop="name">Gao Lijie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gaolijiemathcs" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="gaolijiemathcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gao Lijie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
