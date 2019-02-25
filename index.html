@@ -249,6 +249,129 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/A1047题解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/25/A1047题解/" itemprop="url">A1047题解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-25T10:59:41+08:00">
+                2019-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本题主要使用vector容器与sort函数进行排序 首先创建名字的数组，利用名字数组与学生姓名是有对应关系的。巧妙利用下标进行cmp排序。strcmp函数用法：设这两个字符串为str1，str2，若str1=str2，则返回零；若str1&lt;str2，则返回负数；若str1&gt;str2，则返回正数。来利用这个完成每个数组的排序。</p>
+<p>首先将名字为一般的编号，然后依据名字编号先读入vector容器内部。而每个的学生姓名还有课程的数量都是直接用scanf来读取的。之后首先输出课程的编号还有内容的姓名然后再使用sort函数进行组内的依据名字的字母顺序进行排序，再输出姓名。一定要分清楚一个问题是如何分解的再进行编程。</p>
+<p>具体代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxs = <span class="number">40010</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxc = <span class="number">2510</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> name[maxs][<span class="number">5</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; course[maxc];	<span class="comment">//存放的是学生的编号 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">strcmp</span>(name[i], name[j]) &lt; <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, k, cnum, c;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;k);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;	<span class="comment">//共有n个学生 </span></span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%s %d"</span>, name[i], &amp;cnum);	<span class="comment">//读取学生的姓名还有对应有多少节的课</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; cnum; j++) &#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;c);</span><br><span class="line">			course[c].push_back(i);		<span class="comment">//将学生的编号存放入对应的课程后 </span></span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++) &#123;	<span class="comment">//将k门课的情况输出 </span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>, i, course[i].size());	<span class="comment">//第i门课程 并且还有其学生个数 </span></span><br><span class="line">		sort(course[i].begin(), course[i].begin() + course[i].size(), cmp);</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it = course[i].begin(); it != course[i].end(); it++) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%s\n"</span>, name[*it]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/21/algorithm头文件下的常用函数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1776,219 +1899,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/07/vector的常见用法/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/07/vector的常见用法/" itemprop="url">vector的常见用法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-07T21:06:59+08:00">
-                2019-02-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>C语言中很多都需要我们自己实现，实现不合适的情况易出错，有些复杂的操作写出来十分的麻烦。C++为使用者提供了标准模板库（Standard Template Library，STL）,其中封装了很多的相当实用的容器，不需要费力的实现他们的细节直接调用函数就可以实现功能，十分的方便。<strong>初学的时候不应该被STL的名字吓到，实际上是很容易的东西，学会它对程序的简化有着十分显著的效果</strong></p>
-<p>我们首先学习vector的用法。</p>
-<p>vector翻译为向量，但这里使用“变长数组”的叫法更加容易理解，也即“长度根据需要而自动改变的数组”。在考试的过程中，有时候会碰到只使用普通数组会超内存的情况， 这种情况使用vector会让问题的解决方便很多。另外vector还可以用来以邻接表的方式储存图，这对无法使用邻接矩阵的题目(结点数太多)、又害怕使用指针实现临接表的人是非常友好的，写法也相当简洁。</p>
-<p>如果使用vector则需要添加vector的头文件，即#include<vector>。除此之外，还需要在头文件下面加上”using namespace std;”这样就可以在代码中使用vector。下面来看一些vector的常用用法。</vector></p>
-<p><strong>1.vector的定义</strong></p>
-<p>单独定义一个vector:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">typename</span>&gt; name;</span><br></pre></td></tr></table></figure>
-<p>上面的定义相当于是一维数组name[SIZE]，只不过其长度可以更具需要进行变化，比较节省空间，说通俗一点就是”变长数组”。</p>
-<p>和一维数组一样这里的typename可以是任何的基本类型，例如int、double、char、结构体等等。也可以是一个STL标准容器，例如vector、set、queue等。需要注意的是，<strong>如果typename也是一个STL容器，定义的时候一定要记得在&gt;&gt;之间加上空格</strong>因为在C++11前标准的编译器会把它视为移位的操作，导致编译错误，下面是一些简单的例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; name;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt; name;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt; name;</span><br><span class="line"><span class="built_in">vector</span>&lt;node&gt; name;	<span class="comment">//node是结构体的类型</span></span><br></pre></td></tr></table></figure>
-<p>如果typename是vector,就是下面的定义：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; name;	<span class="comment">//&gt;&gt;之间需要加上空格</span></span><br></pre></td></tr></table></figure>
-<p>可以很容易的联想到二维数组的定义，即其中一维是一个数组的数组，那么二维vector数组也是一样，即Arrayname[]中的每一个元素都是vector。我们可以把<strong>二维vector数组当做两个维都可以变长的二维数组理解</strong></p>
-<p>然后来看定义vector数组的方法：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">typename</span>&gt; Arrayname[arraySize];</span><br></pre></td></tr></table></figure>
-<p>例如</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi[<span class="number">100</span>];</span><br></pre></td></tr></table></figure>
-<p>这样Arrayname[0]~Arrayname[arraySize - 1]中每一个都是一个vector容器。</p>
-<p>与vector&lt;vector<int> &gt; name 不同的是，这种写法的一维长度已经固定为arraySize ,另外一维才的“变长的”。（注意这两种写法的区别）。</int></p>
-<p><strong>2.vector容器内元素的访问</strong></p>
-<p>vector一般有两种访问方式：通过下标访问或者通过迭代器访问。下面分别讨论这两种访问方式。</p>
-<p><strong>(1)通过下标访问</strong></p>
-<p>和访问普通数组是一样的，对于每一个定义为vector<typename> vi的vector容器来说，直接访问vi[index]即可（如vi[0]、vi[1]）当然这里下标从0到vi.size() - 1,访问这个范围外的元素可能会运行出错。</typename></p>
-<p><strong>(2)通过迭代器访问</strong></p>
-<p>迭代器(iterator)可以理解为一种类似于指针的东西，其定义为：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">typename</span>&gt;::iterator it;</span><br></pre></td></tr></table></figure>
-<p>这样it就是一个vector<typename>::iterator型的变量(虽然这个类型看上去很长)，事实上其中typename就是定义vector的时候填写的类型，下面typename为int和double的举例:</typename></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;::iterator it;</span><br></pre></td></tr></table></figure>
-<p>这样就得到了迭代器it，并且可以通过*it来访问vector里的元素。</p>
-<p>例如，有这样定义的一个vector容器:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">5</span>; i++) &#123;	<span class="comment">//循环完毕后vi中元素为 1 2 3 4 5 </span></span><br><span class="line">	vi.push_back(i);	<span class="comment">//push_back(i)在vi的末尾添加元素i,即依次添加1 2 3 4 5 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以通过类似下标和指针访问数组的方式来访问数组的方式来访问容器内的元素:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">		vi.push_back(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//vi.begin()为取vi的首元素地址，而it指向这个地址</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it = vi.begin();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, *(it + i));	<span class="comment">//输出vi[i] </span></span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br></pre></td></tr></table></figure>
-<p>从这里我们发现vi[i]和*(vi.begin() + i)是等价的。</p>
-<p>既然上面说到了begin()函数的作用为取vi的首元素地址，那么这里还要提到end()函数。和begin()不同的是，end()并不是去取vi的尾地址，而是去取尾元素地址的下一个地址。end()作为迭代器的末尾标志，不储存任何元素。美国人的思维比较习惯左闭右开的思维，在这里begin()与end()也是这样的。</p>
-<p>除此之外，迭代器还可以实现两种自加操作:++it 与 it++ (自减操作同理)，于是有了另外一种遍历vector中元素的写法。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">		vi.push_back(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//vector的迭代器不支持it &lt; vi.end()的写法因此只可以用it != vi.end()</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it = vi.begin(); it != vi.end(); it++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, *it);</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br></pre></td></tr></table></figure>
-<p>最后指出，在常用的STL容器中，<strong>只有在vector和string中才允许用vi.begin() + 3这种迭代器加上整数的写法</strong></p>
-<p><strong>3.vector常用函数实例解析</strong></p>
-<p><strong>(1)push_back()</strong></p>
-<p>顾名思义，push_back(x)就是在vector后面添加一个元素x，时间复杂度为O(1).</p>
-<p>示例如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">		vi.push_back(i);	<span class="comment">//将1、2、3依次插入vi末尾 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vi.size(); i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, vi[i]);</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
-<p><strong>(2)pop_back()</strong></p>
-<p>有添加就会有删除，pop_back()用以删除vector的尾元素，时间复杂度为O(1).</p>
-<p>示例如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">		vi.push_back(i); 	<span class="comment">//将1 2 3 依次插入vi末尾 </span></span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vi.size(); i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, vi[i]);</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	vi.pop_back();		<span class="comment">//删除vi的尾元素3</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vi.size(); i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, vi[i]);</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
-<p><strong>(3)size()</strong></p>
-<p>size()通常用来获得vector中元素的个数，时间复杂度为O(1)。size()返回的是unsigned类型，不过一般来说用%d不会出很大的问题，这一点对所有的STL容器都是一样的。</p>
-<p>示例如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">		vi.push_back(i);	<span class="comment">//将1 2 3依次插入vi末尾 </span></span><br><span class="line">	&#125; </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, vi.size());	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
-<p><strong>(4)clear()</strong></p>
-<p>clear()用来清空vector中的所有元素，时间复杂度为O(N),其中N为vector中元素的个数。</p>
-<p>示例如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">		vi.push_back(i);	<span class="comment">//将1 2 3依次插入vi末尾 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, vi.size());</span><br><span class="line">	vi.clear();</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>, vi.size());</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p><strong>(5)insert()</strong></p>
-<p>insert(it, x)用来向vector的任意迭代器it处插入一个元素x，时间复杂度O(N)。</p>
-<p>示例如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">		vi.push_back(i);	<span class="comment">//插入 1 2 3 4 5 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vi.size(); i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, vi[i]);</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>);	</span><br><span class="line">	vi.insert(vi.begin() + <span class="number">2</span>, <span class="number">-1</span>);	<span class="comment">//将-1插入vi[2]的位置</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vi.size(); i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, vi[i]);	<span class="comment">// 1 2 -1 3 4 5</span></span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">-1</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span></span><br></pre></td></tr></table></figure>
-<p><strong>(6)erase()</strong></p>
-<p>erase()有两种用法：删除单个元素、删除一个区间内的所有元素。时间复杂度均为O(N).</p>
-<p>①删除单个元素用法：</p>
-<p>erase(it)即为删除迭代器为it处的元素。</p>
-<p>示例如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">5</span>; i &lt;= <span class="number">9</span>; i++) &#123;</span><br><span class="line">		vi.push_back(i);	<span class="comment">//插入5 6 7 8 9 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vi.size(); i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, vi[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//删除8(因为vi.begin()对应的是vi[0]所以8不是是对应vi.begin()+4而是对应vi.begin()+3</span></span><br><span class="line">	vi.erase(vi.begin() + <span class="number">3</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>); </span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vi.size(); i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, vi[i]);	<span class="comment">//输出的是 5 6 7 9 </span></span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span></span><br><span class="line"><span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">9</span></span><br></pre></td></tr></table></figure>
-<p>②删除一个区间内的所有元素</p>
-<p>erase(first, last)即删除[first, last)内的所有元素。</p>
-<p>示例如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">5</span>; i &lt;= <span class="number">9</span>; i++) &#123;</span><br><span class="line">		vi.push_back(i); 	<span class="comment">//插入 5 6 7 8 9 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vi.size(); i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, vi[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	vi.erase(vi.begin() + <span class="number">1</span>, vi.begin() + <span class="number">4</span>);	</span><br><span class="line">	<span class="comment">//注意区间是左闭右开 所以删除的是vi[1] vi[2] vi[3] 没有删除vi[4]注意区分</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; vi.size(); i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, vi[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span></span><br><span class="line"><span class="number">5</span> <span class="number">9</span></span><br></pre></td></tr></table></figure>
-<p>由上面的说法可以知道，如果删除这个vector内的所有元素，正确的写法是vi.erase(vi.begin(), vi.end())，这里就正如上说过的vi.end()就是尾元素地址的下一个地址。当然更方便的清空vector的方法是使用vi.clear()。）</p>
-<p><strong>4.vector的常见用途</strong></p>
-<p><strong>(1)储存数据</strong></p>
-<p>①vector本身可以作为数组使用，而在一些元素个数不能够确定的场合可以很好的节省空间</p>
-<p>②有些场合需要根据一些条件把部分的数据输出在同一行 数据中间用空格隔开 由于输出数据的个数是不确定的，为了更加方便的处理最后一个满足条件的数据后面不输出额外的空格，可以先使用vector记录所有需要输出的数据，然后一次性输出。</p>
-<p><strong>(2)用邻接表储存图</strong></p>
-<p>使用vector实现邻接表可有一个比较方便的写法。之后会再做介绍。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2043,7 +1953,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

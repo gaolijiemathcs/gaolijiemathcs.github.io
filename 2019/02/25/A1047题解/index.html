@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="PAT题解,">
+  <meta name="keywords" content="PAT刷题,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152#include&amp;lt;stdio.h&amp;gt;#include&amp;lt;cstring&amp;gt; #include&amp;lt;algorithm&amp;gt;using namespace std;struct Studen">
-<meta name="keywords" content="PAT题解">
+<meta name="description" content="本题主要使用vector容器与sort函数进行排序 首先创建名字的数组，利用名字数组与学生姓名是有对应关系的。巧妙利用下标进行cmp排序。strcmp函数用法：设这两个字符串为str1，str2，若str1=str2，则返回零；若str1&amp;lt;str2，则返回负数；若str1&amp;gt;str2，则返回正数。来利用这个完成每个数组的排序。 首先将名字为一般的编号，然后依据名字编号先读入vector容">
+<meta name="keywords" content="PAT刷题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PAT题解 A1025">
-<meta property="og:url" content="http://yoursite.com/2019/01/22/PAT题解-A1025/index.html">
+<meta property="og:title" content="A1047题解">
+<meta property="og:url" content="http://yoursite.com/2019/02/25/A1047题解/index.html">
 <meta property="og:site_name" content="GaoLijie&#39;s Blog">
-<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152#include&amp;lt;stdio.h&amp;gt;#include&amp;lt;cstring&amp;gt; #include&amp;lt;algorithm&amp;gt;using namespace std;struct Studen">
+<meta property="og:description" content="本题主要使用vector容器与sort函数进行排序 首先创建名字的数组，利用名字数组与学生姓名是有对应关系的。巧妙利用下标进行cmp排序。strcmp函数用法：设这两个字符串为str1，str2，若str1=str2，则返回零；若str1&amp;lt;str2，则返回负数；若str1&amp;gt;str2，则返回正数。来利用这个完成每个数组的排序。 首先将名字为一般的编号，然后依据名字编号先读入vector容">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-22T03:31:47.265Z">
+<meta property="og:updated_time" content="2019-02-25T03:04:48.026Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PAT题解 A1025">
-<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152#include&amp;lt;stdio.h&amp;gt;#include&amp;lt;cstring&amp;gt; #include&amp;lt;algorithm&amp;gt;using namespace std;struct Studen">
+<meta name="twitter:title" content="A1047题解">
+<meta name="twitter:description" content="本题主要使用vector容器与sort函数进行排序 首先创建名字的数组，利用名字数组与学生姓名是有对应关系的。巧妙利用下标进行cmp排序。strcmp函数用法：设这两个字符串为str1，str2，若str1=str2，则返回零；若str1&amp;lt;str2，则返回负数；若str1&amp;gt;str2，则返回正数。来利用这个完成每个数组的排序。 首先将名字为一般的编号，然后依据名字编号先读入vector容">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/22/PAT题解-A1025/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/25/A1047题解/">
 
 
 
 
 
-  <title>PAT题解 A1025 | GaoLijie's Blog</title>
+  <title>A1047题解 | GaoLijie's Blog</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/22/PAT题解-A1025/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/A1047题解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Gao Lijie">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">PAT题解 A1025</h1>
+          <h1 class="post-title" itemprop="name headline">A1047题解</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-22T11:22:30+08:00">
-                2019-01-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-25T10:59:41+08:00">
+                2019-02-25
               </time>
             
 
@@ -320,8 +320,10 @@
       
 
       
-        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span> &#123;</span></span><br><span class="line">	<span class="keyword">char</span> id[<span class="number">15</span>];	<span class="comment">//准考证号</span></span><br><span class="line">	<span class="keyword">int</span> score;		<span class="comment">//分数</span></span><br><span class="line">	<span class="keyword">int</span> location_number;	<span class="comment">//考场号 </span></span><br><span class="line">	<span class="keyword">int</span>	local_rank;		<span class="comment">//组内排名 </span></span><br><span class="line">&#125;stu[<span class="number">30010</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Student a, Student b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(a.score != b.score) <span class="keyword">return</span> a.score &gt; b.score;			<span class="comment">//先按分数从高到低排序 </span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">strcmp</span>(a.id, b.id) &lt; <span class="number">0</span>;					<span class="comment">//如分数相同则按准考证好从小到大排序 </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, k, num = <span class="number">0</span>;		<span class="comment">//num 考生总数 </span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);		<span class="comment">//n为考场数</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;k);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; k; j++) &#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%s %d"</span>, &amp;stu[num].id, &amp;stu[num].score);</span><br><span class="line">			stu[num].location_number = i; 		<span class="comment">//该考生的考场号为i</span></span><br><span class="line">			num++;			<span class="comment">//考生总数加1 </span></span><br><span class="line">		&#125;</span><br><span class="line">		sort(stu + num - k, stu + num, cmp);		<span class="comment">//该考场的考生排序</span></span><br><span class="line">		stu[num - k].local_rank = <span class="number">1</span>;			<span class="comment">//该考场第1名的local_rank计为1</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = num - k; j &lt; num; j++) &#123;	<span class="comment">//对该考场的剩余考生 </span></span><br><span class="line">			<span class="keyword">if</span>(stu[j].score == stu[j - <span class="number">1</span>].score) &#123;	<span class="comment">//如果与前一位的考生同分</span></span><br><span class="line">				<span class="comment">//local_rank 也相同</span></span><br><span class="line">				stu[j].local_rank = stu[j - <span class="number">1</span>].local_rank; </span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;	<span class="comment">//如果与前一位考生不同分 </span></span><br><span class="line">				<span class="comment">//local_rank与当前的考生数量是一样的</span></span><br><span class="line">				stu[j].local_rank = j + <span class="number">1</span> - (num - k); </span><br><span class="line">			&#125;</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, num);		<span class="comment">//输出总考生数 </span></span><br><span class="line">	sort(stu, stu + num, cmp);	<span class="comment">//将所有考生排序 </span></span><br><span class="line">	<span class="keyword">int</span> r = <span class="number">1</span>;					<span class="comment">//当前考生排名</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; num; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(i &gt; <span class="number">0</span> &amp;&amp; stu[i].score != stu[i - <span class="number">1</span>].score) &#123;</span><br><span class="line">			r = i + <span class="number">1</span>; 	<span class="comment">//当前考生与上一个考生的分数不同时， 让r更新为人数+1 </span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%s "</span>, stu[i].id);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d %d %d\n"</span>, r, stu[i].location_number, stu[i].local_rank); </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//先排序后编号</span></span><br></pre></td></tr></table></figure>
-<p>先分组排序最后面再总体排序</p>
+        <p>本题主要使用vector容器与sort函数进行排序 首先创建名字的数组，利用名字数组与学生姓名是有对应关系的。巧妙利用下标进行cmp排序。strcmp函数用法：设这两个字符串为str1，str2，若str1=str2，则返回零；若str1&lt;str2，则返回负数；若str1&gt;str2，则返回正数。来利用这个完成每个数组的排序。</p>
+<p>首先将名字为一般的编号，然后依据名字编号先读入vector容器内部。而每个的学生姓名还有课程的数量都是直接用scanf来读取的。之后首先输出课程的编号还有内容的姓名然后再使用sort函数进行组内的依据名字的字母顺序进行排序，再输出姓名。一定要分清楚一个问题是如何分解的再进行编程。</p>
+<p>具体代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxs = <span class="number">40010</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxc = <span class="number">2510</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> name[maxs][<span class="number">5</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; course[maxc];	<span class="comment">//存放的是学生的编号 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">strcmp</span>(name[i], name[j]) &lt; <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, k, cnum, c;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;k);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;	<span class="comment">//共有n个学生 </span></span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%s %d"</span>, name[i], &amp;cnum);	<span class="comment">//读取学生的姓名还有对应有多少节的课</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; cnum; j++) &#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;c);</span><br><span class="line">			course[c].push_back(i);		<span class="comment">//将学生的编号存放入对应的课程后 </span></span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++) &#123;	<span class="comment">//将k门课的情况输出 </span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>, i, course[i].size());	<span class="comment">//第i门课程 并且还有其学生个数 </span></span><br><span class="line">		sort(course[i].begin(), course[i].begin() + course[i].size(), cmp);</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it = course[i].begin(); it != course[i].end(); it++) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%s\n"</span>, name[*it]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -339,7 +341,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/PAT题解/" rel="tag"># PAT题解</a>
+            <a href="/tags/PAT刷题/" rel="tag"># PAT刷题</a>
           
         </div>
       
@@ -352,8 +354,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/22/散列/" rel="next" title="散列">
-                <i class="fa fa-chevron-left"></i> 散列
+              <a href="/2019/02/21/algorithm头文件下的常用函数/" rel="next" title="algorithm头文件下的常用函数">
+                <i class="fa fa-chevron-left"></i> algorithm头文件下的常用函数
               </a>
             
           </div>
@@ -361,10 +363,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/23/字符串哈希/" rel="prev" title="字符串哈希">
-                字符串哈希 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
