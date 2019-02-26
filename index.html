@@ -249,6 +249,248 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/A1056题解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/26/A1056题解/" itemprop="url">A1056题解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-26T15:08:55+08:00">
+                2019-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本题考查队列的使用 要注意的是 是按照一轮一轮的处理 每一轮让每一组的老鼠去找出最大的那只并把读取的每一只都出队 再把最大的那只 入队等待下一轮的使用。当一轮轮结束之后 最后一只的猴子的排名为1 要观察数据 同时要注意的是 只有晋级的猴子的排名在刷新 其他的没有动。要注意此处入队的是编号 结合结构体中的体重参数进行循环。是本题的巧妙之处 要注意一下。代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1010</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mouse</span> &#123;</span>	<span class="comment">//老鼠</span></span><br><span class="line">	<span class="keyword">int</span> weight;</span><br><span class="line">	<span class="keyword">int</span> R; </span><br><span class="line">&#125;mouse[maxn];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> np, ng, order;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;np, &amp;ng);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; np; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;mouse[i].weight);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; np; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;order);</span><br><span class="line">		q.push(order);	<span class="comment">//将老鼠标号入队 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> temp = np, group;	<span class="comment">//temp为总比赛老鼠数字</span></span><br><span class="line">	<span class="keyword">while</span>(q.size() != <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="comment">//计算组数group为当前比赛的组数 </span></span><br><span class="line">		<span class="keyword">if</span>(temp % ng == <span class="number">0</span>) group = temp / ng;</span><br><span class="line">		<span class="keyword">else</span> group = temp / ng + <span class="number">1</span>;</span><br><span class="line">		<span class="comment">//枚举出每一组，选出该组老鼠质量最大的一直</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; group; i++) &#123;</span><br><span class="line">			<span class="keyword">int</span> k = q.front();	<span class="comment">//k用于存储该组质量最大的一只</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; ng; j++) &#123;</span><br><span class="line">				<span class="keyword">if</span>(i * ng + j &gt;= temp) <span class="keyword">break</span>;	<span class="comment">//超出当前轮老鼠数量结束</span></span><br><span class="line">				<span class="keyword">int</span> front = q.front();	<span class="comment">//队首老鼠编号</span></span><br><span class="line">				<span class="keyword">if</span>(mouse[front].weight &gt; mouse[k].weight) &#123;</span><br><span class="line">					k = front;</span><br><span class="line">				&#125; </span><br><span class="line">				mouse[front].R = group + <span class="number">1</span>;	<span class="comment">//该轮的老鼠排名为group+1 晋级的老鼠还会再次刷新排名</span></span><br><span class="line">				q.pop();	<span class="comment">//出队计算过的老鼠 </span></span><br><span class="line">			&#125; </span><br><span class="line">			q.push(k);</span><br><span class="line">		&#125;</span><br><span class="line">		temp = group;	<span class="comment">//group只老鼠晋级 因此下轮的老鼠数量为group </span></span><br><span class="line">	&#125;  </span><br><span class="line">	mouse[q.front()].R = <span class="number">1</span>;		<span class="comment">//剩下的1只老鼠为第一</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; np; i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>, mouse[i].R);</span><br><span class="line">		<span class="keyword">if</span>(i &lt; np - <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/26/A1051题解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/26/A1051题解/" itemprop="url">A1051题解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-26T09:26:59+08:00">
+                2019-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本题模拟题需要注意的是整个的过程与理解算例。注意栈的大小是有限制的，同时队列入栈的数列大小与栈的大小不同需要区分。要判断是否是合理的数列因此加上bool flag; 当中使用current来指向当前的字母。同时要注意这里使用的是while循环这样可以有利于多次入栈后再多次出栈只要实现了!st.empty() &amp;&amp; st.top() == arr[current] 就可以多次出栈 并且这里是一个一个的读取的 读取了一个。这里的current十分巧妙要好好体会。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1010</span>;</span><br><span class="line"><span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line"><span class="keyword">int</span> arr[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> m, n, k;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;m, &amp;n, &amp;k); </span><br><span class="line">	<span class="keyword">while</span>(k--) &#123;	<span class="comment">//循环次数</span></span><br><span class="line">		<span class="keyword">while</span>(!st.empty()) &#123;	<span class="comment">//清空栈</span></span><br><span class="line">			st.pop(); </span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;	<span class="comment">//读取数据 </span></span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;arr[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> current = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">			st.push(i);</span><br><span class="line">			<span class="keyword">if</span>(st.size() &gt; m) &#123;</span><br><span class="line">				flag = <span class="literal">false</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">while</span>(!st.empty() &amp;&amp; st.top() == arr[current]) &#123;  <span class="comment">//注意此处需要判断非空而且栈顶元素与当前元素相等才循环 </span></span><br><span class="line">				st.pop();</span><br><span class="line">				current++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(flag == <span class="literal">true</span> &amp;&amp; st.empty()) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"YES\n"</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/25/A1022题解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -320,7 +562,9 @@
       
         
           
-            <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; &gt; mpid, mptitle, mpauthor, mpkeyword, mppublisher, mpyear;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(<span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; &gt;&amp; mp, <span class="built_in">string</span>&amp; str)</span> </span>&#123;	<span class="comment">//查找 </span></span><br><span class="line">	<span class="keyword">if</span>(mp.find(str) == mp.end()) <span class="built_in">printf</span>(<span class="string">"Not Found\n"</span>);	<span class="comment">//找不到</span></span><br><span class="line">	<span class="keyword">else</span> &#123;	<span class="comment">//找到str</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;::iterator it = mp[str].begin(); it != mp[str].end(); it++) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%07d\n"</span>, *it);	<span class="comment">//输出 </span></span><br><span class="line">		&#125; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, id;	</span><br><span class="line">	<span class="built_in">string</span> title, key, publisher, year, author;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;id);</span><br><span class="line">		<span class="keyword">char</span> c = getchar();	 <span class="comment">//c用于吸收回车</span></span><br><span class="line">		getline(<span class="built_in">cin</span>, title);</span><br><span class="line">		mptitle[title].insert(id);</span><br><span class="line">		getline(<span class="built_in">cin</span>, author);</span><br><span class="line">		mpauthor[author].insert(id);</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; key) &#123;</span><br><span class="line">			mpkeyword[key].insert(id);</span><br><span class="line">			c = getchar();</span><br><span class="line">			<span class="keyword">if</span>(c == <span class="string">'\n'</span>) <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		getline(<span class="built_in">cin</span>, publisher);</span><br><span class="line">		mppublisher[publisher].insert(id);</span><br><span class="line">		getline(<span class="built_in">cin</span>, year);</span><br><span class="line">		mpyear[year].insert(id);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> m, type;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;m);</span><br><span class="line">	<span class="built_in">string</span> temp;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d: "</span>, &amp;type);</span><br><span class="line">		getline(<span class="built_in">cin</span>, temp);</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; type &lt;&lt; <span class="string">": "</span> &lt;&lt; temp &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">if</span>(type == <span class="number">1</span>) search(mptitle, temp);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(type == <span class="number">2</span>) search(mpauthor, temp);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(type == <span class="number">3</span>) search(mpkeyword, temp);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(type == <span class="number">4</span>) search(mppublisher, temp);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(type == <span class="number">5</span>) search(mpyear, temp);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <p>本题主要使用了map将字符串与数组建立了哈希映射，这样就可以使得id号在map内直接完成排序，输出方便。同时要注意查找的时候我们查找到的为set<int>容器我们是对容器内的数据进行访问所以要遍历一遍set容器。</int></p>
+<p>同时要注意主函数读取的时候使用getline(cin, str)的时候我们要注意 每次char c = getchar();c用于吸收回车的细节。因为getline是以回车\n为结束的标志，而scanf不读入回车与空格。所以要去除上一行遗漏的回车。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; &gt; mpid, mptitle, mpauthor, mpkeyword, mppublisher, mpyear;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(<span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; &gt;&amp; mp, <span class="built_in">string</span>&amp; str)</span> </span>&#123;	<span class="comment">//查找 </span></span><br><span class="line">	<span class="keyword">if</span>(mp.find(str) == mp.end()) <span class="built_in">printf</span>(<span class="string">"Not Found\n"</span>);	<span class="comment">//找不到</span></span><br><span class="line">	<span class="keyword">else</span> &#123;	<span class="comment">//找到str</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;::iterator it = mp[str].begin(); it != mp[str].end(); it++) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%07d\n"</span>, *it);	<span class="comment">//输出 </span></span><br><span class="line">		&#125; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, id;	</span><br><span class="line">	<span class="built_in">string</span> title, key, publisher, year, author;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;id);</span><br><span class="line">		<span class="keyword">char</span> c = getchar();	 <span class="comment">//c用于吸收回车</span></span><br><span class="line">		getline(<span class="built_in">cin</span>, title);</span><br><span class="line">		mptitle[title].insert(id);</span><br><span class="line">		getline(<span class="built_in">cin</span>, author);</span><br><span class="line">		mpauthor[author].insert(id);</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; key) &#123;</span><br><span class="line">			mpkeyword[key].insert(id);</span><br><span class="line">			c = getchar();</span><br><span class="line">			<span class="keyword">if</span>(c == <span class="string">'\n'</span>) <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		getline(<span class="built_in">cin</span>, publisher);</span><br><span class="line">		mppublisher[publisher].insert(id);</span><br><span class="line">		getline(<span class="built_in">cin</span>, year);</span><br><span class="line">		mpyear[year].insert(id);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> m, type;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;m);</span><br><span class="line">	<span class="built_in">string</span> temp;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d: "</span>, &amp;type);</span><br><span class="line">		getline(<span class="built_in">cin</span>, temp);</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; type &lt;&lt; <span class="string">": "</span> &lt;&lt; temp &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">if</span>(type == <span class="number">1</span>) search(mptitle, temp);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(type == <span class="number">2</span>) search(mpauthor, temp);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(type == <span class="number">3</span>) search(mpkeyword, temp);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(type == <span class="number">4</span>) search(mppublisher, temp);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(type == <span class="number">5</span>) search(mpyear, temp);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1259,320 +1503,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/20/pair的常见用法详解/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/20/pair的常见用法详解/" itemprop="url">pair的常见用法详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-20T22:11:20+08:00">
-                2019-02-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>pair是一个很实用的”小玩意”，想要将两个元素绑在一起作为一个合成元素、又不想要因此定义结构体的时候，使用pair可以很方便的作为一个替代品。即pair实际上是一个可以看做一个内部有两个元素的结构体，而且这两个元素类型是可以指定的，如下面的短代码所示：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">pair</span> &#123;</span></span><br><span class="line">    typeName1 first;</span><br><span class="line">    typeName2 second;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><strong>1.pair的定义</strong></p>
-<p>要使用pair，应该先添加头文件#include<utility>并且在头文件下面加上using namespace std; 就可以使用了。注意，由于map的内部中实现设计pair，因此添加map头文件后会自动添加utility头文件，因此如果需要使用pair不需要额外去添加utility头文件，记不住utility也可以直接使用map来代替。</utility></p>
-<p>pair有两个参数，分别对于first和second的数据类型，他们可以是任意的基本数据类型或者容器。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;typeName1, typeName2&gt; name;</span><br></pre></td></tr></table></figure>
-<p>因此，想要定义参数为string和int类型的pair，就可以使用如下的写法：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; p;</span><br></pre></td></tr></table></figure>
-<p>如果想定义pair时进行初始化，只需要加上一个小括号，里面填写自己的两个想要初始化的参数即可。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; p(<span class="string">"haha"</span>, <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
-<p>而如果想要在代码中临时创建一个pair有两种方法：</p>
-<p>①将类型定义写在前面，后面使用小括号内两个元素的方式：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; (<span class="string">"haha"</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-<p>②使用自带的make_pair函数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make_pair(<span class="string">"haha"</span>, <span class="number">5</span>);</span><br></pre></td></tr></table></figure>
-<p>例子见2</p>
-<p><strong>2.pair中的元素的访问</strong></p>
-<p>pair中只有两个元素，分别问first和second，只需要按照正常的结构体的方法去访问即可。</p>
-<p>实例如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	pair&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; p;</span><br><span class="line">	p.first = <span class="string">"haha"</span>;</span><br><span class="line">	p.second = <span class="number">5</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; p.first &lt;&lt; <span class="string">" "</span> &lt;&lt; p.second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	p = make_pair(<span class="string">"xixi"</span>, <span class="number">55</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; p.first &lt;&lt; <span class="string">" "</span> &lt;&lt; p.second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	p = pair&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; (<span class="string">"heihei"</span>, <span class="number">555</span>);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; p.first &lt;&lt; <span class="string">" "</span> &lt;&lt; p.second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">haha <span class="number">5</span></span><br><span class="line">xixi <span class="number">55</span></span><br><span class="line">heihei <span class="number">555</span></span><br></pre></td></tr></table></figure>
-<p><strong>3.pair的常见函数解析</strong></p>
-<p>比较操作数</p>
-<p>两个pair类型数据可以直接使用==、!=、&lt;、&lt;=、&gt;、&gt;=比较大小，比较规则是先以first的大小为标准，只有当first相等的时候才可以去判断second的大小。</p>
-<p>实例如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; p1(<span class="number">5</span>, <span class="number">10</span>);</span><br><span class="line">	pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; p2(<span class="number">5</span>, <span class="number">15</span>);</span><br><span class="line">	pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; p3(<span class="number">10</span>, <span class="number">5</span>);</span><br><span class="line">	<span class="keyword">if</span>(p1 &lt; p3) <span class="built_in">printf</span>(<span class="string">"p1 &lt; p3\n"</span>);</span><br><span class="line">	<span class="keyword">if</span>(p1 &lt;= p3) <span class="built_in">printf</span>(<span class="string">"p1 &lt;= p3\n"</span>);</span><br><span class="line">	<span class="keyword">if</span>(p1 &lt; p2) <span class="built_in">printf</span>(<span class="string">"p1 &lt; p2\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p1 &lt; p3</span><br><span class="line">p1 &lt;= p3</span><br><span class="line">p1 &lt; p2</span><br></pre></td></tr></table></figure>
-<p><strong>4.pair的常见用途</strong></p>
-<p>关于pair有两个比较常见的例子：</p>
-<p>①用来代替二元结构体以及其构造函数，可以节省编码时间。</p>
-<p>②作为map的键值对来进行插入，例如下面例子：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; mp;</span><br><span class="line">	mp.insert(make_pair(<span class="string">"heihei"</span>, <span class="number">5</span>));</span><br><span class="line">	mp.insert(pair&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;(<span class="string">"haha"</span>, <span class="number">10</span>));</span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;::iterator it = mp.begin(); it != mp.end(); it++) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; it -&gt; first &lt;&lt; <span class="string">" "</span> &lt;&lt; it -&gt; second &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">haha <span class="number">10</span></span><br><span class="line">heihei <span class="number">5</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/19/stack的常见用法详解/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/19/stack的常见用法详解/" itemprop="url">stack的常见用法详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-19T23:28:29+08:00">
-                2019-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>stack翻译为栈，是STL中实现的一个后进先出的容器。</p>
-<p><strong>1.stack的定义</strong></p>
-<p>要使用stack，应该先添加头文件#include<stack> 并且在头文件下添加”using namespace std;”,然后就可以使用了。</stack></p>
-<p>其定义的写法和其他的STL容器相同，typename可以任意基本数据类型或者是容器</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">stack</span>&lt;<span class="keyword">typename</span>&gt; name;</span><br></pre></td></tr></table></figure>
-<p><strong>2.stack容器内部元素的访问</strong></p>
-<p>由于栈(stack)本身就是一种先进先出的数据结构，在STL的stack中只能够通过top()来访问栈顶元素。</p>
-<p>示例如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">		st.push(i);		<span class="comment">//push(i)用以将i压入栈，故此处一次入栈1 2 3 4 5 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, st.top());	<span class="comment">//top()取栈顶与阿森纳</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
-<p><strong>3.stack常用函数实例解析</strong></p>
-<p><strong>(1)push()</strong></p>
-<p>push(x)将x入栈，时间复杂度为O(1)，实例见”stack容器内部元素的访问”.</p>
-<p><strong>(2)top()</strong></p>
-<p>top()获得栈顶元素，时间复杂度为O(1)，实例见”stack容器内部元素的访问”.</p>
-<p><strong>(3)pop()</strong></p>
-<p>pop()用以弹出栈顶元素，完成栈顶元素出栈任务，时间复杂度为O(1).</p>
-<p>示例如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">		st.push(i);		<span class="comment">//依次将1 2 3 4 5依次入栈 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">		st.pop();		<span class="comment">//连续三次将栈顶元素出栈，即将5 4 3依次出栈 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, st.top());</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
-<p><strong>(4)empty</strong></p>
-<p>empty()可以检测到stack内是否为空，返回true为空，返回false为非空，时间复杂度为O(1).栗子如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">	<span class="keyword">if</span>(st.empty() == <span class="literal">true</span>) &#123;	<span class="comment">//一开始栈无元素 为空栈</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Empty\n"</span>); </span><br><span class="line">	&#125;	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Not Empty\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	st.push(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">if</span>(st.empty() == <span class="literal">true</span>) &#123;	<span class="comment">//入栈"1"后，栈非空 </span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Empty\n"</span>); </span><br><span class="line">	&#125;	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Not Empty\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Empty</span><br><span class="line">Not Empty</span><br></pre></td></tr></table></figure>
-<p><strong>(5)size</strong></p>
-<p>size()返回stack内部的元素的个数，时间复杂度为O(1).</p>
-<p>栗子如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">		st.push(i);		<span class="comment">//push(i)用以将i压入栈 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, st.size());</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
-<p><strong>4.stack的常见用途</strong></p>
-<p>stack用来模拟实现一些递归，防止程序对栈的内存的限制而导致程序运行出错。一般来说，程序的栈内存很小，如果使用普通的函数进行递归往往会报错。如果使用栈来模拟递归算法的实现可以避免这一方面的出错。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1622,7 +1557,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
