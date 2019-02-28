@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="PAT刷题,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -79,18 +79,14 @@
 
 
 
-<meta name="description" content="本题注意数组的这种写法 要存这个 是需要二维数组的 一定要掌握这种方法！ 1234567891011121314151617181920212223242526272829#include&amp;lt;cstdio&amp;gt;#include&amp;lt;cstring&amp;gt;char num[10][10] =&amp;#123;&quot;zero&quot;, &quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;">
-<meta name="keywords" content="PAT刷题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A1005题解">
-<meta property="og:url" content="http://yoursite.com/2019/01/26/A1005题解/index.html">
+<meta property="og:title" content="A1103题解">
+<meta property="og:url" content="http://yoursite.com/2019/02/28/A1103题解/index.html">
 <meta property="og:site_name" content="GaoLijie&#39;s Blog">
-<meta property="og:description" content="本题注意数组的这种写法 要存这个 是需要二维数组的 一定要掌握这种方法！ 1234567891011121314151617181920212223242526272829#include&amp;lt;cstdio&amp;gt;#include&amp;lt;cstring&amp;gt;char num[10][10] =&amp;#123;&quot;zero&quot;, &quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-26T14:55:17.721Z">
+<meta property="og:updated_time" content="2019-02-28T13:41:24.670Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A1005题解">
-<meta name="twitter:description" content="本题注意数组的这种写法 要存这个 是需要二维数组的 一定要掌握这种方法！ 1234567891011121314151617181920212223242526272829#include&amp;lt;cstdio&amp;gt;#include&amp;lt;cstring&amp;gt;char num[10][10] =&amp;#123;&quot;zero&quot;, &quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot;">
+<meta name="twitter:title" content="A1103题解">
 
 
 
@@ -120,13 +116,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/26/A1005题解/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/28/A1103题解/">
 
 
 
 
 
-  <title>A1005题解 | GaoLijie's Blog</title>
+  <title>A1103题解 | GaoLijie's Blog</title>
   
 
 
@@ -253,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/A1005题解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/A1103题解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Gao Lijie">
@@ -270,7 +266,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">A1005题解</h1>
+          <h1 class="post-title" itemprop="name headline">A1103题解</h1>
         
 
         <div class="post-meta">
@@ -282,8 +278,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T22:50:20+08:00">
-                2019-01-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T21:41:24+08:00">
+                2019-02-28
               </time>
             
 
@@ -320,9 +316,7 @@
       
 
       
-        <p>本题注意数组的这种写法 要存这个 是需要二维数组的 一定要掌握这种方法！</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> num[<span class="number">10</span>][<span class="number">10</span>] =&#123;<span class="string">"zero"</span>, <span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"three"</span>, <span class="string">"four"</span>, <span class="string">"five"</span>, <span class="string">"six"</span>, <span class="string">"seven"</span>, <span class="string">"eight"</span>, <span class="string">"nine"</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">char</span> s[<span class="number">111</span>];</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>, s);</span><br><span class="line">	<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> len = <span class="built_in">strlen</span>(s);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">		sum = sum + (s[i] - <span class="string">'0'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(sum == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"zero"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> digt[<span class="number">111</span>];</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;	<span class="comment">//低位存在低位 </span></span><br><span class="line">		digt[i] = sum % <span class="number">10</span>;</span><br><span class="line">		sum = sum / <span class="number">10</span>;</span><br><span class="line">		count++;</span><br><span class="line">		<span class="keyword">if</span>(sum == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = count - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%s"</span>, num[digt[i]]);</span><br><span class="line">		<span class="keyword">if</span>(i != <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+        
       
     </div>
     
@@ -337,12 +331,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/PAT刷题/" rel="tag"># PAT刷题</a>
-          
-        </div>
-      
 
       
       
@@ -352,8 +340,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/26/A1001题解/" rel="next" title="A1001题解">
-                <i class="fa fa-chevron-left"></i> A1001题解
+              <a href="/2019/02/28/广度优先搜索BFS简介/" rel="next" title="广度优先搜索BFS简介">
+                <i class="fa fa-chevron-left"></i> 广度优先搜索BFS简介
               </a>
             
           </div>
@@ -361,10 +349,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/26/A1035题解/" rel="prev" title="A1035题解">
-                A1035题解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

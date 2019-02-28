@@ -249,6 +249,248 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/A1061题解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/26/A1061题解/" itemprop="url">A1061题解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T00:44:18+08:00">
+                2019-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>对于日期的调用 以及cstring的使用 还要注意 可以直接使用’A’表示A的ascii值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">char</span> Day[<span class="number">7</span>][<span class="number">5</span>] = &#123;<span class="string">"MON"</span>, <span class="string">"TUE"</span>, <span class="string">"WED"</span>, <span class="string">"THU"</span>, <span class="string">"FRI"</span>, <span class="string">"SAT"</span>, <span class="string">"SUN"</span>&#125;;</span><br><span class="line">	<span class="keyword">char</span> S1[<span class="number">70</span>];</span><br><span class="line">	<span class="keyword">char</span> S2[<span class="number">70</span>];</span><br><span class="line">	<span class="keyword">char</span> S3[<span class="number">70</span>];</span><br><span class="line">	<span class="keyword">char</span> S4[<span class="number">70</span>];</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>, S1);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>, S2);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>, S3);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>, S4);</span><br><span class="line">	<span class="keyword">int</span> les, a1, a2, a3, a4;</span><br><span class="line">	a1 = <span class="built_in">strlen</span>(S1);</span><br><span class="line">	a2 = <span class="built_in">strlen</span>(S2);</span><br><span class="line">	<span class="keyword">if</span>(a1 &gt; a2) les = a2;</span><br><span class="line">	<span class="keyword">else</span> les = a1;</span><br><span class="line">	<span class="keyword">char</span> day[<span class="number">2</span>];</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; les;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(S1[i] == S2[i] &amp;&amp; S1[i] &gt;= <span class="string">'A'</span> &amp;&amp; S1[i] &lt;= <span class="string">'G'</span>)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%s "</span>, Day[S1[i] - <span class="string">'A'</span>]);</span><br><span class="line">			count = i;</span><br><span class="line">			<span class="keyword">break</span>; </span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = count + <span class="number">1</span>; i &lt; les; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(S1[i] == S2[i] &amp;&amp; S1[i] &gt;= <span class="string">'A'</span> &amp;&amp; S1[i] &lt;= <span class="string">'N'</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%02d:"</span>, S1[i] - <span class="string">'A'</span> + <span class="number">10</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span>(S1[i] == S2[i] &amp;&amp; S1[i] &gt;= <span class="string">'0'</span> &amp;&amp; S1[i] &lt;= <span class="string">'9'</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%02d:"</span>, S1[i] - <span class="string">'0'</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;	  </span><br><span class="line">	&#125;</span><br><span class="line">	a3 = <span class="built_in">strlen</span>(S3);</span><br><span class="line">	a4 = <span class="built_in">strlen</span>(S4);</span><br><span class="line">	<span class="keyword">if</span>(a3 &gt; a4) les = a4;</span><br><span class="line">	<span class="keyword">else</span> les = a3;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; les; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(S3[i] == S4[i] &amp;&amp; S3[i] &gt;= <span class="string">'A'</span> &amp;&amp; S3[i] &lt;= <span class="string">'N'</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%02d"</span>, i);</span><br><span class="line">			<span class="keyword">break</span>;	</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span>(S3[i] == S4[i] &amp;&amp; S3[i] &gt;= <span class="string">'a'</span> &amp;&amp; S3[i] &lt;= <span class="string">'z'</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%02d"</span>, i);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/A1058题解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/26/A1058题解/" itemprop="url">A1058题解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T00:43:57+08:00">
+                2019-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>注意输入输出 以及进位制的转换 以及如何表示进位 很重要！</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> A[<span class="number">3</span>];</span><br><span class="line">	<span class="keyword">int</span> B[<span class="number">3</span>];</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d.%d.%d"</span>, &amp;A[<span class="number">0</span>], &amp;A[<span class="number">1</span>], &amp;A[<span class="number">2</span>]);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d.%d.%d"</span>, &amp;B[<span class="number">0</span>], &amp;B[<span class="number">1</span>], &amp;B[<span class="number">2</span>]);</span><br><span class="line">	<span class="keyword">int</span> C[<span class="number">3</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">		C[i] = A[i] + B[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> temp;</span><br><span class="line">	<span class="keyword">if</span>(C[<span class="number">2</span>] &gt;= <span class="number">29</span>) &#123;</span><br><span class="line">		temp = C[<span class="number">2</span>] / <span class="number">29</span>;</span><br><span class="line">		C[<span class="number">2</span>] = C[<span class="number">2</span>] % <span class="number">29</span>;</span><br><span class="line">		C[<span class="number">1</span>] = C[<span class="number">1</span>] + temp; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(C[<span class="number">1</span>] &gt;= <span class="number">17</span>) &#123;</span><br><span class="line">		temp = C[<span class="number">1</span>] / <span class="number">17</span>;</span><br><span class="line">		C[<span class="number">1</span>] = C[<span class="number">1</span>] % <span class="number">17</span>;</span><br><span class="line">		C[<span class="number">0</span>] = C[<span class="number">0</span>] + temp; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d.%d.%d"</span>, C[<span class="number">0</span>], C[<span class="number">1</span>], C[<span class="number">2</span>]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/A1027题解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1211,248 +1453,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/A1046题解/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/24/A1046题解/" itemprop="url">A1046题解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-24T22:44:05+08:00">
-                2019-01-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>想清楚 思路即可顺利解出</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> D[<span class="number">100010</span>];</span><br><span class="line"><span class="keyword">int</span> N;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dis</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> dis1 = <span class="number">0</span>, dis2 = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(a &lt; b) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = a; i &lt; b; i++) &#123;  <span class="comment">//dis1 </span></span><br><span class="line">			dis1 = dis1 + D[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = b; i &lt;= N; i++) &#123;</span><br><span class="line">			dis2 = dis2 + D[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; a; i++) &#123;</span><br><span class="line">			dis2 = dis2 + D[i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span>(a &gt; b) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = b; i &lt; a; i++) &#123;</span><br><span class="line">			dis1 = dis1 + D[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = a; i &lt;= N; i++) &#123;</span><br><span class="line">			dis2 = dis2 + D[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; b; i++) &#123;</span><br><span class="line">			dis2 = dis2 + D[i];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		dis1 = <span class="number">0</span>;</span><br><span class="line">		dis2 = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(dis1 &lt;= dis2) <span class="keyword">return</span> dis1; </span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> dis2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;N);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;D[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> M;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;M);</span><br><span class="line">	<span class="keyword">int</span> P[<span class="number">100010</span>][<span class="number">2</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;P[i][<span class="number">0</span>], &amp;P[i][<span class="number">1</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; M; i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, dis(P[i][<span class="number">0</span>], P[i][<span class="number">1</span>]));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/24/A1042题解/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/24/A1042题解/" itemprop="url">A1042题解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-24T22:43:43+08:00">
-                2019-01-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本题卡了很久 主要是一些细节的数字 没有弄清楚 要注意 字母对应</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> k;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;k);</span><br><span class="line">	<span class="comment">//最初的数组</span></span><br><span class="line">	<span class="keyword">int</span> begin[<span class="number">60</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">54</span>; i++) &#123;	<span class="comment">//最初的数组 </span></span><br><span class="line">		begin[i] = i;     	<span class="comment">//这当中存储的数字对应的是牌 </span></span><br><span class="line">		<span class="comment">//其中1-13 S 14-26 H 27-39 C 40-52 D 53-54 J1-J2 </span></span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">int</span> order[<span class="number">60</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">54</span>; i++) &#123;  <span class="comment">//洗牌顺序</span></span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;order[i]); </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> trans[<span class="number">60</span>];	<span class="comment">//存放结果的数组</span></span><br><span class="line">	<span class="keyword">int</span> temp; </span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">54</span>; j++) &#123;</span><br><span class="line">			trans[j] = begin[j];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> m = <span class="number">1</span>; m &lt;= <span class="number">54</span>; m++) &#123;</span><br><span class="line">			begin[order[m]] = trans[m];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">char</span> end[<span class="number">60</span>];		<span class="comment">//将数字转化为 字符 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">53</span>; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(begin[i] &gt;= <span class="number">1</span> &amp;&amp; begin[i] &lt;= <span class="number">13</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"S"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d "</span>, begin[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(begin[i] &gt;= <span class="number">14</span> &amp;&amp; begin[i] &lt;= <span class="number">26</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"H"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d "</span>, begin[i] - <span class="number">13</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(begin[i] &gt;= <span class="number">27</span> &amp;&amp; begin[i] &lt;= <span class="number">39</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"C"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d "</span>, begin[i] - <span class="number">26</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(begin[i] &gt;= <span class="number">40</span> &amp;&amp; begin[i] &lt;= <span class="number">52</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"D"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d "</span>, begin[i] - <span class="number">39</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(begin[i] &gt;= <span class="number">53</span> &amp;&amp; begin[i] &lt;= <span class="number">54</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"J"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d "</span>, begin[i] - <span class="number">52</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(begin[<span class="number">54</span>] &gt;= <span class="number">1</span> &amp;&amp; begin[<span class="number">54</span>] &lt;= <span class="number">13</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"S"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d"</span>, begin[<span class="number">54</span>]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(begin[<span class="number">54</span>] &gt;= <span class="number">14</span> &amp;&amp; begin[<span class="number">54</span>] &lt;= <span class="number">26</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"H"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d"</span>, begin[<span class="number">54</span>] - <span class="number">13</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(begin[<span class="number">54</span>] &gt;= <span class="number">27</span> &amp;&amp; begin[<span class="number">54</span>] &lt;= <span class="number">39</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"C"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d"</span>, begin[<span class="number">54</span>] - <span class="number">26</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(begin[<span class="number">54</span>] &gt;= <span class="number">40</span> &amp;&amp; begin[<span class="number">54</span>] &lt;= <span class="number">52</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"D"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d"</span>, begin[<span class="number">54</span>] - <span class="number">39</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(begin[<span class="number">54</span>] &gt;= <span class="number">53</span> &amp;&amp; begin[<span class="number">54</span>] &lt;= <span class="number">54</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"J"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d"</span>, begin[<span class="number">54</span>] - <span class="number">52</span>);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;		</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1507,7 +1507,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
