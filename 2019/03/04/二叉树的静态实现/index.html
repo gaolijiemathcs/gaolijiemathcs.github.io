@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="对于日期的调用 以及cstring的使用 还要注意 可以直接使用’A’表示A的ascii值 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051#include&amp;lt;cstdio&amp;gt;#include&amp;lt;cstring&amp;gt;int main() &amp;#123">
+<meta name="description" content="定义二叉树的时候，采用的是二叉链表结构： 12345struct node &amp;#123;    typename data;	//数据域    node* lchild;	//指向左子树结点的指针    node* rchild;	//指向右子树根结点的指针&amp;#125; 为了可以实时的控制新生成的结点的个数，结构体node中的左右指针域都使用了指针，但是指针对于一些刚入门的读者来说容易犯错，因此有">
 <meta name="keywords" content="PAT刷题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A1061题解">
-<meta property="og:url" content="http://yoursite.com/2019/01/26/A1061题解/index.html">
+<meta property="og:title" content="二叉树的静态实现">
+<meta property="og:url" content="http://yoursite.com/2019/03/04/二叉树的静态实现/index.html">
 <meta property="og:site_name" content="GaoLijie&#39;s Blog">
-<meta property="og:description" content="对于日期的调用 以及cstring的使用 还要注意 可以直接使用’A’表示A的ascii值 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051#include&amp;lt;cstdio&amp;gt;#include&amp;lt;cstring&amp;gt;int main() &amp;#123">
+<meta property="og:description" content="定义二叉树的时候，采用的是二叉链表结构： 12345struct node &amp;#123;    typename data;	//数据域    node* lchild;	//指向左子树结点的指针    node* rchild;	//指向右子树根结点的指针&amp;#125; 为了可以实时的控制新生成的结点的个数，结构体node中的左右指针域都使用了指针，但是指针对于一些刚入门的读者来说容易犯错，因此有">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-25T16:53:47.767Z">
+<meta property="og:updated_time" content="2019-03-04T15:30:06.740Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="A1061题解">
-<meta name="twitter:description" content="对于日期的调用 以及cstring的使用 还要注意 可以直接使用’A’表示A的ascii值 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051#include&amp;lt;cstdio&amp;gt;#include&amp;lt;cstring&amp;gt;int main() &amp;#123">
+<meta name="twitter:title" content="二叉树的静态实现">
+<meta name="twitter:description" content="定义二叉树的时候，采用的是二叉链表结构： 12345struct node &amp;#123;    typename data;	//数据域    node* lchild;	//指向左子树结点的指针    node* rchild;	//指向右子树根结点的指针&amp;#125; 为了可以实时的控制新生成的结点的个数，结构体node中的左右指针域都使用了指针，但是指针对于一些刚入门的读者来说容易犯错，因此有">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/26/A1061题解/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/04/二叉树的静态实现/">
 
 
 
 
 
-  <title>A1061题解 | GaoLijie's Blog</title>
+  <title>二叉树的静态实现 | GaoLijie's Blog</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/A1061题解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/04/二叉树的静态实现/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Gao Lijie">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">A1061题解</h1>
+          <h1 class="post-title" itemprop="name headline">二叉树的静态实现</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T00:44:18+08:00">
-                2019-01-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-04T22:41:28+08:00">
+                2019-03-04
               </time>
             
 
@@ -320,8 +320,11 @@
       
 
       
-        <p>对于日期的调用 以及cstring的使用 还要注意 可以直接使用’A’表示A的ascii值</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">char</span> Day[<span class="number">7</span>][<span class="number">5</span>] = &#123;<span class="string">"MON"</span>, <span class="string">"TUE"</span>, <span class="string">"WED"</span>, <span class="string">"THU"</span>, <span class="string">"FRI"</span>, <span class="string">"SAT"</span>, <span class="string">"SUN"</span>&#125;;</span><br><span class="line">	<span class="keyword">char</span> S1[<span class="number">70</span>];</span><br><span class="line">	<span class="keyword">char</span> S2[<span class="number">70</span>];</span><br><span class="line">	<span class="keyword">char</span> S3[<span class="number">70</span>];</span><br><span class="line">	<span class="keyword">char</span> S4[<span class="number">70</span>];</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>, S1);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>, S2);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>, S3);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>, S4);</span><br><span class="line">	<span class="keyword">int</span> les, a1, a2, a3, a4;</span><br><span class="line">	a1 = <span class="built_in">strlen</span>(S1);</span><br><span class="line">	a2 = <span class="built_in">strlen</span>(S2);</span><br><span class="line">	<span class="keyword">if</span>(a1 &gt; a2) les = a2;</span><br><span class="line">	<span class="keyword">else</span> les = a1;</span><br><span class="line">	<span class="keyword">char</span> day[<span class="number">2</span>];</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; les;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(S1[i] == S2[i] &amp;&amp; S1[i] &gt;= <span class="string">'A'</span> &amp;&amp; S1[i] &lt;= <span class="string">'G'</span>)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%s "</span>, Day[S1[i] - <span class="string">'A'</span>]);</span><br><span class="line">			count = i;</span><br><span class="line">			<span class="keyword">break</span>; </span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = count + <span class="number">1</span>; i &lt; les; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(S1[i] == S2[i] &amp;&amp; S1[i] &gt;= <span class="string">'A'</span> &amp;&amp; S1[i] &lt;= <span class="string">'N'</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%02d:"</span>, S1[i] - <span class="string">'A'</span> + <span class="number">10</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span>(S1[i] == S2[i] &amp;&amp; S1[i] &gt;= <span class="string">'0'</span> &amp;&amp; S1[i] &lt;= <span class="string">'9'</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%02d:"</span>, S1[i] - <span class="string">'0'</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;	  </span><br><span class="line">	&#125;</span><br><span class="line">	a3 = <span class="built_in">strlen</span>(S3);</span><br><span class="line">	a4 = <span class="built_in">strlen</span>(S4);</span><br><span class="line">	<span class="keyword">if</span>(a3 &gt; a4) les = a4;</span><br><span class="line">	<span class="keyword">else</span> les = a3;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; les; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(S3[i] == S4[i] &amp;&amp; S3[i] &gt;= <span class="string">'A'</span> &amp;&amp; S3[i] &lt;= <span class="string">'N'</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%02d"</span>, i);</span><br><span class="line">			<span class="keyword">break</span>;	</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span>(S3[i] == S4[i] &amp;&amp; S3[i] &gt;= <span class="string">'a'</span> &amp;&amp; S3[i] &lt;= <span class="string">'z'</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%02d"</span>, i);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>定义二叉树的时候，采用的是二叉链表结构：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">typename</span> data;	<span class="comment">//数据域</span></span><br><span class="line">    node* lchild;	<span class="comment">//指向左子树结点的指针</span></span><br><span class="line">    node* rchild;	<span class="comment">//指向右子树根结点的指针</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了可以实时的控制新生成的结点的个数，结构体node中的左右指针域都使用了指针，但是指针对于一些刚入门的读者来说容易犯错，因此有必要想办法避免指针的使用，采用的就是使用静态的二叉链表。</p>
+<p>所谓的静态二叉链表，结点的左右指针域使用的int型代替，用来表示左右子树的根结点在数组的下标，为此需要建立一个大小为结点上限个数的node型数组，所有的动态生成的结点都直接使用数组中的结点，所有对指针的操作都改为对数组下标的访问，因此，结点node的定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">typename</span> data;	<span class="comment">//数据域</span></span><br><span class="line">    <span class="keyword">int</span> lchild;		<span class="comment">//指向左子树的指针域</span></span><br><span class="line">    <span class="keyword">int</span> rchild;		<span class="comment">//指向右子树的指针域</span></span><br><span class="line">&#125; Node[maxn];	<span class="comment">//结点数组，maxn为结点上限个数</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -352,8 +355,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/26/A1058题解/" rel="next" title="A1058题解">
-                <i class="fa fa-chevron-left"></i> A1058题解
+              <a href="/2019/03/01/A1020题解/" rel="next" title="A1020题解">
+                <i class="fa fa-chevron-left"></i> A1020题解
               </a>
             
           </div>
@@ -362,8 +365,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/01/26/A1073题解/" rel="prev" title="A1073题解">
-                A1073题解 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/19/简单数学/" rel="prev" title="A1069">
+                A1069 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
