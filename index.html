@@ -249,6 +249,294 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/分数的四则运算/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/20/分数的四则运算/" itemprop="url">分数的四则运算</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T13:06:04+08:00">
+                2019-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>所谓的分数的四则运算是指，给定两个分数的分子和分母，求他们加减乘除的结果，先介绍如何表示和化简一个分数。</p>
+<h4 id="一、分数的表示和化简"><a href="#一、分数的表示和化简" class="headerlink" title="一、分数的表示和化简"></a>一、分数的表示和化简</h4><ol>
+<li><p>分数的表示</p>
+<p>对于一个分数来说，最简洁的写法就是写成假分数的形式，即无论分子比分母大或者小，都保留其原数。因此可以使用一个结构体来保存这种只有分子和分母的分数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span>	<span class="comment">//分数</span></span><br><span class="line">    <span class="keyword">int</span> up, down;	<span class="comment">//分子、分母</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>于是就可以定义Fraction类型的变量来表示分数，或者定义数组来表示一堆分数，其中需要对这种表达制定的三项规则：</p>
+<p>①使用down为非负数。如果分数为负数那么令分子up为负即可。</p>
+<p>②如果该分数恰为0， 那么规定其分子为0分母为1.</p>
+<p>③分子和分母没有除了1以外的公约数。</p>
+</li>
+<li><p>分数的化简</p>
+<p>分数的化简主要使用Fraction变量满足分数表示的三项规定，因此化简步骤也分为三步：</p>
+<p>①如果分母down为负数，那么令分子up和分母down都变为相反数</p>
+<p>②如果分子up为0，那么令分数down为1</p>
+<p>③约分：求出分子绝对值与分母绝对值的最大公约数d，然后令分子分母同时除以d；</p>
+<p>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> up, down;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> gcd(b, a%b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">reduction</span><span class="params">(Fraction &amp;result)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(result.down &lt; <span class="number">0</span>) &#123;	<span class="comment">//分母为负数 令分子和分母都变为相反数</span></span><br><span class="line">		result.up = -result.up;</span><br><span class="line">		result.down = - result.down; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(result.up == <span class="number">0</span>) &#123;	<span class="comment">//如果分子为0 </span></span><br><span class="line">		result.down = <span class="number">1</span>;	<span class="comment">//令分母为1 </span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">int</span> d = gcd(<span class="built_in">abs</span>(result.up), <span class="built_in">abs</span>(result.down));	<span class="comment">//求分子与分母的最大公约数</span></span><br><span class="line">		result.up = result.up / d;</span><br><span class="line">		result.down = result.down / d; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Fraction a;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a.up, &amp;a.down);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, a.up, a.down);</span><br><span class="line">	reduction(a);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, a.up, a.down);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="二、分数的四则运算"><a href="#二、分数的四则运算" class="headerlink" title="二、分数的四则运算"></a>二、分数的四则运算</h4><p>1.分数的加法</p>
+<p>对于两个分数f1与f2，其加法的计算公式为<br>$$<br>result = \frac{f1.up<em>f2.down + f2.up</em>f1.down}{f1.down*f2.down}<br>$$<br>2.分数的减法</p>
+<p>对于两个分数f1与f2，其减法的计算公式为<br>$$<br>result = \frac{f1.up<em>f2.down - f2.up</em>f1.down}{f1.down*f2.down}<br>$$<br>3.分数的乘法</p>
+<p>对于两个分数f1与f2，其乘法的计算公式为<br>$$<br>result = \frac{f1.up<em>f2.up}{f1.down</em>f2.down}<br>$$<br>4.分数的除法</p>
+<p>对于两个分数f1和f2，其除法的计算公式为<br>$$<br>result = \frac{f1.up<em>f2.down}{f1.down</em>f2.up}<br>$$<br>做除法的时候应要额外注意 如果输出的除数为0只需要判断f2.up是否为0，那么应当直接特判输出题目要求的语句。只有除数不为0的时候才能够用上面的函数进行输出。</p>
+<p>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> up, down;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> gcd(b, a%b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">reduction</span><span class="params">(Fraction &amp;result)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(result.down &lt; <span class="number">0</span>) &#123;	<span class="comment">//分母为负数 令分子和分母都变为相反数</span></span><br><span class="line">		result.up = -result.up;</span><br><span class="line">		result.down = - result.down; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(result.up == <span class="number">0</span>) &#123;	<span class="comment">//如果分子为0 </span></span><br><span class="line">		result.down = <span class="number">1</span>;	<span class="comment">//令分母为1 </span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">int</span> d = gcd(<span class="built_in">abs</span>(result.up), <span class="built_in">abs</span>(result.down));	<span class="comment">//求分子与分母的最大公约数</span></span><br><span class="line">		result.up = result.up / d;</span><br><span class="line">		result.down = result.down / d; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">add</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//加法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down + f2.up * f1.down;	<span class="comment">//分数和的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;	<span class="comment">//分数和的分母</span></span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">minu</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//减法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down - f2.up * f1.down;	<span class="comment">//分数和的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;	<span class="comment">//分数和的分母</span></span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">multi</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//乘法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.up;	<span class="comment">//分数积的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;</span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">divide</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down;</span><br><span class="line">	result.down = f1.down * f2.up;</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Fraction a, b, c;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;a.up, &amp;a.down, &amp;b.up, &amp;b.down);</span><br><span class="line">	c = add(a, b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, c.up, c.down);</span><br><span class="line">	c = minu(a, b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, c.up, c.down);</span><br><span class="line">	c = multi(a, b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, c.up, c.down);</span><br><span class="line">	<span class="keyword">if</span>(b.up == <span class="number">0</span>) &#123;	<span class="comment">//保证了分母不为0 </span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"error!\n"</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		c = divide(a, b);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, c.up, c.down);	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">1</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span>/<span class="number">6</span></span><br><span class="line"><span class="number">1</span>/<span class="number">6</span></span><br><span class="line"><span class="number">1</span>/<span class="number">6</span></span><br><span class="line"><span class="number">3</span>/<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h4 id="三、分数的输出"><a href="#三、分数的输出" class="headerlink" title="三、分数的输出"></a>三、分数的输出</h4><p>分数的输出根据题目的要求进行，但是大体上有以下几个注意点：</p>
+<p>①输出分数前，需要对其进行化简</p>
+<p>②如果分数r的分母down为1，说明该分数是整数，一般来说题目会要求直接输出分子而省略分母的输出</p>
+<p>③如果分数r的分子up的绝对值大于分母down，说明应该是假分数，这时候应该以带分数的形式输出，即整数部分为r.up/r.down 而分子部分为abs(r.up) % r.down 分母部分为r.down</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showResult</span><span class="params">(Fraction r)</span> </span>&#123;</span><br><span class="line">	r = reduction(r);</span><br><span class="line">		<span class="keyword">if</span>(r.down == <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"%lld"</span>, r.up);	<span class="comment">//整数</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">abs</span>(r.up) &lt; <span class="built_in">abs</span>(r.down)) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, r.up, r.down);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d %d/%d"</span>, r.up / r.down, <span class="built_in">abs</span>(r.up) % r.down, r.down);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>强调一下：由于分数的乘法和分数的除法过程中会使用分子或分母超过int的表示范围因此一般盈亏下分子和分母应该使用long long类型来存储。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> up, down;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> gcd(b, a%b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">reduction</span><span class="params">(Fraction &amp;result)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(result.down &lt; <span class="number">0</span>) &#123;	<span class="comment">//分母为负数 令分子和分母都变为相反数</span></span><br><span class="line">		result.up = -result.up;</span><br><span class="line">		result.down = - result.down; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(result.up == <span class="number">0</span>) &#123;	<span class="comment">//如果分子为0 </span></span><br><span class="line">		result.down = <span class="number">1</span>;	<span class="comment">//令分母为1 </span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">int</span> d = gcd(<span class="built_in">abs</span>(result.up), <span class="built_in">abs</span>(result.down));	<span class="comment">//求分子与分母的最大公约数</span></span><br><span class="line">		result.up = result.up / d;</span><br><span class="line">		result.down = result.down / d; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">add</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//加法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down + f2.up * f1.down;	<span class="comment">//分数和的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;	<span class="comment">//分数和的分母</span></span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">minu</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//减法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down - f2.up * f1.down;	<span class="comment">//分数和的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;	<span class="comment">//分数和的分母</span></span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">multi</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//乘法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.up;	<span class="comment">//分数积的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;</span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">divide</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down;</span><br><span class="line">	result.down = f1.down * f2.up;</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showResult</span><span class="params">(Fraction r)</span> </span>&#123;</span><br><span class="line">	r = reduction(r);</span><br><span class="line">		<span class="keyword">if</span>(r.down == <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, r.up);	<span class="comment">//整数</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">abs</span>(r.up) &lt; <span class="built_in">abs</span>(r.down)) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%lld/%lld\n"</span>, r.up, r.down);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%lld %lld/%lld\n"</span>, r.up / r.down, <span class="built_in">abs</span>(r.up) % r.down, r.down);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Fraction a, b, c;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld%lld%lld%lld"</span>, &amp;a.up, &amp;a.down, &amp;b.up, &amp;b.down);</span><br><span class="line">	c = add(a, b);</span><br><span class="line">	showResult(c);</span><br><span class="line">	c = minu(a, b);</span><br><span class="line">	showResult(c);</span><br><span class="line">	c = multi(a, b);</span><br><span class="line">	showResult(c);</span><br><span class="line">	<span class="keyword">if</span>(b.up == <span class="number">0</span>) &#123;	<span class="comment">//保证了分母不为0 </span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"error!\n"</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		c = divide(a, b);</span><br><span class="line">		showResult(c);	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/最大公约数与最小公倍数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/20/最大公约数与最小公倍数/" itemprop="url">最大公约数与最小公倍数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T12:52:14+08:00">
+                2019-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="一、最大公约数"><a href="#一、最大公约数" class="headerlink" title="一、最大公约数"></a>一、最大公约数</h4><p>正整数a与b的最大公约数是指a与b的所有公约数中最大的那个公约数。例如4与6的最大公约数为2； 3与9最大公约数为3.一般使用gcd(a, b)来表示a和b的最大公约数。而求解最大公约数常用欧几里得算法（辗转相除法）</p>
+<p>欧几里得算法基于以下定理：</p>
+<p>设a、b均为正整数，则gcd(a, b) = gcd(b, a%b).</p>
+<p>还需要设置递归边界，数据规模减小到什么样的程度就可以计算出结果。0与任何一个整数a的最大公约数都是a，这个结论就可以当做递归边界来使用，就可以使用递归的表达式。</p>
+<p>①递归式：gcd(a, b) = gcd(b, a%b);</p>
+<p>②递归边界：gcd(a, 0) = a.</p>
+<p>于是可以得到下面求解最大公约数的代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> gcd(b, a%b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更简洁的写法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !b ? a : gcd(b, a%b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="二、最小公倍数"><a href="#二、最小公倍数" class="headerlink" title="二、最小公倍数"></a>二、最小公倍数</h4><p>正整数a与b的最小公倍数是指a与b的所有公倍数中最小的那个。4与6 最小公倍数为12.一般使用lcm(a, b)来表示a和b的最小公倍数。</p>
+<p>最小公倍数的求解在最大公约数的基础上进行，当得到a与b的最大公约数d可以直接获得a和b的最小公倍数为ab/d.</p>
+<p>由于ab在实际运算时有可能会溢出，因此更加恰当的写法为a/d * b。由于d为a与b的最大公约数因此a/d一定可以整除。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/19/简单数学/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1295,273 +1583,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/深度优先遍历DFS简介/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/28/深度优先遍历DFS简介/" itemprop="url">深度优先遍历DFS简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T17:58:44+08:00">
-                2019-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>从起点开始前进当碰到岔道口的时候总是选择其中一条岔路前进，在岔路上又碰到新的岔道口，任然选择新岔道口的其中一条前进，直到碰到死胡同的时候才退回到最近的岔道口选择另外一条岔路。也就是说，当碰到岔道口的时候，总是以“深度”作为前进的关键词，不碰到死胡同就不回头，因此把这种搜索的方式称为<strong>深度优先搜索(Depth First Search, DFS)</strong></p>
-<p>深度优先搜索会走遍所有路径，并且每次走到死胡同就代表一条完整的路径形成，就是说<strong>深度优先搜索是一种枚举所有完整路径以及遍历所有情况的搜索方法</strong></p>
-<p>深度优先遍历可以使用栈来实现，但是实现起来不容易。因此我们利用递归的思想。递归中的递归式就是岔道口而递归边界就是死胡同。使用递归可以很好的实现DFS，但是这个说法并不是说递归就是深度优先搜索的一种实现方式，因为使用非递归也可以实现DFS思想，但是一般情况下使用递归会较为麻烦。使用递归的时候，系统会调用叫系统栈的东西来存放递归中每一层的状态，因此使用递归来实现DFS的本质还是栈。</p>
-<p>接下来的例子，用于讲解DFS的思想，必须可以独立写出来。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有n件物品，每件物品的重量为w[i],价值为c[i]。现在需要选出若干件物品放入一个容量为V的背包中，使得在选入背包的物品重量和不超过容量重量V的前提下，让背包的价值之和最大，求出最大价值。(1 &lt;= n &lt;= 20)</span><br></pre></td></tr></table></figure>
-<p>在这个问题中，需要从n件物品中选择若干件物品放入背包，使得他们的价值之和最大。这样对每件物品都有选与不选两种选择，即为岔道口，死胡同就是—题目要求选择的物品总重之和不得超过V，因此一旦选择了物品总重量和超过V就会到达死胡同，需要返回最近的岔道口。</p>
-<p>显然，每次都要对物品进行选择，因此DFS的参数中必须记录当前处理物品的编号index， 而题目中涉及了物品的重量与价值，因此也需要参数来记录在处理当前物品之前，已选物品的总重量sumW与总价值sumC，于是DFS的函数看上去是这样的：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> sumW, <span class="keyword">int</span> sumC)</span> </span>&#123; ... &#125;	</span><br><span class="line"><span class="comment">//index为当前处理物品的编号</span></span><br><span class="line"><span class="comment">//sumW为目前已选放入背包的物品的总重量</span></span><br><span class="line"><span class="comment">//sumC为目前已选放入背包的物品的总价值</span></span><br></pre></td></tr></table></figure>
-<p>于是，如果选择不放入index号的物品，那么sumW与sumC就将不变，接下来处理index+1 index为从0号物品开始，即前往DFS(index + 1, sumW, sumC)这条分支；而如果选择放入index号物品那么sumW将增加当前物品的重力w[index], sumC将增加当前物品的价值c[index]，接着处理index + 1号物品，即将前往DFS(index + 1, sumW + w[index], sumC + c[index]);这条分支。</p>
-<p>一旦index增长到了n则说明已经把n件物品处理完(因为物品的下标是从0到n-1)此时记录的sumW和sumC就是所选的物品的总重量和总价值，如果sumW不超过V且sumC大于一个全局的记录最大价值的变量maxValue，就说明当前的这种选择方案何以得到更大的价值于是用sumC更新maxValue。</p>
-<p>下面的代码具体体现了上面的思路，注意岔道口和死胡同在代码中的体现方式：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">30</span>;</span><br><span class="line"><span class="keyword">int</span> n, V, maxValue = <span class="number">0</span>;	<span class="comment">//最大价值</span></span><br><span class="line"><span class="keyword">int</span> w[maxn], c[maxn];	<span class="comment">//此处为物品的重量和物品的价值</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> sumW, <span class="keyword">int</span> sumC)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(index == n) &#123;</span><br><span class="line">		<span class="keyword">if</span>(sumW &lt;= V &amp;&amp; sumC &gt;= maxValue) &#123;</span><br><span class="line">			maxValue = sumC;</span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//进行遍历</span></span><br><span class="line">	DFS(index + <span class="number">1</span>, sumW, sumC);	<span class="comment">//当第index 件物品没有放入的时候</span></span><br><span class="line">	DFS(index + <span class="number">1</span>, sumW + w[index], sumC + c[index]);	<span class="comment">//当第index件物品放入的时候 </span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;V);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;w[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;c[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	DFS(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);	<span class="comment">//从第0件物品开始 总重量与总价值为0</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>, maxValue);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以注意到，由于每件物品都有两种选择，因此上面的代码复杂度为O(2^n)，这看起来不是很好，但是可以通过对算法的优化，来使其在随机数据的表现上有更好的效率，在上述代码中总是把n件物品的选择全部确定以后才会去更新最大的价值，但是事实上忽略了背包容量不超过V的特点。也就是说，完全可以把对sumW的判断放入“岔道口”中，只有当sumW&lt;=V时才能进入岔道，效率会高很多，栗子如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> sumW, <span class="keyword">int</span> sumC)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(index == n) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	DFS(index + <span class="number">1</span>, sumW, sumC);</span><br><span class="line">	<span class="keyword">if</span>(sumW + w[index] &lt;= V) &#123;</span><br><span class="line">		<span class="keyword">if</span>(sumC + c[index] &gt; maxValue) &#123;</span><br><span class="line">			maxValue = sumC + c[index];</span><br><span class="line">		&#125;</span><br><span class="line">		DFS(index + <span class="number">1</span>, sumW + w[index], sumC + c[index]);  <span class="comment">//选第index件物品放入的岔道</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看出来，原本第二条岔道是直接进入的：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DFS(index + <span class="number">1</span>, sumW + w[index], sumC + c[index]);</span><br></pre></td></tr></table></figure>
-<p>但这里变为先判断在进入第index件的物品后能否满足容量不超过V的要求，只有当前条件满足的时候才更新最大价值以及进入这条岔路，这样可以降低计算的量，使得算法在数据不极端的时候会有较好的表现。这种通过题目的条件的限制来节省DFS的计算量的方法，称为<strong>剪枝</strong>(前提是剪枝后算法仍然正确才可以)。剪枝是一门艺术，灵活运用有助于精简代码的计算量。</p>
-<p>事实上，上面的问题给出了一类常见的DFS问题的解决方法，通过给定一个序列，枚举这个序列的所有子列（可以不连续）。例如对序列{1, 2, 3}来说，它的所有子序列为{1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}。枚举所有的子序列的目的很明显—可以从中选择一个最优的子序列，使它的某个特征是所有子序列中最优的；如果有需要 还可以把这个最优的子序列保存下来。显然，这个问题等价于<strong>枚举从N个整数中选择K个数的所有方案</strong>。</p>
-<p>例如这样一个问题：给定N个整数(有可能是复数)，从中选择K个数，使得这K个数之和恰好是一个给定的整数X；如果有多种方案，选择他们中元素平方和最大的一个。数据保证这样的方案唯一。例如，从四个整数{2, 3, 3, 4}中选择2个数；另外还需要参数sum和sumSqu分别记录当前已选整数和与平方和。于是DFS就写为：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> nowK, <span class="keyword">int</span> sum, <span class="keyword">int</span> sumSqu)</span> </span>&#123;...&#125;</span><br><span class="line"><span class="comment">//整数编号index</span></span><br><span class="line"><span class="comment">//nowK记录已经选择的数的个数</span></span><br><span class="line"><span class="comment">//sum已经选择的整数之和</span></span><br><span class="line"><span class="comment">//sumSqu已经选择的整数的平方和</span></span><br></pre></td></tr></table></figure>
-<p>此处主要讲解如何保存最优方案，即平方和最大的方案，首先需要一个数组temp，用于存储当前已经选择的数，如果有更好的就将temp去覆盖保存ans。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//序列A中选择k个数使得和为x，最大平方和为maxSumSqu</span></span><br><span class="line"><span class="keyword">int</span> n, k, x, maxSumSqu = <span class="number">-1</span>, A[maxn];</span><br><span class="line"><span class="comment">//temp存放临时方案，ans存放平方和最大的方案</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp, ans;</span><br><span class="line"><span class="comment">//当前处理index号整数，当前已选整个数为nowK</span></span><br><span class="line"><span class="comment">//当前已选整数之和为sum，当前已选整数平方和为sumSqu</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> nowK, <span class="keyword">int</span> sum, <span class="keyword">int</span> sumSqu)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(nowK == k &amp;&amp; sum == x) &#123;	<span class="comment">//找到k个数的和为x</span></span><br><span class="line">		<span class="keyword">if</span>(sumSqu &gt; maxSumSqu) &#123;	<span class="comment">//如果比当时找到的更优</span></span><br><span class="line">			maxSumSqu = sumSqu;	<span class="comment">//更新最大平方和</span></span><br><span class="line">			ans = temp;	<span class="comment">//更新方案 </span></span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//执行下面 用于判断已经处理完了n个数字 或者超过k个数字 或者和超过x</span></span><br><span class="line">	<span class="keyword">if</span>(index == n || nowK &gt; k || sum &gt; x) <span class="keyword">return</span>;</span><br><span class="line">	<span class="comment">//选index号数</span></span><br><span class="line">	temp.push_back(A[index]);</span><br><span class="line">	DFS(index + <span class="number">1</span>, nowK + <span class="number">1</span>, sum + A[index], sumSqu + A[index] * A[index]);</span><br><span class="line">	temp.pop_back();</span><br><span class="line">	<span class="comment">//不选第index号数</span></span><br><span class="line">	DFS(index + <span class="number">1</span>, nowK, sum, sumSqu);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>本题每个数字只可以选一次，如果稍改题目：假设N个整数中的每一个都可以被选择多次，那么选择K个数字，使得K个数之和都恰好为X。</p>
-<p>这里只要修改原题代码就可以，由于每个整数都可以被选择多次，因此选择了index后不应该直接进入index+1号而是可以继续选择index号，直到某个时刻不再选择index号就会通过“不选择index号的分支进入index+1号的处理。故只需要把“选index号”这条分支的代码修改为</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DFS(index, nowK + <span class="number">1</span>, sum + A[index], sumSqu + A[index] * A[index]);</span><br></pre></td></tr></table></figure>
-<p>通过上面对深度遍历的学习 我们发现 这里所有选择加入后 在对应的DFS()括号内的数据依次都作出了修改，是深度遍历的特点。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/A1097题解/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/27/A1097题解/" itemprop="url">A1097题解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-27T23:04:10+08:00">
-                2019-02-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本题要注意理解题意再做题！！！！！！！！！！！！</p>
-<p>明天重写一遍</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100005</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> TABLE = <span class="number">1000010</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span>	<span class="comment">//定义静态链表 </span></span><br><span class="line">	<span class="keyword">int</span> address, data, next;</span><br><span class="line">	<span class="keyword">int</span> order;	<span class="comment">//结点在链表上的序号，无效结点记为 2 maxn  </span></span><br><span class="line">&#125;node[maxn];</span><br><span class="line"><span class="keyword">bool</span> isExist[TABLE] = &#123;<span class="literal">false</span>&#125;;	<span class="comment">//绝对值是否出现</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Node a, Node b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a.order &lt; b.order;	<span class="comment">//按照order的从小到大进行排序 </span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(isExist, <span class="literal">false</span>, <span class="keyword">sizeof</span>(isExist));	<span class="comment">//初始化isExist为未出现</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxn; i++) &#123;	<span class="comment">//初始化(步骤2) </span></span><br><span class="line">		node[i].order = <span class="number">2</span> * maxn;	<span class="comment">//表示初始时均为无效结点 </span></span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">int</span> n, begin, address;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;begin, &amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;address);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;node[address].data, &amp;node[address].next);</span><br><span class="line">		node[address].address = address;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//未删除的有效结点个数和已经删除的有效结点个数 </span></span><br><span class="line">	<span class="keyword">int</span> countValid = <span class="number">0</span>, countRemoved = <span class="number">0</span>, p = begin;</span><br><span class="line">	<span class="keyword">while</span>(p != <span class="number">-1</span>) &#123;	<span class="comment">//枚举链表(步骤3)</span></span><br><span class="line">		<span class="keyword">if</span>(!isExist[<span class="built_in">abs</span>(node[p].data)]) &#123;	<span class="comment">//data的绝对值不存在</span></span><br><span class="line">			isExist[<span class="built_in">abs</span>(node[p].data)] = <span class="literal">true</span>; 	<span class="comment">//标记存在</span></span><br><span class="line">			node[p].order = countValid++;	<span class="comment">//不删除 编号从0开始 </span></span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			node[p].order = maxn + countRemoved++;	<span class="comment">//被删除 编号从maxn开始 </span></span><br><span class="line">		&#125;</span><br><span class="line">		p = node[p].next;	<span class="comment">//下一结点 </span></span><br><span class="line">	&#125;</span><br><span class="line">	sort(node, node + maxn, cmp);	<span class="comment">//按照order从小到大排序</span></span><br><span class="line">	<span class="comment">//输出结果</span></span><br><span class="line">	<span class="keyword">int</span> count = countValid + countRemoved;	<span class="comment">//有效结点个数</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(i != countValid <span class="number">-1</span> &amp;&amp; i != count - <span class="number">1</span>) &#123;	<span class="comment">//非最后一个结点</span></span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%05d %d %05d\n"</span>, node[i].address, node[i].data, node[i + <span class="number">1</span>].address); </span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;	<span class="comment">//最后一个结点 </span></span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%05d %d -1\n"</span>, node[i].address, node[i].data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1616,7 +1637,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

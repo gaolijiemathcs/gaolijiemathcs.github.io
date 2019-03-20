@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="PAT刷题,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="所谓的分数的四则运算是指，给定两个分数的分子和分母，求他们加减乘除的结果，先介绍如何表示和化简一个分数。 一、分数的表示和化简 分数的表示 对于一个分数来说，最简洁的写法就是写成假分数的形式，即无论分子比分母大或者小，都保留其原数。因此可以使用一个结构体来保存这种只有分子和分母的分数： 123struct Fraction &amp;#123;	//分数    int up, down;	//分子、分母&amp;">
+<meta name="keywords" content="PAT刷题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分数的四则运算">
+<meta property="og:url" content="http://yoursite.com/2019/03/20/分数的四则运算/index.html">
+<meta property="og:site_name" content="GaoLijie&#39;s Blog">
+<meta property="og:description" content="所谓的分数的四则运算是指，给定两个分数的分子和分母，求他们加减乘除的结果，先介绍如何表示和化简一个分数。 一、分数的表示和化简 分数的表示 对于一个分数来说，最简洁的写法就是写成假分数的形式，即无论分子比分母大或者小，都保留其原数。因此可以使用一个结构体来保存这种只有分子和分母的分数： 123struct Fraction &amp;#123;	//分数    int up, down;	//分子、分母&amp;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-20T05:59:25.270Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分数的四则运算">
+<meta name="twitter:description" content="所谓的分数的四则运算是指，给定两个分数的分子和分母，求他们加减乘除的结果，先介绍如何表示和化简一个分数。 一、分数的表示和化简 分数的表示 对于一个分数来说，最简洁的写法就是写成假分数的形式，即无论分子比分母大或者小，都保留其原数。因此可以使用一个结构体来保存这种只有分子和分母的分数： 123struct Fraction &amp;#123;	//分数    int up, down;	//分子、分母&amp;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/20/分数的四则运算/">
+
+
+
+
+
+  <title>分数的四则运算 | GaoLijie's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GaoLijie's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello world</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/分数的四则运算/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">分数的四则运算</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T13:06:04+08:00">
+                2019-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>所谓的分数的四则运算是指，给定两个分数的分子和分母，求他们加减乘除的结果，先介绍如何表示和化简一个分数。</p>
+<h4 id="一、分数的表示和化简"><a href="#一、分数的表示和化简" class="headerlink" title="一、分数的表示和化简"></a>一、分数的表示和化简</h4><ol>
+<li><p>分数的表示</p>
+<p>对于一个分数来说，最简洁的写法就是写成假分数的形式，即无论分子比分母大或者小，都保留其原数。因此可以使用一个结构体来保存这种只有分子和分母的分数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span>	<span class="comment">//分数</span></span><br><span class="line">    <span class="keyword">int</span> up, down;	<span class="comment">//分子、分母</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>于是就可以定义Fraction类型的变量来表示分数，或者定义数组来表示一堆分数，其中需要对这种表达制定的三项规则：</p>
+<p>①使用down为非负数。如果分数为负数那么令分子up为负即可。</p>
+<p>②如果该分数恰为0， 那么规定其分子为0分母为1.</p>
+<p>③分子和分母没有除了1以外的公约数。</p>
+</li>
+<li><p>分数的化简</p>
+<p>分数的化简主要使用Fraction变量满足分数表示的三项规定，因此化简步骤也分为三步：</p>
+<p>①如果分母down为负数，那么令分子up和分母down都变为相反数</p>
+<p>②如果分子up为0，那么令分数down为1</p>
+<p>③约分：求出分子绝对值与分母绝对值的最大公约数d，然后令分子分母同时除以d；</p>
+<p>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> up, down;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> gcd(b, a%b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">reduction</span><span class="params">(Fraction &amp;result)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(result.down &lt; <span class="number">0</span>) &#123;	<span class="comment">//分母为负数 令分子和分母都变为相反数</span></span><br><span class="line">		result.up = -result.up;</span><br><span class="line">		result.down = - result.down; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(result.up == <span class="number">0</span>) &#123;	<span class="comment">//如果分子为0 </span></span><br><span class="line">		result.down = <span class="number">1</span>;	<span class="comment">//令分母为1 </span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">int</span> d = gcd(<span class="built_in">abs</span>(result.up), <span class="built_in">abs</span>(result.down));	<span class="comment">//求分子与分母的最大公约数</span></span><br><span class="line">		result.up = result.up / d;</span><br><span class="line">		result.down = result.down / d; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Fraction a;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a.up, &amp;a.down);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, a.up, a.down);</span><br><span class="line">	reduction(a);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, a.up, a.down);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="二、分数的四则运算"><a href="#二、分数的四则运算" class="headerlink" title="二、分数的四则运算"></a>二、分数的四则运算</h4><p>1.分数的加法</p>
+<p>对于两个分数f1与f2，其加法的计算公式为<br>$$<br>result = \frac{f1.up<em>f2.down + f2.up</em>f1.down}{f1.down*f2.down}<br>$$<br>2.分数的减法</p>
+<p>对于两个分数f1与f2，其减法的计算公式为<br>$$<br>result = \frac{f1.up<em>f2.down - f2.up</em>f1.down}{f1.down*f2.down}<br>$$<br>3.分数的乘法</p>
+<p>对于两个分数f1与f2，其乘法的计算公式为<br>$$<br>result = \frac{f1.up<em>f2.up}{f1.down</em>f2.down}<br>$$<br>4.分数的除法</p>
+<p>对于两个分数f1和f2，其除法的计算公式为<br>$$<br>result = \frac{f1.up<em>f2.down}{f1.down</em>f2.up}<br>$$<br>做除法的时候应要额外注意 如果输出的除数为0只需要判断f2.up是否为0，那么应当直接特判输出题目要求的语句。只有除数不为0的时候才能够用上面的函数进行输出。</p>
+<p>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> up, down;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> gcd(b, a%b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">reduction</span><span class="params">(Fraction &amp;result)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(result.down &lt; <span class="number">0</span>) &#123;	<span class="comment">//分母为负数 令分子和分母都变为相反数</span></span><br><span class="line">		result.up = -result.up;</span><br><span class="line">		result.down = - result.down; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(result.up == <span class="number">0</span>) &#123;	<span class="comment">//如果分子为0 </span></span><br><span class="line">		result.down = <span class="number">1</span>;	<span class="comment">//令分母为1 </span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">int</span> d = gcd(<span class="built_in">abs</span>(result.up), <span class="built_in">abs</span>(result.down));	<span class="comment">//求分子与分母的最大公约数</span></span><br><span class="line">		result.up = result.up / d;</span><br><span class="line">		result.down = result.down / d; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">add</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//加法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down + f2.up * f1.down;	<span class="comment">//分数和的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;	<span class="comment">//分数和的分母</span></span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">minu</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//减法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down - f2.up * f1.down;	<span class="comment">//分数和的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;	<span class="comment">//分数和的分母</span></span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">multi</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//乘法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.up;	<span class="comment">//分数积的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;</span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">divide</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down;</span><br><span class="line">	result.down = f1.down * f2.up;</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Fraction a, b, c;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;a.up, &amp;a.down, &amp;b.up, &amp;b.down);</span><br><span class="line">	c = add(a, b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, c.up, c.down);</span><br><span class="line">	c = minu(a, b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, c.up, c.down);</span><br><span class="line">	c = multi(a, b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, c.up, c.down);</span><br><span class="line">	<span class="keyword">if</span>(b.up == <span class="number">0</span>) &#123;	<span class="comment">//保证了分母不为0 </span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"error!\n"</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		c = divide(a, b);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, c.up, c.down);	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">1</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span>/<span class="number">6</span></span><br><span class="line"><span class="number">1</span>/<span class="number">6</span></span><br><span class="line"><span class="number">1</span>/<span class="number">6</span></span><br><span class="line"><span class="number">3</span>/<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h4 id="三、分数的输出"><a href="#三、分数的输出" class="headerlink" title="三、分数的输出"></a>三、分数的输出</h4><p>分数的输出根据题目的要求进行，但是大体上有以下几个注意点：</p>
+<p>①输出分数前，需要对其进行化简</p>
+<p>②如果分数r的分母down为1，说明该分数是整数，一般来说题目会要求直接输出分子而省略分母的输出</p>
+<p>③如果分数r的分子up的绝对值大于分母down，说明应该是假分数，这时候应该以带分数的形式输出，即整数部分为r.up/r.down 而分子部分为abs(r.up) % r.down 分母部分为r.down</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showResult</span><span class="params">(Fraction r)</span> </span>&#123;</span><br><span class="line">	r = reduction(r);</span><br><span class="line">		<span class="keyword">if</span>(r.down == <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"%lld"</span>, r.up);	<span class="comment">//整数</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">abs</span>(r.up) &lt; <span class="built_in">abs</span>(r.down)) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, r.up, r.down);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d %d/%d"</span>, r.up / r.down, <span class="built_in">abs</span>(r.up) % r.down, r.down);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>强调一下：由于分数的乘法和分数的除法过程中会使用分子或分母超过int的表示范围因此一般盈亏下分子和分母应该使用long long类型来存储。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> up, down;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> gcd(b, a%b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">reduction</span><span class="params">(Fraction &amp;result)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(result.down &lt; <span class="number">0</span>) &#123;	<span class="comment">//分母为负数 令分子和分母都变为相反数</span></span><br><span class="line">		result.up = -result.up;</span><br><span class="line">		result.down = - result.down; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(result.up == <span class="number">0</span>) &#123;	<span class="comment">//如果分子为0 </span></span><br><span class="line">		result.down = <span class="number">1</span>;	<span class="comment">//令分母为1 </span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">int</span> d = gcd(<span class="built_in">abs</span>(result.up), <span class="built_in">abs</span>(result.down));	<span class="comment">//求分子与分母的最大公约数</span></span><br><span class="line">		result.up = result.up / d;</span><br><span class="line">		result.down = result.down / d; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">add</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//加法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down + f2.up * f1.down;	<span class="comment">//分数和的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;	<span class="comment">//分数和的分母</span></span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">minu</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//减法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down - f2.up * f1.down;	<span class="comment">//分数和的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;	<span class="comment">//分数和的分母</span></span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">multi</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//乘法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.up;	<span class="comment">//分数积的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;</span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">divide</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down;</span><br><span class="line">	result.down = f1.down * f2.up;</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showResult</span><span class="params">(Fraction r)</span> </span>&#123;</span><br><span class="line">	r = reduction(r);</span><br><span class="line">		<span class="keyword">if</span>(r.down == <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, r.up);	<span class="comment">//整数</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">abs</span>(r.up) &lt; <span class="built_in">abs</span>(r.down)) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%lld/%lld\n"</span>, r.up, r.down);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%lld %lld/%lld\n"</span>, r.up / r.down, <span class="built_in">abs</span>(r.up) % r.down, r.down);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Fraction a, b, c;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld%lld%lld%lld"</span>, &amp;a.up, &amp;a.down, &amp;b.up, &amp;b.down);</span><br><span class="line">	c = add(a, b);</span><br><span class="line">	showResult(c);</span><br><span class="line">	c = minu(a, b);</span><br><span class="line">	showResult(c);</span><br><span class="line">	c = multi(a, b);</span><br><span class="line">	showResult(c);</span><br><span class="line">	<span class="keyword">if</span>(b.up == <span class="number">0</span>) &#123;	<span class="comment">//保证了分母不为0 </span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"error!\n"</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		c = divide(a, b);</span><br><span class="line">		showResult(c);	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PAT刷题/" rel="tag"># PAT刷题</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/20/最大公约数与最小公倍数/" rel="next" title="最大公约数与最小公倍数">
+                <i class="fa fa-chevron-left"></i> 最大公约数与最小公倍数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Gao Lijie">
+            
+              <p class="site-author-name" itemprop="name">Gao Lijie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gaolijiemathcs" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="gaolijiemathcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、分数的表示和化简"><span class="nav-number">1.</span> <span class="nav-text">一、分数的表示和化简</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、分数的四则运算"><span class="nav-number">2.</span> <span class="nav-text">二、分数的四则运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、分数的输出"><span class="nav-number">3.</span> <span class="nav-text">三、分数的输出</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gao Lijie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
