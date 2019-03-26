@@ -249,6 +249,127 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/A1088题解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/27/A1088题解/" itemprop="url">A1088题解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-27T00:56:29+08:00">
+                2019-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本题注意long long 而且迭代的时候 要注意化简的时候 要另起一个d 去除 否则每次除以后会发现up会变化。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> up, down;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">gcd</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> b == <span class="number">0</span> ?  a : gcd(b, a%b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">reduction</span><span class="params">(Fraction result)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(result.down &lt; <span class="number">0</span>) &#123;	<span class="comment">//如果分母为负数则上下同取相反数 </span></span><br><span class="line">		result.up = -result.up;</span><br><span class="line">		result.down = -result.down;</span><br><span class="line">	&#125;	</span><br><span class="line">	<span class="keyword">if</span>(result.up == <span class="number">0</span>) &#123;	<span class="comment">//如果分子为0令分母为1 </span></span><br><span class="line">		result.down = <span class="number">1</span>; </span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">long</span> <span class="keyword">long</span> d = gcd(<span class="built_in">abs</span>(result.up), <span class="built_in">abs</span>(result.down));</span><br><span class="line">		result.up = result.up / d;</span><br><span class="line">		result.down = result.down / d;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">add</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down + f2.up * f1.down;	</span><br><span class="line">	result.down = f1.down * f2.down;</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">minu</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down - f2.up * f1.down;</span><br><span class="line">	result.down = f1.down * f2.down;</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">multi</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.up;</span><br><span class="line">	result.down = f1.down * f2.down;</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">divide</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down;</span><br><span class="line">	result.down = f1.down * f2.up;</span><br><span class="line">	reduction(result);</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showresult</span><span class="params">(Fraction r)</span> </span>&#123;</span><br><span class="line">	r = reduction(r);</span><br><span class="line">	<span class="keyword">if</span>(r.up &lt; <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">"("</span>);</span><br><span class="line">	<span class="keyword">if</span>(r.down == <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"%lld"</span>, r.up);		<span class="comment">//整数</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">abs</span>(r.up) &gt; r.down) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%lld %lld/%lld"</span>, r.up / r.down, <span class="built_in">abs</span>(r.up) % r.down, r.down);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%lld/%lld"</span>, r.up, r.down); </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(r.up &lt; <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">")"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Fraction a, b;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld/%lld"</span>, &amp;a.up, &amp;a.down);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld/%lld"</span>, &amp;b.up, &amp;b.down);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//求和 </span></span><br><span class="line">	showresult(a);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" + "</span>);</span><br><span class="line">	showresult(b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" = "</span>);</span><br><span class="line">	showresult(add(a, b));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//求差 </span></span><br><span class="line">	showresult(a);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" - "</span>);</span><br><span class="line">	showresult(b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" = "</span>);</span><br><span class="line">	showresult(minu(a, b));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//求积</span></span><br><span class="line">	showresult(a);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" * "</span>);</span><br><span class="line">	showresult(b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" = "</span>);</span><br><span class="line">	showresult(multi(a, b));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//求商</span></span><br><span class="line">	Fraction r;</span><br><span class="line">	showresult(a);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" / "</span>);</span><br><span class="line">	showresult(b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" = "</span>);</span><br><span class="line">	<span class="keyword">if</span>(b.up == <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">"Inf"</span>);</span><br><span class="line">	<span class="keyword">else</span> showresult(divide(a, b));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/分数的四则运算/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1431,158 +1552,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/广度优先搜索BFS简介/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/28/广度优先搜索BFS简介/" itemprop="url">广度优先搜索BFS简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T21:38:31+08:00">
-                2019-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>广度优先遍历(Breadth First Search, BFS)，一般由队列实现，且总是按照层次的顺序进行遍历，其基本的写法(模板)：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFS</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">	q.push(s);</span><br><span class="line">	<span class="keyword">while</span>(!q.empty()) &#123;</span><br><span class="line">		取出队首元素top;</span><br><span class="line">		访问队首元素top;</span><br><span class="line">		将队首元素出队;</span><br><span class="line">		将top的下一层结点中未曾入队的结点全部入队，并且设置为已入队; </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>下面是对该模板中的每一步骤的说明：</p>
-<p>①定义队列q 并且将起点s入队</p>
-<p>②写一个while循环，循环条件是队列q非空</p>
-<p>③在while循环中，先取出队首元素top，然后访问他(访问可以是任何事情，例如将其输出)。访问完后将其出队。</p>
-<p>④将top的下一层结点中所有未曾入队的结点入队，并标记他们的层号为now的层号+1，同时设置这些入队的结点已入过队。</p>
-<p>⑤返回②继续循环。</p>
-<p>下面这个例子将学习BFS的思想是如何通过队列实现。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">给出一个m*n的矩阵，矩阵中的元素为0或1，称位置(x,y)与其上下左右的四个位置(x, y+1)、(x, y-1)、(x+1, y)、(x-1, y)是相邻的。如果矩阵中有若干个1是相邻的(不必两两相邻)，那么称这些1构成了一个块。求给定的矩阵中的“块”的个数。</span><br><span class="line">0 1 1 1 0 0 1</span><br><span class="line">0 0 1 0 0 0 0</span><br><span class="line">0 0 0 0 1 0 0</span><br><span class="line">0 0 0 1 1 1 0</span><br><span class="line">1 1 1 0 1 0 0 </span><br><span class="line">1 1 1 1 0 0 0 </span><br><span class="line">例如上面的6*7矩阵中，块的个数为4</span><br></pre></td></tr></table></figure>
-<p>对这个问题的基本求解的基本思想是：枚举每一个位置的元素，如果为0，则跳过；如果为1，则使用BFS查询与该位置元素相邻的4个位置(前提是不出界)，判断他们是否为1(如果某个相邻的位置为1)，则同样去查询与该位置相邻的4个位置，直到整个“1”块访问完毕)。而为了防止走回头路，一般可以设置一个bool型的数组inq(即in queue的简写)来记录每个位置是否在bfs中已入过队。</p>
-<p>一个小技巧：对当前位置(x, y)来说，由于与其相邻的4个位置分别为(x, y + 1)、(x, y - 1)、(x+1, y)、(x-1, y)，那么不妨设置下面两个增量数组，来表示四个方向(竖着看即为(0,1), (0, -1), (1,0), (-1,0) )</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> X[] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> Y[] = &#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br></pre></td></tr></table></figure>
-<p>这样就可以使用for循环来枚举4个方向，以确定与当前的坐标(nowX, nowY)相邻的4个位置，如下所示：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">    newX = nowX + X[i];</span><br><span class="line">    newY = nowY + Y[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>本例代码 要好好体会：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> x, y;	<span class="comment">//位置(x, y) </span></span><br><span class="line">&#125;Node;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m;		<span class="comment">//矩阵大小为n*m</span></span><br><span class="line"><span class="keyword">int</span> matrix[maxn][maxn];		<span class="comment">//01矩阵</span></span><br><span class="line"><span class="keyword">bool</span> inq[maxn][maxn] = &#123;<span class="literal">false</span>&#125;;		<span class="comment">//记录位置(x, y)是否已经入过队 </span></span><br><span class="line"><span class="keyword">int</span> X[<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>&#125;;	<span class="comment">//增量数组</span></span><br><span class="line"><span class="keyword">int</span> Y[<span class="number">4</span>] = &#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;	</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;	<span class="comment">//判断坐标(x, y)是否需要访问</span></span><br><span class="line">	<span class="comment">//越界返回false</span></span><br><span class="line">	<span class="keyword">if</span>(x &gt;= n || x &lt; <span class="number">0</span> || y &gt;= m || y &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="comment">//当前位置为0 或者(x, y)已经入过队伍 返回false </span></span><br><span class="line">	<span class="keyword">if</span>(matrix[x][y] == <span class="number">0</span> || inq[x][y] == <span class="literal">true</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="comment">//以上都不满足返回true</span></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;	</span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">//BFS函数访问位置(x, y)所在的块， 将该块中所有的"1" 的inq都设置为true </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFS</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;node&gt; Q;	<span class="comment">//定义队列</span></span><br><span class="line">	Node.x = x, Node.y = y;	<span class="comment">//当前结点的坐标为(x, y)</span></span><br><span class="line">	Q.push(Node);		<span class="comment">//将结点入队</span></span><br><span class="line">	inq[x][y] = <span class="literal">true</span>;	<span class="comment">//已入过队</span></span><br><span class="line">	<span class="keyword">while</span>(!Q.empty()) &#123;</span><br><span class="line">		node top = Q.front();	<span class="comment">//取出队首元素</span></span><br><span class="line">		Q.pop();	<span class="comment">//队首元素出队</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;	<span class="comment">//循环4次得到4个相邻的位置 </span></span><br><span class="line">			<span class="keyword">int</span> newX = top.x + X[i];</span><br><span class="line">			<span class="keyword">int</span> newY = top.y + Y[i];</span><br><span class="line">			<span class="keyword">if</span>(judge(newX, newY)) &#123;		<span class="comment">//如果新位置(newX, newY) 需要访问</span></span><br><span class="line">				<span class="comment">//设置Node的坐标为(newX, newY)</span></span><br><span class="line">				Node.x = newX, Node.y = newY;</span><br><span class="line">				Q.push(Node);		<span class="comment">//将结点Node加入队列</span></span><br><span class="line">				inq[newX][newY] = <span class="literal">true</span>;		<span class="comment">//设置位置(newX, newY)已入过队伍 </span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; n; x++) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; m; y++) &#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;matrix[x][y]);		<span class="comment">//读入01矩阵 </span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> ans = <span class="number">0</span>;	<span class="comment">//存放块数</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; n; x++) &#123;	<span class="comment">//枚举每一个位置</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; m; y++) &#123;	</span><br><span class="line">			<span class="comment">//入过元素为1 且未入过队伍</span></span><br><span class="line">			<span class="keyword">if</span>(matrix[x][y] == <span class="number">1</span> &amp;&amp; inq[x][y] == <span class="literal">false</span>) &#123;</span><br><span class="line">				ans++;	<span class="comment">//块数加1</span></span><br><span class="line">				BFS(x, y);	<span class="comment">//访问整个块，将该块所有"1"的inq都标记为true </span></span><br><span class="line">			&#125; </span><br><span class="line">		&#125; </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>接下来再看一个类似的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">给定一个n*m大小的迷宫， 其中*代表不可通过的墙壁“.”代表平地，S代表起点，T代表终点。移动过程中，如果当前位置是(x, y)（下标从0开始），且每次只能够往前上下左右四个位置的平地，求从起点S到终点T最少走多少步。</span><br><span class="line">. . . . .</span><br><span class="line">. * . * .</span><br><span class="line">. * S * .</span><br><span class="line">. * * * .</span><br><span class="line">. . . T *</span><br><span class="line">上面的样例中，S的坐标为(2, 2) T的坐标为(4, 3)</span><br></pre></td></tr></table></figure>
-<p>在本题中，由于求的是最少的步数，而BFS是通过层次的顺序来遍历，因此可以从起点S开始计数遍历的层数，那么在到达终点T时候的层数就是需要求解的起点到终点T的最少步数。</p>
-<p>代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> x, y;	<span class="comment">//位置(x, y)</span></span><br><span class="line">	<span class="keyword">int</span> step;	<span class="comment">//step为从起点S到达该位置的最少步数(即层数) </span></span><br><span class="line">&#125;S, T, Node;	<span class="comment">//S为起点 T为终点 Node为临时结点</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m;	<span class="comment">//n行 m列 </span></span><br><span class="line"><span class="keyword">char</span> maze[maxn][maxn];	<span class="comment">//用于存储迷宫信息 </span></span><br><span class="line"><span class="keyword">bool</span> inq[maxn][maxn] = &#123;<span class="literal">false</span>&#125;;	<span class="comment">//记录位置(x, y)是否已入过队</span></span><br><span class="line"><span class="keyword">int</span> X[<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>&#125;;	<span class="comment">//增量数组</span></span><br><span class="line"><span class="keyword">int</span> Y[<span class="number">4</span>] = &#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;	</span><br><span class="line"></span><br><span class="line"><span class="comment">//检测位置(x, y)是否有效</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x &gt;= n || x &lt; <span class="number">0</span> || y &gt;= m || y &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;	<span class="comment">//越界</span></span><br><span class="line">	<span class="keyword">if</span>(maze[x][y] == <span class="string">'*'</span>) <span class="keyword">return</span> <span class="literal">false</span>;		<span class="comment">//墙壁*</span></span><br><span class="line">	<span class="keyword">if</span>(inq[x][y] == <span class="literal">true</span>) <span class="keyword">return</span> <span class="literal">false</span>;		<span class="comment">//已入过队</span></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;	<span class="comment">//有效位置 </span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BFS</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;node&gt; q;	<span class="comment">//定义队列</span></span><br><span class="line">	q.push(S);	<span class="comment">//将起点S入队</span></span><br><span class="line">	<span class="keyword">while</span>(!q.empty()) &#123;</span><br><span class="line">		node top = q.front();	<span class="comment">//取出队首元素</span></span><br><span class="line">		q.pop();	<span class="comment">//队首元素出队</span></span><br><span class="line">		<span class="keyword">if</span>(top.x == T.x &amp;&amp; top.y == T.y) &#123;</span><br><span class="line">			<span class="keyword">return</span> top.step;	<span class="comment">//终点，直接返回最少步数 </span></span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">			<span class="keyword">int</span> newX = top.x + X[i];</span><br><span class="line">			<span class="keyword">int</span> newY = top.y + Y[i];</span><br><span class="line">			<span class="keyword">if</span>(test(newX, newY)) &#123;	<span class="comment">//位置(newX, newY)有效</span></span><br><span class="line">				<span class="comment">//设置Node的坐标为(newX, newY)</span></span><br><span class="line">				Node.x = newX;</span><br><span class="line">				Node.y = newY;</span><br><span class="line">				Node.step = top.step + <span class="number">1</span>;	<span class="comment">//Node层数为top的层数+1</span></span><br><span class="line">				q.push(Node);	<span class="comment">//将结点Node加入队列</span></span><br><span class="line">				inq[newX][newY] = <span class="literal">true</span>;		<span class="comment">//设置位置(newX, newY)已入过队伍 </span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;	<span class="comment">//无法到达终点T时返回-1  </span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		getchar();	<span class="comment">//过滤掉每行后面的换行符</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++) &#123;</span><br><span class="line">			maze[i][j] = getchar();</span><br><span class="line">		&#125; </span><br><span class="line">		maze[i][m + <span class="number">1</span>] = <span class="string">'\0'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;S.x, &amp;S.y, &amp;T.x, &amp;T.y);	<span class="comment">//起点和终点的坐标</span></span><br><span class="line">	S.step = <span class="number">0</span>;	<span class="comment">//初始化起点的层数为0 即S到S的最少步数为0</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, BFS());</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输入数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">5 5</span><br><span class="line">.....</span><br><span class="line">.*.*.</span><br><span class="line">.*S*.</span><br><span class="line">.***.</span><br><span class="line">...T*</span><br><span class="line">2 2 4 3  //起点与终点的坐标</span><br></pre></td></tr></table></figure>
-<p>输出数据：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">11</span><br></pre></td></tr></table></figure>
-<p>这里最后还要强调一点，在BFS中设置的inq数组的含义是判断该节点是否已经入过队列，而不是结点是否已经被访问，区别在于，如果设置成是否已经被访问过，有可能在某个结点正在队列中(但是还没有访问)时由于其他节点可以到达这个而将这个再次入队，导致很多结点反复入队，计算量大大增加。因此BFS中让每个结点只入队一次，故需要设置inq数组，判断结点是否入队过 而不是结点是否已经被访问。</p>
-<p>最后指出，当使用STL的queue时，元素入队的push操作知识制造了该元素的一个副本入队，因此在入队后对原元素的修改不会影响队列中的副本，而对队列中副本的修改也不会改变原元素，需要注意此处可能会引入bug。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> data;</span><br><span class="line">&#125;a[<span class="number">10</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;node&gt; q;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">		a[i].data = i; 	<span class="comment">//a[1] = 1, a[2] = 2, a[3] = 3</span></span><br><span class="line">		q.push(a[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//尝试直接把队首元素(即a[1])的数据域改为100</span></span><br><span class="line">	q.front().data = <span class="number">100</span>;</span><br><span class="line">	<span class="comment">//事实上对队列元素的修改无法改变原元素</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d %d %d\n"</span>, a[<span class="number">1</span>].data, a[<span class="number">2</span>].data, a[<span class="number">3</span>].data);</span><br><span class="line">	<span class="comment">//然后尝试直接修改a[1]的数据域为200(即a[1] 上面已经修改为100)</span></span><br><span class="line">	a[<span class="number">1</span>].data = <span class="number">200</span>;</span><br><span class="line">	<span class="comment">//事实上对原元素的修改也无法改变队列中的元素</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, q.front().data);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 2 3</span><br><span class="line">100</span><br></pre></td></tr></table></figure>
-<p>依据这一特性，当需要对队列中的元素进行修改而不仅仅是访问的时候，队列中存放的元素最好不是元素本身，而是它们的编号(如果是数组的话则是下标)。例如，把上面的程序改为:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> data;</span><br><span class="line">&#125;a[<span class="number">10</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">		a[i].data = i;	<span class="comment">//a[1] = 1, a[2] = 2, a[3] = 3;</span></span><br><span class="line">		q.push(i);	<span class="comment">//这里是将数组下标i入队 而不是结点a[i]本身 </span></span><br><span class="line">	&#125;</span><br><span class="line">	a[q.front()].data = <span class="number">100</span>;	<span class="comment">//q.front()为下标 通过a[q.front()]即可修改元素</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, a[<span class="number">1</span>].data); </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1637,7 +1606,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
