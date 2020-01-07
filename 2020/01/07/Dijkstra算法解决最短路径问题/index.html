@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="单源最短路径问题：计算源点到其他各个顶点的最短路径长度 全局最短路径问题：图中任意两个节点之间的最短路径 以上两个问题均可以归结为最短路径问题(事实上对每个结点进行求单源最短路径就可以解决全局最短路径) Dijkstra算法用于解决单源最短路径，但是不能求带负边权的最短路径。对于Dijkstra算法的基本含义，可以参考浙大数据结构的慕课的讲解，本文主要解决如何编程实现，以及编程模板，以及变式。 D">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dijkstra算法解决最短路径问题">
+<meta property="og:url" content="http://yoursite.com/2020/01/07/Dijkstra算法解决最短路径问题/index.html">
+<meta property="og:site_name" content="GaoLijie&#39;s Blog">
+<meta property="og:description" content="单源最短路径问题：计算源点到其他各个顶点的最短路径长度 全局最短路径问题：图中任意两个节点之间的最短路径 以上两个问题均可以归结为最短路径问题(事实上对每个结点进行求单源最短路径就可以解决全局最短路径) Dijkstra算法用于解决单源最短路径，但是不能求带负边权的最短路径。对于Dijkstra算法的基本含义，可以参考浙大数据结构的慕课的讲解，本文主要解决如何编程实现，以及编程模板，以及变式。 D">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-01-07T12:27:42.472Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dijkstra算法解决最短路径问题">
+<meta name="twitter:description" content="单源最短路径问题：计算源点到其他各个顶点的最短路径长度 全局最短路径问题：图中任意两个节点之间的最短路径 以上两个问题均可以归结为最短路径问题(事实上对每个结点进行求单源最短路径就可以解决全局最短路径) Dijkstra算法用于解决单源最短路径，但是不能求带负边权的最短路径。对于Dijkstra算法的基本含义，可以参考浙大数据结构的慕课的讲解，本文主要解决如何编程实现，以及编程模板，以及变式。 D">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/01/07/Dijkstra算法解决最短路径问题/">
+
+
+
+
+
+  <title>Dijkstra算法解决最短路径问题 | GaoLijie's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GaoLijie's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello world</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/07/Dijkstra算法解决最短路径问题/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Dijkstra算法解决最短路径问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-07T16:18:25+08:00">
+                2020-01-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>单源最短路径问题：计算源点到其他各个顶点的最短路径长度</p>
+<p>全局最短路径问题：图中任意两个节点之间的最短路径</p>
+<p>以上两个问题均可以归结为最短路径问题(事实上对每个结点进行求单源最短路径就可以解决全局最短路径)</p>
+<p>Dijkstra算法用于解决单源最短路径，但是不能求带负边权的最短路径。对于Dijkstra算法的基本含义，可以参考浙大数据结构的慕课的讲解，本文主要解决如何编程实现，以及编程模板，以及变式。</p>
+<p>Dijkstra + DFS用于打印最短路径</p>
+<p>先上伪代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//G[maxv][maxv]为图 设置为全局变量 dis为一维数组，为源点到各个顶点的最短路径长度(累积最优距离),s为起点</span></span><br><span class="line"><span class="comment">//inf为无穷大一般设置为999999999 maxv为顶点的个数(看题目要求)</span></span><br><span class="line">Dijkstra(G, dis[], s) &#123;</span><br><span class="line">	初始化(一般G[i][j]任意两个点均为inf 以及对其他数据的初始化多用fill函数)</span><br><span class="line">	<span class="keyword">for</span>(循环n次n为题目给出的顶点个数 一般与输入值有关) </span><br><span class="line">	&#123;</span><br><span class="line">		u = 使得dis[u]为最小值的且还未被访问的顶点标号;</span><br><span class="line">		<span class="comment">//使用一个for循环找u</span></span><br><span class="line">		记u已经被访问;	<span class="comment">//用一个bool数组记录</span></span><br><span class="line">		<span class="keyword">for</span>(从u出发能够达到的所有顶点v) </span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(v未被访问过 &amp;&amp; 以u为中介点使得s到顶点v的最短距离dis[v]更优)</span><br><span class="line">            优化dis[v];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>图有两种存储格式，邻接矩阵或者邻接表，主要区别在对v结点的寻找注意区别。</p>
+<p>需要提前定义全局变量</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxv = <span class="number">520</span>;	<span class="comment">//具体要看题目顶点数量的规模 一般要比最大的至少多20否则有可能会段错误</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">999999999</span>;</span><br></pre></td></tr></table></figure>
+<p>接下来为两种模板:</p>
+<p>①邻接矩阵版(笔者较为常用领接矩阵法):</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//领接矩阵版</span></span><br><span class="line"><span class="keyword">int</span> n, G[maxv][maxv];	<span class="comment">//n为顶点数量fill(G[0], G[0] + maxv * maxv, inf);对图的初始化注意二维数组fill的写法</span></span><br><span class="line"><span class="keyword">int</span> dis[maxv];	<span class="comment">//当前起点到各个顶点累积最短距离</span></span><br><span class="line"><span class="keyword">int</span> pre[maxv];	<span class="comment">//用于记录当前结点的前一个结点</span></span><br><span class="line"><span class="keyword">bool</span> vis[maxv] = &#123;<span class="literal">false</span>&#125;;	<span class="comment">//用于记录当前节点是否被访问过 vis[i] == true为访问过 初值均为未被访问</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;	<span class="comment">//s为起点</span></span><br><span class="line">    fill(dis, dis + MAXV, inf);	<span class="comment">//fill函数将一维数组赋值为inf(注意一维数组的写法dis后不加括号)</span></span><br><span class="line">	dis[s] = <span class="number">0</span>;	<span class="comment">//起始点到自身的距离为0 务必牢记 为算法的起点</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;	<span class="comment">//循环n次</span></span><br><span class="line">        <span class="keyword">int</span> u = <span class="number">-1</span>, min = inf;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;	<span class="comment">//使得dis[u]为最小值的且还未被访问的顶点标号;</span></span><br><span class="line">            <span class="keyword">if</span>(vis[j] == <span class="literal">false</span> &amp;&amp; dis[u] &lt; min) &#123;</span><br><span class="line">                u = j;</span><br><span class="line">                min = d[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(u == <span class="number">-1</span>) <span class="keyword">return</span>;	<span class="comment">//如果没有找到小于inf的d[u] 说明剩下的剩余顶点和起点s不连通</span></span><br><span class="line">        vis[u] = <span class="literal">true</span>;	<span class="comment">//标记访问过u 即u已经被收进了已经访问的结点当中</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; n; v++) &#123;</span><br><span class="line">            <span class="comment">//如果v结点未被访问且经过u结点到达v可以使得dis[v]更加优(小)则更新dis[v]</span></span><br><span class="line">            <span class="keyword">if</span>(vis[v] == <span class="literal">false</span> &amp;&amp; G[u][v] != inf) &#123;</span><br><span class="line">               <span class="keyword">if</span>(dis[u] + G[u][v] &lt; dis[v]) &#123;	</span><br><span class="line">                	dis[v] = dis[u] + G[u][v];</span><br><span class="line">                   	pre[v] = u;	<span class="comment">//v的前一个结点为u</span></span><br><span class="line">            	&#125;</span><br><span class="line">                <span class="comment">//此处是关键后序会修改此处进行有多个标准时修改或者添加更新结点规则</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>②领接表版(主要区别在于存储使用vector 对v的更新上也有些不同)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> v, d;		<span class="comment">//v为目标顶点, Adj[i][j].d从i到Adj[i][j].v结点的边权 使用的存储结构不同</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">vector</span>&lt;Node&gt; Adj[maxv];		<span class="comment">//图G的领接表存储结构 Adj[u]存放从顶点u出发可以到达的所有顶点 Adj[u][j].v代表u可以到达该顶点标号 Adj[u][j].d为从i到Adj[i][j].v结点的边权</span></span><br><span class="line"><span class="keyword">int</span> n;	<span class="comment">//n为顶点数目(输入数据中) maxv为最大顶点数目(题目规定的规模)</span></span><br><span class="line"><span class="keyword">int</span> dis[maxv];	<span class="comment">//起点到各个顶点的最短距离长度(累积最短)</span></span><br><span class="line"><span class="keyword">bool</span> vis[maxv] = &#123;<span class="literal">false</span>&#125;;	<span class="comment">//标记数组 vis[i] == true 表示已经访问 初值为false</span></span><br><span class="line"><span class="keyword">int</span> pre[maxv];	<span class="comment">//用于记录前一个结点</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;		<span class="comment">//s为起点</span></span><br><span class="line">    fill(dis, dis + maxv, inf);		<span class="comment">//fill函数将整个d数组赋值为inf</span></span><br><span class="line">    dis[s] = <span class="number">0</span>;	<span class="comment">//起始结点为0 为递归起点</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> u = <span class="number">-1</span>, min = inf;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(vis[j] == <span class="literal">false</span> &amp;&amp; dis[j] &lt; min) &#123;</span><br><span class="line">                u = j;</span><br><span class="line">                min = dis[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//找不到u说明与剩下结点不连通</span></span><br><span class="line">        <span class="keyword">if</span>(u == <span class="number">-1</span>) <span class="keyword">return</span>;</span><br><span class="line">        vis[u] = <span class="literal">true</span>;	<span class="comment">//标记本节点已经被访问 收入已访问结点中</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; Adj[u].size(); j++) &#123;	</span><br><span class="line">            <span class="comment">//此处遍历时直接获得u可以到达的结点为领接表优势注意从0-Adj[u].size();</span></span><br><span class="line">            <span class="keyword">int</span> v = Adj[u][j].v;</span><br><span class="line">            <span class="keyword">if</span>(vis[v] == <span class="literal">false</span> &amp;&amp; dis[u] + Adj[u][j].d &lt; dis[v]) &#123;	<span class="comment">//优化规则</span></span><br><span class="line">                dis[v] = dis[u] + Adj[u][j].d;</span><br><span class="line">                pre[v] = u;	<span class="comment">//v的前一个结点为u</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两种结构打印最短路径pre[]数组中数据均使用dfs打印</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> v)</span> </span>&#123;	<span class="comment">//s为起点 v为当前访问的顶点编号 我们从终点开始递归 因为pre中存的都是前一个结点当全局变量中存放了其实结点s则可以直接写void dfs(int v)</span></span><br><span class="line">	<span class="keyword">if</span>(v == s) &#123;<span class="comment">//如果当前已经到达起始结点s 则输出并且返回</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, s);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	dfs(s, pre[v]);	<span class="comment">//递归访问v结点的前一个结点</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, v);	<span class="comment">//从最终起点层返回回来后执行上一层(次起点层)的顶点 就可以获得从起点开始的顺序序列</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下总结三种考察方法:两种标尺进行对多种路径的淘汰和筛选使得结果唯一。即对于题目有两种及以上的路径满足第一标尺时候，题目会给出第二个甚至更多等级的标尺进行对重复的路径筛选。以第二标尺为例，更多重可以类推。</p>
+<p><strong>对于第二标尺的出题方法，我们都只需要增加一个数组来存放新增的边权或者点权或者是最短路径的条数，然后只要在Dijkstra算法中修改对d[v]的步骤即可，其他不用动按模板写就可以。</strong></p>
+<p>常见三种类型:</p>
+<p>①给每条边增加一个边权(cost 如距离为第一标尺 则添加路费为第二标尺)，题目则要求在距离最短的路径中有多条的时候要求在路径上花费之和最小。(如果有其他边权含义也可以是总cost最大，例如可以添加在每条路径上路过的树的数量最多…)</p>
+<p>实现的时候增加cost[maxv][maxv]代表代表u→v的花费图(题目输入)并且增加一个c[]用于存放从起点u到各个顶点的累积花费。(其实原理和距离的很像G[u][v]为距离图 dis[]为源点到各个顶点的累积距离)</p>
+<p><strong>重点是对值的初始化问题：初始化时c[s]为0、其余c[u]为inf 对花费图cost[u][v]初试为inf 再把题目输入的去更新对应的数值即可(求花费最少为第二标尺时)。</strong>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; n; v++) &#123;</span><br><span class="line">	<span class="comment">//如果v未被访问 &amp;&amp; u可以到达v</span></span><br><span class="line">	<span class="keyword">if</span>(vis[v] == <span class="literal">false</span> &amp;&amp; G[u][v] != inf) &#123;</span><br><span class="line">       <span class="keyword">if</span>(dis[u] + G[u][v] &lt; dis[v])&#123;</span><br><span class="line">			dis[v] = dis[u] + G[u][v];		</span><br><span class="line">			c[v] = c[u] + cost[u][v];<span class="comment">//距离是第一标尺当第一标尺无冲突的时第二标尺无条件服从第一标尺</span></span><br><span class="line">			pre[v] = u;</span><br><span class="line">       &#125;<span class="keyword">else</span> <span class="keyword">if</span>(d[u] + G[u][v] == d[v] &amp;&amp; c[u] + cost[u][v] &lt; c[v])&#123; </span><br><span class="line">        <span class="comment">//最短距离相同的时候看是否可以让c[v]更佳可以则更新c[v]</span></span><br><span class="line">			c[v] = c[u] + cost[u][v];</span><br><span class="line">        	pre[v] = u;</span><br><span class="line">	  &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>②新增点权。当给定每个点权(第二标尺) 要求在最短路径上有多条的时候要求点权最大。如每个顶点有物资，要求最短路径有多条的时候要求路径上点权之和最大(如果点权是其他含义也可以是最小)</p>
+<p>增加一个点权的几何weigh[u]代表城市u的点权大小,并且增加w[]代表从源点到达目标城市收集的最大物资(最大累积点权和)</p>
+<p><strong>初始化规则：只有w[s]为weight[s]其他均为w[u]=0。</strong>更新规则如下展示</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; n; v++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(vis[v] == <span class="literal">false</span> &amp;&amp; G[u][v] != inf) &#123;</span><br><span class="line">        <span class="keyword">if</span>(dis[u] + G[u][v] &lt; dis[v]) &#123;</span><br><span class="line">            dis[v] = dis[u] + G[u][v];</span><br><span class="line">            w[v] = weight[v] + w[u];	<span class="comment">//当第一标尺无冲突 无条件修改点权</span></span><br><span class="line">            pre[v] = u;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(dis[u] + G[u][v] == dis[v] &amp;&amp; weight[v] + w[u] &gt; w[v])&#123;</span><br><span class="line">            w[v] = w[u] + weight[v];	<span class="comment">//第一标尺最短距离相同的时候 可以使得w[v]更优更新</span></span><br><span class="line">            pre[v] = u;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>③新增求最短路径的条数。题目一般会直接问最短路径的条数为多少条。</p>
+<p>只需要增加一个数组num[]令从起点s到达顶点u的最短路径的条数为num[u] </p>
+<p><strong>初始化时只需要有num[s]=1、其余num[u]均为0.</strong>即可在dis[u] + G[u][v] &lt; dis[u]的时候更新dis[v]并且让num[v]继承num[u],而当d[u] + G[u][v] == d[v]的时候(最短路径相同的时候)将num[u]加到num[v]上。代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; n; v++) &#123;</span><br><span class="line">	<span class="keyword">if</span>(vis[v] == <span class="literal">false</span> &amp;&amp; G[u][v] != inf) &#123;</span><br><span class="line">		<span class="keyword">if</span>(dis[u] + G[u][v] &lt; dis[v]) &#123;</span><br><span class="line">            d[v] = d[u] + G[u][v];</span><br><span class="line">            num[v] = num[u];</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(dis[u] + G[u][v] == dis[v]) &#123;</span><br><span class="line">            num[v] = num[v] + num[u];<span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>仔细的读者可能发现此处没有保存每个节点的前驱节点 因为有多条路径下文会介绍一种更好的方法来保存和输出所有最小路径(如果有多条的情况)</p>
+<p>先来一个例子汇总一下这三个考法:</p>
+<p>e.g. 要求路径最短 又要保证点权之和最大 而且还要输出最短路径的个数 还要输出路径 保证第二权重确定后路径唯一。(考题往往出的比这还复杂)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; n; v++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(vis[v] == <span class="literal">false</span> &amp;&amp; G[u][v] != inf) &#123;</span><br><span class="line">        <span class="keyword">if</span>(dis[u] + G[u][v] &lt; dis[v]) &#123;</span><br><span class="line">            dis[v] = dis[u] + G[u][v];</span><br><span class="line">            w[v] = w[u] + weight[v];</span><br><span class="line">            num[v] = num[u];</span><br><span class="line">            pre[v] = u;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(dis[u] + G[u][v] == dis[v]) &#123;</span><br><span class="line">            num[v] = num[v] + num[u];</span><br><span class="line">            <span class="keyword">if</span>(w[v] &lt; w[u] + weight[v]) &#123;	<span class="comment">//只有权重更优的时候才更新 题目保证了唯一</span></span><br><span class="line">            	w[v] = w[u] + weight[v];</span><br><span class="line">            	pre[v] = u;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printPath</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;	<span class="comment">//逆序存放 递归逆序打印</span></span><br><span class="line">    <span class="keyword">if</span>(v == s) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>, v);</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    printPath(pre[v]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但这样无法获得多条路径(可能存在多条路径 这种编程方式只是题目确保了唯一)当有多条路径的时候要使用vector数组在存放。</p>
+<p>也可以不这么麻烦(当然以上的是必须要牢固背下来理解下来的，但也可以使用。以下要介绍一种更为方便的思路Dijkstra+DFS。即用Dijkstra求出最短路径还有pre数组，然后使用深度优先遍历来求想要的一切，包括点权最大，边权最大、路径个数、打印数据</p>
+<p>可能有多条路径所以Dijkstra算法中pre数组用vector<int>存放pre[maxv]。以下写法分两步</int></p>
+<p>①Dijkstra算法求最短路径 存储前驱节点在vector中</p>
+<p>在Dijkstra函数中求前驱节点pre[maxv]此处保留相同长度的路径节点</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pre[maxv]; <span class="comment">//事先需要声明 vector&lt;int&gt; pre[maxv];</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Dijkstra部分需要修改使得多种路径的方式存储在vector中</span></span><br><span class="line"><span class="keyword">if</span>(dis[u] + G[u][v] &lt; dis[v]) &#123;</span><br><span class="line">    dis[v] = dis[u] + G[u][v];</span><br><span class="line">    pre[v].clear();		<span class="comment">//因为有更好的故淘汰原来的最优前驱点</span></span><br><span class="line">    pre[v].push_back(u);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span>(dis[i] + G[u][v] == dis[v]) &#123;</span><br><span class="line">    pre[v].push_back(u);	<span class="comment">//当距离相同的时候有了相同距离的前驱节点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完整的Dijkstra函数如下(要会完整的写出来)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pre[maxv];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;		<span class="comment">//s为起点</span></span><br><span class="line">	fill(dis, dis + maxv, inf);		<span class="comment">//距离第一标尺初始化</span></span><br><span class="line">	dis[s] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> u = <span class="number">-1</span>, min = inf;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(vis[j] == <span class="literal">false</span> &amp;&amp; dis[j] &lt; min) &#123;</span><br><span class="line">				u = j;</span><br><span class="line">				min = dis[j];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(u == <span class="number">-1</span>) <span class="keyword">return</span>;</span><br><span class="line">		vis[u] = <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; n; v++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(vis[v] == <span class="literal">false</span> &amp;&amp; G[u][v] != inf) &#123;</span><br><span class="line">				<span class="keyword">if</span>(dis[u] + G[u][v] &lt; dis[v]) &#123;</span><br><span class="line">					dis[v] = dis[u] + G[u][v];</span><br><span class="line">					pre[v].clear();	<span class="comment">//清空v前驱</span></span><br><span class="line">					pre[v].push_back(u);	<span class="comment">//令v的前驱为u	</span></span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span>(dis[u] + G[u][v] == d[v]) &#123;</span><br><span class="line">					pre[v].push_back(u);	<span class="comment">//相同距离的前驱节点多了一个 故令v的前驱节点添加一个u</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>②求得了pre数组，就可以得知所有的最短路径，然后使用dfs去遍历所有的最短路径，找出一条使第二标尺最优的路径。</p>
+<p>每次遍历到达叶子节点就会产生一条完整的最短路径。计算每一条的路径的第二标尺的值。并在每次遍历过程中保存最优的第二标尺值(不断更新最优标尺值)，这样遍历完所有的路径就可以获得最优的第二标尺与最优的路径。</p>
+<p>考虑些dfs递归函数:</p>
+<p>三个部分</p>
+<p>（1）作为全局变量的第二标尺最优值 optValue</p>
+<p>（2）记录最优路径的数组path(使用vector来存储)因为vector可以直接赋值</p>
+<p>（3）临时记录dfs遍历到达叶子节点时的路径tempPath(也用vector存储)</p>
+<p>代码如下:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> optValue;	<span class="comment">//第二标尺最优值</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pre[maxv];	<span class="comment">//存放结点的前驱结点</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; path, tempPath;	<span class="comment">//最优路径 临时路径</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> v)</span>	</span>&#123;	<span class="comment">//v为当前访问结点</span></span><br><span class="line">	<span class="comment">//递归边界</span></span><br><span class="line">    <span class="keyword">if</span>(v == s) &#123;	<span class="comment">//如果到达s叶子节点(即路径的起始结点)</span></span><br><span class="line">        tempPath.push_back(v);	<span class="comment">//起始结点加入临时路径tempPath最后 到达起始点将v给亚茹堆栈tempPath中 </span></span><br><span class="line">        <span class="keyword">int</span> value = tempPath上的value值;</span><br><span class="line">        <span class="keyword">if</span>(value 优于 opValue) &#123;</span><br><span class="line">            opValue = value;</span><br><span class="line">            path = tempPath;</span><br><span class="line">        &#125;</span><br><span class="line">        tempPath.pop_back();	<span class="comment">//刚刚加入的起始结点删除保证了每一层既把本层的结点push也把本层的结点pop</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//递归式</span></span><br><span class="line">    tempPath.push_back(v);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; pre[v].size(); i++) &#123;</span><br><span class="line">        dfs(pre[v][i]);	<span class="comment">//pre[v][i]在下一层dfs中被push和pop</span></span><br><span class="line">    &#125;	<span class="comment">//dfs保证了一路算到底到v == s 使得每一条都被算过</span></span><br><span class="line">    tempPath.pop_back();	<span class="comment">//pop为吧本层v结点pop</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（1）对于递归边界。tempPath为保存一条完整的路径，如果访问到的本层为一个叶子结点就是当前路径的开始结点 说明到达递归边界 <strong>把起始结点vpush进入堆栈tempPath 此时tempPath就有了一条完整的路径</strong>，如果计算得到的value值大于最大值optValue则path = tempPath 保存路径维护path为为当前的最优路径，并且要把tempPath中最后一个结点(起始) 再return 来进行之后的递归。</p>
+<p>（2）<strong>对于递归式，每一次为把当前访问的结点压入，然后找本层结点的pre[v][i]进行递归操作，递归完毕以后弹出最后一个结点。</strong></p>
+<p>（3）计算当前tempPath边权或者点权之和的代码：(不同value值的算法)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在dfs中计算value值</span></span><br><span class="line"><span class="comment">//边权之和</span></span><br><span class="line"><span class="keyword">int</span> value = <span class="number">0</span>;	</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = tempPath.size() - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">    <span class="keyword">int</span> id = tempPath[i], idnext = tempPath[i - <span class="number">1</span>];</span><br><span class="line">    value += v[id][idnext];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//点权之和</span></span><br><span class="line"><span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = tempPath.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">    <span class="keyword">int</span> id = tempPath[i];	<span class="comment">//当前结点id</span></span><br><span class="line">    value += weight[id];	<span class="comment">//value增加结点id的点权。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后以一个例子结束本篇文章:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">题目: Travel Plan </span><br><span class="line">A traveler&apos;s map gives the distances between cities along the highways, together with the cost of each highway. Now you are supposed to write a program to help a traveler to decide the shortest path between his/her starting city and the destination. If such a shortest path is not unique, you are supposed to output the one with the minimum cost, which is guaranteed to be unique.</span><br><span class="line"></span><br><span class="line">Input Specification:</span><br><span class="line">Each input file contains one test case. Each case starts with a line containing 4 positive integers N, M, S, and D, where N (≤500) is the number of cities (and hence the cities are numbered from 0 to N−1); M is the number of highways; S and D are the starting and the destination cities, respectively. Then M lines follow, each provides the information of a highway, in the format:</span><br><span class="line"></span><br><span class="line">City1 City2 Distance Cost</span><br><span class="line">    </span><br><span class="line">where the numbers are all integers no more than 500, and are separated by a space.</span><br><span class="line"></span><br><span class="line">Output Specification:</span><br><span class="line">For each test case, print in one line the cities along the shortest path from the starting point to the destination, followed by the total distance and the total cost of the path. The numbers must be separated by a space and there must be no extra space at the end of output.</span><br><span class="line"></span><br><span class="line">Sample Input:</span><br><span class="line">4 5 0 3</span><br><span class="line">0 1 1 20</span><br><span class="line">1 3 2 30</span><br><span class="line">0 3 4 10</span><br><span class="line">0 2 2 20</span><br><span class="line">2 3 1 20</span><br><span class="line"></span><br><span class="line">Sample Output:</span><br><span class="line">0 2 3 3 40</span><br></pre></td></tr></table></figure>
+<p>第一种写法(传统直接Dijkstra 第二标尺也在Dijkstra中实现)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">999999999</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxv = <span class="number">520</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m, s, d;		<span class="comment">//n为城市的数量 m为高速公路的数量 s为开始的城市 d为结束的城市 </span></span><br><span class="line"><span class="keyword">int</span> G[maxv][maxv];</span><br><span class="line"><span class="keyword">int</span> w[maxv];</span><br><span class="line"><span class="keyword">bool</span> vis[maxv] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> cost[maxv][maxv];</span><br><span class="line"><span class="keyword">int</span> c[maxv];</span><br><span class="line"><span class="keyword">int</span> prepath[maxv];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; disprepath;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfsprepath</span><span class="params">(<span class="keyword">int</span> vcity)</span> </span>&#123;</span><br><span class="line">	disprepath.push_back(vcity);</span><br><span class="line">	<span class="keyword">if</span>(vcity == s) <span class="keyword">return</span>;</span><br><span class="line">	dfsprepath(prepath[vcity]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	fill(G[<span class="number">0</span>], G[<span class="number">0</span>] + maxv * maxv, inf);</span><br><span class="line">	fill(cost[<span class="number">0</span>], cost[<span class="number">0</span>] + maxv * maxv, inf);</span><br><span class="line">	fill(w, w + maxv, inf);</span><br><span class="line">	fill(c, c + maxv, inf);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;n, &amp;m, &amp;s, &amp;d);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> c1, c2, Dis, Cost;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; c1 &gt;&gt; c2 &gt;&gt; Dis &gt;&gt; Cost;</span><br><span class="line">		G[c1][c2] = G[c2][c1] = Dis;</span><br><span class="line">		cost[c1][c2] = cost[c2][c1] = Cost; </span><br><span class="line">	&#125;</span><br><span class="line">	w[s] = <span class="number">0</span>;</span><br><span class="line">	c[s] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		prepath[i] = i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> u = <span class="number">-1</span>, min = inf;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(vis[j] == <span class="literal">false</span> &amp;&amp; w[j] &lt; min) &#123;</span><br><span class="line">				u = j;</span><br><span class="line">				min = w[j];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(u == <span class="number">-1</span>) <span class="keyword">break</span>;</span><br><span class="line">		vis[u] = <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; n; v++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(vis[v] == <span class="literal">false</span> &amp;&amp; G[u][v] &lt; inf) &#123;</span><br><span class="line">				<span class="keyword">if</span>(G[u][v] + w[u] &lt; w[v]) &#123;</span><br><span class="line">					w[v] = G[u][v] + w[u];</span><br><span class="line">					c[v] = cost[u][v] + c[u];</span><br><span class="line">					prepath[v] = u;</span><br><span class="line">				&#125; <span class="keyword">else</span> <span class="keyword">if</span> (G[u][v] + w[u] == w[v] &amp;&amp; cost[u][v] + c[u] &lt; c[v]) &#123;</span><br><span class="line">					c[v] = cost[u][v] + c[u];</span><br><span class="line">					prepath[v] = u;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	dfsprepath(d);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = disprepath.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>, disprepath[i]);</span><br><span class="line">		<span class="keyword">if</span>(i != <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" %d %d"</span>, w[d], c[d]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二种(Dijkstra+DFS 。Dijkstra中计算最短路径 在DFS中计算第二标尺筛选路径)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxv = <span class="number">520</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">999999999</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m, s, d;</span><br><span class="line"><span class="keyword">int</span> G[maxv][maxv];</span><br><span class="line"><span class="keyword">int</span> dis[maxv];</span><br><span class="line"><span class="keyword">int</span> cost[maxv][maxv];</span><br><span class="line"><span class="keyword">int</span> c[maxv];</span><br><span class="line"><span class="keyword">int</span> vis[maxv] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prepath[maxv];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; path, temppath;</span><br><span class="line"><span class="keyword">int</span> optivalue = inf;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> st)</span> </span>&#123;</span><br><span class="line">	fill(dis, dis + maxv, inf);</span><br><span class="line">	dis[st] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> u = <span class="number">-1</span>, min = inf;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(vis[j] == <span class="literal">false</span> &amp;&amp; dis[j] &lt; min) &#123;</span><br><span class="line">				u = j;</span><br><span class="line">				min = dis[j];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(u == <span class="number">-1</span>) <span class="keyword">return</span>;</span><br><span class="line">		vis[u] = <span class="literal">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> v = <span class="number">0</span>; v &lt; n; v++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(vis[v] == <span class="literal">false</span> &amp;&amp; G[u][v] != inf) &#123;</span><br><span class="line">				<span class="keyword">if</span>(G[u][v] + dis[u] &lt; dis[v]) &#123;</span><br><span class="line">					dis[v] = G[u][v] + dis[u];</span><br><span class="line">					prepath[v].clear();</span><br><span class="line">					prepath[v].push_back(u);</span><br><span class="line">				&#125;<span class="keyword">else</span> <span class="keyword">if</span>(G[u][v] + dis[u] == dis[v]) &#123;</span><br><span class="line">					prepath[v].push_back(u);	<span class="comment">//多条路径 </span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">	<span class="comment">//递归边界 </span></span><br><span class="line">	<span class="keyword">if</span>(v == s) &#123;</span><br><span class="line">		temppath.push_back(v);	<span class="comment">//起始结点入栈以后temppath中为完整的路径 </span></span><br><span class="line">		<span class="keyword">int</span> value = <span class="number">0</span>;	<span class="comment">//边权最大值 </span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = temppath.size() - <span class="number">1</span>; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">			<span class="keyword">int</span> c1, c2;</span><br><span class="line">			c1 = temppath[i];</span><br><span class="line">			c2 = temppath[i - <span class="number">1</span>];</span><br><span class="line">			value = value + cost[c1][c2];</span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">if</span>(value &lt; optivalue) &#123;</span><br><span class="line">			path = temppath;	<span class="comment">//为倒叙的序列</span></span><br><span class="line">			optivalue = value;</span><br><span class="line">		&#125; </span><br><span class="line">		temppath.pop_back();</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//递归式</span></span><br><span class="line">	temppath.push_back(v);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = prepath[v].size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">		DFS(prepath[v][i]);</span><br><span class="line">	&#125; </span><br><span class="line">	temppath.pop_back();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;n, &amp;m, &amp;s, &amp;d);</span><br><span class="line">	fill(G[<span class="number">0</span>], G[<span class="number">0</span>] + maxv * maxv, inf);</span><br><span class="line">	fill(cost[<span class="number">0</span>], cost[<span class="number">0</span>] + maxv * maxv, inf);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> c1, c2, Dis, Cost;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;c1, &amp;c2, &amp;Dis, &amp;Cost);</span><br><span class="line">		G[c1][c2] = G[c2][c1] = Dis;</span><br><span class="line">		cost[c1][c2] = cost[c2][c1] = Cost;</span><br><span class="line">	&#125;</span><br><span class="line">	Dijkstra(s);	<span class="comment">//获得前驱路径</span></span><br><span class="line">	DFS(d); </span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = path.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>, path[i]);</span><br><span class="line">		<span class="keyword">if</span>(i != <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" %d %d"</span>, dis[d], optivalue);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上 有问题欢迎留言。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/10/Python学习/" rel="next" title="Python学习">
+                <i class="fa fa-chevron-left"></i> Python学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Gao Lijie">
+            
+              <p class="site-author-name" itemprop="name">Gao Lijie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gaolijiemathcs" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="gaolijiemathcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gao Lijie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

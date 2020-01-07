@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、基本 1.if 123456789101112x = -2y = 2z = 3if x &amp;gt; 1:    print(&amp;apos;x &amp;gt; 1&amp;apos;)elif x &amp;lt; -1:     print(&amp;apos;x &amp;lt; -1&amp;apos;)elif x &amp;lt; 1:    print(&amp;apos;x &amp;lt; 1&amp;apos;)else:    print(&amp;apos;x">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python学习">
+<meta property="og:url" content="http://yoursite.com/2019/05/10/Python学习/index.html">
+<meta property="og:site_name" content="GaoLijie&#39;s Blog">
+<meta property="og:description" content="一、基本 1.if 123456789101112x = -2y = 2z = 3if x &amp;gt; 1:    print(&amp;apos;x &amp;gt; 1&amp;apos;)elif x &amp;lt; -1:     print(&amp;apos;x &amp;lt; -1&amp;apos;)elif x &amp;lt; 1:    print(&amp;apos;x &amp;lt; 1&amp;apos;)else:    print(&amp;apos;x">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-11T09:25:44.233Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python学习">
+<meta name="twitter:description" content="一、基本 1.if 123456789101112x = -2y = 2z = 3if x &amp;gt; 1:    print(&amp;apos;x &amp;gt; 1&amp;apos;)elif x &amp;lt; -1:     print(&amp;apos;x &amp;lt; -1&amp;apos;)elif x &amp;lt; 1:    print(&amp;apos;x &amp;lt; 1&amp;apos;)else:    print(&amp;apos;x">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/10/Python学习/">
+
+
+
+
+
+  <title>Python学习 | GaoLijie's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GaoLijie's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello world</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/Python学习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T15:24:40+08:00">
+                2019-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一、基本</p>
+<p>1.if</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">x = -2</span><br><span class="line">y = 2</span><br><span class="line">z = 3</span><br><span class="line">if x &gt; 1:</span><br><span class="line">    print(&apos;x &gt; 1&apos;)</span><br><span class="line">elif x &lt; -1: </span><br><span class="line">    print(&apos;x &lt; -1&apos;)</span><br><span class="line">elif x &lt; 1:</span><br><span class="line">    print(&apos;x &lt; 1&apos;)</span><br><span class="line">else:</span><br><span class="line">    print(&apos;x = 1&apos;)</span><br><span class="line">print(&apos;finish running&apos;)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x &lt; -1</span><br><span class="line">finish running</span><br></pre></td></tr></table></figure>
+<p>要注意 只会第一条语句满足以后就跳出 </p>
+<p>而且要注意的是if-elif-else为一个整体 要注意缩进 缩进以后的格式才能是整体的语句执行。</p>
+<p>二、函数定义</p>
+<p>1.def函数</p>
+<p>函数定义的时候用的语句是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">def function(a):</span><br></pre></td></tr></table></figure>
+<p>一定定义的函数 要是在四个空格空着的缩进 还有一个冒号必须要在冒号下面函数内有四个空格的缩进 才是定义函数内部的功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def function(a, b):</span><br><span class="line">    print(&quot;This is a function&quot;)</span><br><span class="line">    a = 1+2</span><br><span class="line">    print(a)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>没有结果 函数要调用以后才能运行因此在shell中进行调用才可以有输出</p>
+<p>输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">function()</span><br></pre></td></tr></table></figure>
+<p>或在函数脚本中直接运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def function():</span><br><span class="line">    print(&quot;This is a function&quot;)</span><br><span class="line">    a = 1+2</span><br><span class="line">    print(a)</span><br><span class="line"></span><br><span class="line">function()</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This is a function</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p>栗子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    c = a * b</span><br><span class="line">    print(a,b)</span><br><span class="line">    print(<span class="string">'the c is'</span>, c)</span><br></pre></td></tr></table></figure>
+<p>输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun(2,5)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun(a=2, b=5)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun(b=5, a=2)</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2 5</span><br><span class="line">the c is 10</span><br></pre></td></tr></table></figure>
+<p>2.函数默认参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sale_car</span><span class="params">(price, colour, brand, is_second_hand)</span>:</span></span><br><span class="line">    print(<span class="string">'price:'</span>,price,</span><br><span class="line">          <span class="string">'colour:'</span>,colour,</span><br><span class="line">          <span class="string">'brand:'</span>,brand,</span><br><span class="line">          <span class="string">'is_second_hand:'</span>,is_second_hand,)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sale_car(<span class="number">1000</span>, <span class="string">'red'</span>, <span class="string">'carmy'</span>, <span class="keyword">True</span>)</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">price: 1000 colour: red brand: carmy is_second_hand: True</span><br></pre></td></tr></table></figure>
+<p>注意参数多 可以分行书写 但是记得缩进</p>
+<p>当有默认参数时：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sale_car</span><span class="params">(price, colour = <span class="string">'red'</span>, brand = <span class="string">'carmy'</span>, is_second_hand = True)</span>:</span></span><br><span class="line">    print(<span class="string">'price:'</span>,price,</span><br><span class="line">          <span class="string">'colour:'</span>,colour,</span><br><span class="line">          <span class="string">'brand:'</span>,brand,</span><br><span class="line">          <span class="string">'is_second_hand:'</span>,is_second_hand,)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sale_car(<span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">price: 1000 colour: red brand: carmy is_second_hand: True</span><br></pre></td></tr></table></figure>
+<p>这个时候还是默认值 而且输入值1000</p>
+<p>如果输入覆盖默认值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sale_car</span><span class="params">(price, colour = <span class="string">'red'</span>, brand = <span class="string">'carmy'</span>, is_second_hand = True)</span>:</span></span><br><span class="line">    print(<span class="string">'price:'</span>,price,</span><br><span class="line">          <span class="string">'colour:'</span>,colour,</span><br><span class="line">          <span class="string">'brand:'</span>,brand,</span><br><span class="line">          <span class="string">'is_second_hand:'</span>,is_second_hand,)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sale_car(<span class="number">1000</span>, colour = <span class="string">'blue'</span>)</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">price: 1000 colour: blue brand: carmy is_second_hand: True</span><br></pre></td></tr></table></figure>
+<p>此时也可以写输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sale_car(1000, &apos;blue&apos;)</span><br></pre></td></tr></table></figure>
+<p>后面默认值还是没有变</p>
+<p>注意：定义默认值的时候 在函数定义的时候必须将未定义的放在已经定义默认值的变量的前面否则会报错</p>
+<p>输入值的时候也要改变顺序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sale_car</span><span class="params">(price, brand, colour = <span class="string">'red'</span>, is_second_hand = True)</span>:</span></span><br><span class="line">    print(<span class="string">'price:'</span>,price,</span><br><span class="line">          <span class="string">'colour:'</span>,colour,</span><br><span class="line">          <span class="string">'brand:'</span>,brand,</span><br><span class="line">          <span class="string">'is_second_hand:'</span>,is_second_hand,)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sale_car(<span class="number">1000</span>, <span class="string">'BMW'</span>, colour = <span class="string">'blue'</span>)</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">price: 1000 colour: blue brand: BMW is_second_hand: True</span><br></pre></td></tr></table></figure>
+<p>3.函数返回值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">()</span>:</span></span><br><span class="line">    a = <span class="number">10</span></span><br><span class="line">    print(a)</span><br><span class="line">    <span class="keyword">return</span> a + <span class="number">100</span></span><br><span class="line"></span><br><span class="line">print(fun())</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">110</span><br></pre></td></tr></table></figure>
+<p>3.全局/局部变量</p>
+<p>全局变量一般全部使用大写放在文档的开头 函数外部可以调用局部变量</p>
+<p>在函数内部的变量就是局部的变量 在函数外部无法调用局部变量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">APPLE = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">()</span>:</span></span><br><span class="line">    a = <span class="number">10</span></span><br><span class="line">    print(a)</span><br><span class="line">    <span class="keyword">return</span> a + <span class="number">100</span></span><br><span class="line"></span><br><span class="line">print(APPLE)</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+<p>此时报错</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">APPLE = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">()</span>:</span></span><br><span class="line">    a = APPLE</span><br><span class="line">    <span class="keyword">return</span> a + <span class="number">100</span></span><br><span class="line"></span><br><span class="line">print(APPLE)</span><br><span class="line">print(fun())</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">100</span></span><br><span class="line"><span class="number">200</span></span><br></pre></td></tr></table></figure>
+<p>如果非要在函数内部定义函数变量</p>
+<p>那么就要在开头定义出来以后在函数内假设一个global</p>
+<p>栗子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">APPLE = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">a = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> a</span><br><span class="line">    a = <span class="number">20</span></span><br><span class="line">    <span class="keyword">return</span> a + <span class="number">100</span></span><br><span class="line"></span><br><span class="line">print(APPLE)</span><br><span class="line">print(<span class="string">'a past='</span>, a)</span><br><span class="line">print(fun())</span><br><span class="line">print(<span class="string">'a now='</span>, a)</span><br></pre></td></tr></table></figure>
+<p>在还没调用函数前 a仍然为none</p>
+<p>当调用函数后 函数中定义了a 以后 a为20 同时 输出fun后我们输出a的值就是20</p>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">100</span><br><span class="line">a past= None</span><br><span class="line">120</span><br><span class="line">a now= 20</span><br></pre></td></tr></table></figure>
+<p>4.元组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#tuple list</span></span><br><span class="line"></span><br><span class="line">a_tuple = (<span class="number">12</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">15</span>,<span class="number">6</span>)</span><br><span class="line">another_tuple = <span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span></span><br><span class="line"></span><br><span class="line">a_list = [<span class="number">12</span>,<span class="number">3</span>,<span class="number">67</span>,<span class="number">7</span>,<span class="number">82</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> range(len(a_tuple)):</span><br><span class="line">    print(<span class="string">'index='</span>,index,<span class="string">'number in list='</span>,a_list[index])</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">index= 0 number in list= 12</span><br><span class="line">index= 1 number in list= 3</span><br><span class="line">index= 2 number in list= 67</span><br><span class="line">index= 3 number in list= 7</span><br><span class="line">index= 4 number in list= 82</span><br></pre></td></tr></table></figure>
+<p>4.列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">a.append(<span class="number">0</span>) <span class="comment">#在a后面追加一个0</span></span><br><span class="line">print(a)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a.insert(<span class="number">1</span>, <span class="number">0</span>)  <span class="comment">#在指定位置1添加0 </span></span><br><span class="line">print(a)</span><br><span class="line"></span><br><span class="line">a.remove(<span class="number">2</span>) <span class="comment">#列表中第一个2去掉</span></span><br><span class="line">print(a)</span><br><span class="line"></span><br><span class="line">print(a[<span class="number">0</span>]) <span class="comment">#打印出a中第0位</span></span><br><span class="line"></span><br><span class="line">print(a[<span class="number">-1</span>])    <span class="comment">#-1代表最后一位的数字 是python的特点</span></span><br><span class="line"></span><br><span class="line">print(a[<span class="number">0</span>:<span class="number">3</span>])   <span class="comment">#代表从第0位开始到第三位之前 左闭右开</span></span><br><span class="line"></span><br><span class="line">print(a[:<span class="number">3</span>])    <span class="comment">#打印开头三位</span></span><br><span class="line"></span><br><span class="line">print(a[<span class="number">3</span>:<span class="number">5</span>])   <span class="comment">#打印第34位</span></span><br><span class="line"></span><br><span class="line">print(a[<span class="number">5</span>:])    <span class="comment">#打印第5位到最后的数字</span></span><br><span class="line"></span><br><span class="line">print(a[<span class="number">-3</span>:])   <span class="comment">#倒数第3位到最后一位的数字</span></span><br><span class="line"></span><br><span class="line">print(a.index(<span class="number">2</span>))      <span class="comment">#列表中第一次出现2的索引下标</span></span><br><span class="line"></span><br><span class="line">print(a.count(<span class="number">1</span>))   <span class="comment">#统计列表中2出现的次数</span></span><br><span class="line"></span><br><span class="line">a.sort()    <span class="comment">#从小到大排序a并且覆盖原有的a</span></span><br><span class="line">print(a)</span><br><span class="line"></span><br><span class="line">a.sort(reverse=<span class="keyword">True</span>)    <span class="comment">#从大到小排序 原来reverse为Fales</span></span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3, 4, 2, 3, 1, 1, 0]</span><br><span class="line">[1, 0, 2, 3, 4, 2, 3, 1, 1, 0]</span><br><span class="line">[1, 0, 3, 4, 2, 3, 1, 1, 0]</span><br><span class="line">1</span><br><span class="line">0</span><br><span class="line">[1, 0, 3]</span><br><span class="line">[1, 0, 3]</span><br><span class="line">[4, 2]</span><br><span class="line">[3, 1, 1, 0]</span><br><span class="line">[1, 1, 0]</span><br><span class="line">4</span><br><span class="line">3</span><br><span class="line">[0, 0, 1, 1, 1, 2, 3, 3, 4]</span><br><span class="line">[4, 3, 3, 2, 1, 1, 1, 0, 0]</span><br></pre></td></tr></table></figure>
+<p>5.多维列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">multi_dim_a = [[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">               [<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],</span><br><span class="line">               [<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]]</span><br><span class="line"></span><br><span class="line">print(a[<span class="number">0</span>])</span><br><span class="line">print(multi_dim_a[<span class="number">2</span>][<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+<p>6.字典</p>
+<p>字典是一个没有顺序的东西</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">a_list = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">4</span>]</span><br><span class="line">d = &#123;<span class="string">'apple'</span>:<span class="number">1</span>, <span class="string">'pear'</span>:<span class="number">2</span>, <span class="string">'orange'</span>:<span class="number">3</span>&#125;</span><br><span class="line">d2 = &#123;<span class="number">1</span>:<span class="string">'a'</span>, <span class="number">2</span>:<span class="string">'b'</span>, <span class="string">'c'</span>:<span class="string">'b'</span>&#125;   <span class="comment">#要有一个key 一个内容有点像哈希表</span></span><br><span class="line"></span><br><span class="line">print(d[<span class="string">'apple'</span>])</span><br><span class="line">print(a_list[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">d[<span class="string">'b'</span>] = <span class="number">20</span>  <span class="comment">#往字典当中去加 输出的时候没有按顺序</span></span><br><span class="line">print(d)</span><br><span class="line"></span><br><span class="line"><span class="keyword">del</span> d[<span class="string">'pear'</span>] <span class="comment">#删除字典元素</span></span><br><span class="line">print(d)</span><br><span class="line"></span><br><span class="line">d3 = &#123;<span class="string">'apple'</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], <span class="string">'pear'</span>:&#123;<span class="number">1</span>:<span class="number">3</span>, <span class="number">3</span>:<span class="string">'a'</span>&#125;, <span class="string">'orange'</span>:<span class="number">2</span>&#125;  <span class="comment">#字典里面可以加字典</span></span><br><span class="line">print(d3)</span><br><span class="line"></span><br><span class="line">print(d3[<span class="string">'pear'</span>][<span class="number">3</span>]) <span class="comment">#在pear中找3</span></span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line">&#123;<span class="string">'apple'</span>: <span class="number">1</span>, <span class="string">'pear'</span>: <span class="number">2</span>, <span class="string">'orange'</span>: <span class="number">3</span>, <span class="string">'b'</span>: <span class="number">20</span>&#125;</span><br><span class="line">&#123;<span class="string">'apple'</span>: <span class="number">1</span>, <span class="string">'orange'</span>: <span class="number">3</span>, <span class="string">'b'</span>: <span class="number">20</span>&#125;</span><br><span class="line">&#123;<span class="string">'apple'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="string">'pear'</span>: &#123;<span class="number">1</span>: <span class="number">3</span>, <span class="number">3</span>: <span class="string">'a'</span>&#125;, <span class="string">'orange'</span>: <span class="number">2</span>&#125;</span><br><span class="line">a</span><br></pre></td></tr></table></figure>
+<p>7.import模块</p>
+<p>1)加载模块第一种方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">print(time.localtime())</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">time.struct_time(tm_year=<span class="number">2019</span>, tm_mon=<span class="number">5</span>, tm_mday=<span class="number">11</span>, tm_hour=<span class="number">15</span>, tm_min=<span class="number">54</span>, tm_sec=<span class="number">21</span>, tm_wday=<span class="number">5</span>, tm_yday=<span class="number">131</span>, tm_isdst=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>2)加载 长的模块名为短模块名</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time <span class="keyword">as</span> t</span><br><span class="line"></span><br><span class="line">print(t.localtime())</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">time.struct_time(tm_year=<span class="number">2019</span>, tm_mon=<span class="number">5</span>, tm_mday=<span class="number">11</span>, tm_hour=<span class="number">15</span>, tm_min=<span class="number">55</span>, tm_sec=<span class="number">49</span>, tm_wday=<span class="number">5</span>, tm_yday=<span class="number">131</span>, tm_isdst=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>3)只import部分功能后面调用功能可以直接调用函数 不必调用模块名</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time, localtime</span><br><span class="line"></span><br><span class="line">print(localtime())</span><br><span class="line">print(time())</span><br></pre></td></tr></table></figure>
+<p>输出:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">time.struct_time(tm_year=2019, tm_mon=5, tm_mday=11, tm_hour=15, tm_min=59, tm_sec=2, tm_wday=5, tm_yday=131, tm_isdst=0)</span><br><span class="line">1557561542.2265193</span><br></pre></td></tr></table></figure>
+<p>4)import所有功能</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span>*</span><br><span class="line"></span><br><span class="line">print(localtime())</span><br><span class="line">print(time())</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">time.struct_time(tm_year=2019, tm_mon=5, tm_mday=11, tm_hour=16, tm_min=1, tm_sec=12, tm_wday=5, tm_yday=131, tm_isdst=0)</span><br><span class="line">1557561672.3201375</span><br></pre></td></tr></table></figure>
+<p>8.引用自己的模块</p>
+<p>Test3中写</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printdata</span><span class="params">(data)</span>:</span></span><br><span class="line">    print(<span class="string">'I am test3'</span>)</span><br><span class="line">    print(data)</span><br></pre></td></tr></table></figure>
+<p>test4中调用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> test3</span><br><span class="line"></span><br><span class="line">test3.printdata(<span class="string">'I am python1'</span>)</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">I am test3</span><br><span class="line"></span><br><span class="line">I am python1</span><br></pre></td></tr></table></figure>
+<p>python有默认的模块在lib site-packages的位置 这里可以直接调用模块 还有一个是在编程文档也可以直接调用</p>
+<p>9.continue &amp; break</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="keyword">True</span></span><br><span class="line"><span class="keyword">while</span> a:</span><br><span class="line">    b = input(<span class="string">'type something:'</span>)</span><br><span class="line">    <span class="keyword">if</span> b == <span class="string">'1'</span>:</span><br><span class="line">        a = <span class="keyword">False</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">        print(<span class="string">'still in while'</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'finishi run'</span>)</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">type something:<span class="number">2</span></span><br><span class="line">still <span class="keyword">in</span> <span class="keyword">while</span></span><br><span class="line">type something:<span class="number">3</span></span><br><span class="line">still <span class="keyword">in</span> <span class="keyword">while</span></span><br><span class="line">type something:<span class="number">1</span></span><br><span class="line">finishi run</span><br></pre></td></tr></table></figure>
+<p>continue是跳过后序的语句进入下一次循环</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="keyword">True</span></span><br><span class="line"><span class="keyword">while</span> a:</span><br><span class="line">    b = input(<span class="string">'type something:'</span>)</span><br><span class="line">    <span class="keyword">if</span> b == <span class="string">'1'</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">        print(<span class="string">'still in while'</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'finishi run'</span>)</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type something:1</span><br><span class="line">type something:2</span><br><span class="line">still in while</span><br><span class="line">type something:</span><br></pre></td></tr></table></figure>
+<p>break是直接退出循环</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="keyword">True</span></span><br><span class="line"><span class="keyword">while</span> a:</span><br><span class="line">    b = input(<span class="string">'type something:'</span>)</span><br><span class="line">    <span class="keyword">if</span> b == <span class="string">'1'</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    print(<span class="string">'still in while'</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'finishi run'</span>)</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type something:5</span><br><span class="line">still in while</span><br><span class="line">type something:1</span><br><span class="line">finishi run</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="keyword">True</span></span><br><span class="line"><span class="keyword">while</span> a:</span><br><span class="line">    b = input(<span class="string">'type something:'</span>)</span><br><span class="line">    <span class="keyword">if</span> b == <span class="string">'1'</span>:</span><br><span class="line">        a = <span class="keyword">False</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    print(<span class="string">'still in while'</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'finishi run'</span>)</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type something:2</span><br><span class="line">still in while</span><br><span class="line">type something:1</span><br><span class="line">still in while</span><br><span class="line">finishi run</span><br></pre></td></tr></table></figure>
+<p>此时注意仍然会执行 false后面并列语句 break直接退出本轮</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="keyword">True</span></span><br><span class="line"><span class="keyword">while</span> a:</span><br><span class="line">    b = input(<span class="string">'type something:'</span>)</span><br><span class="line">    <span class="keyword">if</span> b == <span class="string">'1'</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    print(<span class="string">'still in while'</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'finishi run'</span>)</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">type something:5</span><br><span class="line">still in while</span><br><span class="line">type something:6</span><br><span class="line">still in while</span><br><span class="line">type something:1</span><br><span class="line">finishi run</span><br></pre></td></tr></table></figure>
+<p>10.try语句的使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">try:</span><br><span class="line">    file = open(&apos;eeee&apos;, &apos;r&apos;)</span><br><span class="line">except Exception as e:</span><br><span class="line">    print(e)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    file = open(<span class="string">'eeeeee.txt'</span>, <span class="string">'r+'</span>)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    print(<span class="string">'there is no file named as eeeeee'</span>)</span><br><span class="line">    response = input(<span class="string">'do you want to create a new file:'</span>)</span><br><span class="line">    <span class="keyword">if</span> response == <span class="string">'y'</span>:</span><br><span class="line">        file = open(<span class="string">'eeeeee.txt'</span>, <span class="string">'w'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">else</span>:   <span class="comment">#except下一半</span></span><br><span class="line">    file.write(<span class="string">'ssss'</span>)</span><br><span class="line">file.close()</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">there is no file named as eeeeee</span><br><span class="line">do you want to create a new file:y</span><br></pre></td></tr></table></figure>
+<p>运行两次就会发现写入了ssss</p>
+<p>11.zip lambda map</p>
+<p>1)zip</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = [1,2,3]</span><br><span class="line">&gt;&gt;&gt; b = [4,5,6]</span><br><span class="line">&gt;&gt;&gt; zip(a,b)</span><br><span class="line">&lt;zip object at 0x00000201D5DE9F88&gt;</span><br><span class="line">&gt;&gt;&gt; list(zip(a,b))</span><br><span class="line">[(1, 4), (2, 5), (3, 6)]</span><br><span class="line">&gt;&gt;&gt; for i,j in zip(a,b):</span><br><span class="line">	print(i/2, j*2)</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">0.5 8</span><br><span class="line">1.0 10</span><br><span class="line">1.5 12</span><br><span class="line">&gt;&gt;&gt; list(zip(a,a,b))</span><br><span class="line">[(1, 1, 4), (2, 2, 5), (3, 3, 6)]</span><br></pre></td></tr></table></figure>
+<p>2)lambda</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">fun1</span><span class="params">(x,y)</span>:</span></span><br><span class="line">	<span class="keyword">return</span>(x+y)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fun1(<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fun2 = <span class="keyword">lambda</span> x, y: x + y</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>fun2(<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>lambda可以用于定义简单的方程 一行搞定</p>
+<p>3)map用于可以直接调用函数计算 并且可以多次并列计算</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; map(fun1, [1], [2])</span><br><span class="line">&lt;map object at 0x00000201D5E5E358&gt;</span><br><span class="line">&gt;&gt;&gt; list(map(fun1,[1],[2]))</span><br><span class="line">[3]</span><br><span class="line">&gt;&gt;&gt; list(map(fun1,[1,3],[2,5]))</span><br><span class="line">[3, 8]</span><br></pre></td></tr></table></figure>
+<p>但是要在list当中才可以输出数字 否则只是一个object的地址</p>
+<p>12.copy</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import copy</span><br><span class="line">&gt;&gt;&gt; a = [1,2,3]</span><br><span class="line">&gt;&gt;&gt; b = a</span><br><span class="line">&gt;&gt;&gt; id(a)</span><br><span class="line">2206907044488</span><br><span class="line">&gt;&gt;&gt; id(b)</span><br><span class="line">2206907044488</span><br><span class="line">&gt;&gt;&gt; b[0] = 11</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">[11, 2, 3]</span><br><span class="line">&gt;&gt;&gt; a[1] = 22</span><br><span class="line">&gt;&gt;&gt; b</span><br><span class="line">[11, 22, 3]</span><br><span class="line">&gt;&gt;&gt; print(id(a) == id(b))</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; c = copy.copy(a)</span><br><span class="line">&gt;&gt;&gt; print(id(a)==id(c))</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; c[1] = 222222</span><br><span class="line">&gt;&gt;&gt; a</span><br><span class="line">[11, 22, 3]</span><br><span class="line">&gt;&gt;&gt; c</span><br><span class="line">[11, 222222, 3]</span><br><span class="line">&gt;&gt;&gt; a = [1, 2, [3,4]]</span><br><span class="line">&gt;&gt;&gt; d = copy.copy(a)</span><br><span class="line">&gt;&gt;&gt; id(a) == id(d)</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; id(a[2]) == id(d[2])</span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; a[0] = 11</span><br><span class="line">&gt;&gt;&gt; d</span><br><span class="line">[1, 2, [3, 4]]</span><br><span class="line">&gt;&gt;&gt; b</span><br><span class="line">[11, 22, 3]</span><br><span class="line">&gt;&gt;&gt; a[2][0] = 333</span><br><span class="line">&gt;&gt;&gt; d</span><br><span class="line">[1, 2, [333, 4]]</span><br><span class="line">&gt;&gt;&gt; e = copy.deepcopy(a)</span><br><span class="line">&gt;&gt;&gt; id(e[2]) == id(a[2])</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+<p>如果是a = b则是指向同一个地址的意思 完完全全的复制</p>
+<p>copy分为 浅复制与深复制</p>
+<p>浅赋值 copy.copy  第一层地址不复制 不指向同一个地址 第二层地址复制 指向同一个地方</p>
+<p>深复制 copy.deepcopy  全部都不指向同一个地址 </p>
+<p>13.pickle用于保存内存</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line">a_dict = &#123;<span class="string">'da'</span>: <span class="number">111</span>, <span class="number">2</span>:[<span class="number">23</span>,<span class="number">1</span>,<span class="number">4</span>], <span class="string">'23'</span>:&#123;<span class="number">1</span>:<span class="number">2</span>,<span class="string">'d'</span>:<span class="string">'sad'</span>&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#file = open('pickle_example.pickle','wb')</span></span><br><span class="line"><span class="comment">#pickle.dump(a_dict, file)   #装载在file</span></span><br><span class="line"><span class="comment">#file.close()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'pickle_example.pickle'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> file:</span><br><span class="line">    a_dict1 = pickle.load(file)</span><br><span class="line">print(a_dict1)</span><br><span class="line"></span><br><span class="line"><span class="comment">#file = open('pickle_example.pickle','rb')</span></span><br><span class="line"><span class="comment">#a_dict1 = pickle.load(file)</span></span><br><span class="line"><span class="comment">#file.close()</span></span><br></pre></td></tr></table></figure>
+<p>with语句可以用于打开open 此时不用file.close()也可以进行文件的读取。</p>
+<p>13.set</p>
+<p>1)</p>
+<p>不能在set当中传列表与tuple两种形式会报错</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">char_list = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'d'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">sentence = <span class="string">'Welcome Back to this Tutorial'</span></span><br><span class="line"></span><br><span class="line">print(type(set(char_list)))</span><br><span class="line">print(type(&#123;<span class="number">1</span>:<span class="number">2</span>&#125;))</span><br><span class="line">print(set(sentence))</span><br><span class="line">print(set([sentence, char_list]))  <span class="comment">#本句会报错</span></span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">set</span>'&gt;</span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> '<span class="title">dict</span>'&gt;</span></span><br><span class="line">&#123;'l', 'k', 'T', 'i', 'o', 'm', ' ', 'u', 'W', 'e', 'B', 't', 'r', 'c', 'h', 's', 'a'&#125;</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"C:/Users/36987/Desktop/pythontest/test3.py"</span>, line <span class="number">8</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    print(set([sentence, char_list]))</span><br><span class="line">TypeError: unhashable type: <span class="string">'list'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">char_list = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'d'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">sentence = <span class="string">'Welcome Back to this Tutorial'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#print(type(set(char_list)))</span></span><br><span class="line"><span class="comment">#print(type(&#123;1:2&#125;))</span></span><br><span class="line">print(set(sentence))</span><br><span class="line">unique_char = set(char_list)</span><br><span class="line">unique_char.add(<span class="string">'x'</span>)</span><br><span class="line">print(unique_char)</span><br><span class="line"></span><br><span class="line">unique_char.add(<span class="string">'a'</span>)</span><br><span class="line">print(unique_char)</span><br><span class="line"></span><br><span class="line">unique_char.add([<span class="string">'a'</span>,<span class="string">'b'</span>])  <span class="comment">#此句报错 因此说明一次只可以加1个字母</span></span><br><span class="line">print(unique_char)</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">'c'</span>, <span class="string">' '</span>, <span class="string">'h'</span>, <span class="string">'T'</span>, <span class="string">'l'</span>, <span class="string">'a'</span>, <span class="string">'W'</span>, <span class="string">'i'</span>, <span class="string">'t'</span>, <span class="string">'o'</span>, <span class="string">'e'</span>, <span class="string">'m'</span>, <span class="string">'s'</span>, <span class="string">'B'</span>, <span class="string">'r'</span>, <span class="string">'k'</span>, <span class="string">'u'</span>&#125;</span><br><span class="line">&#123;<span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'x'</span>&#125;</span><br><span class="line">&#123;<span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'x'</span>&#125;</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"C:/Users/36987/Desktop/pythontest/test3.py"</span>, line <span class="number">15</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    unique_char.add([<span class="string">'a'</span>,<span class="string">'b'</span>])</span><br><span class="line">TypeError: unhashable type: <span class="string">'list'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">char_list = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'d'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">sentence = <span class="string">'Welcome Back to this Tutorial'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(set(sentence))</span><br><span class="line">unique_char = set(char_list)</span><br><span class="line">unique_char.add(<span class="string">'x'</span>)</span><br><span class="line">print(unique_char)</span><br><span class="line"></span><br><span class="line">unique_char.clear()</span><br><span class="line">print(unique_char)</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&apos;W&apos;, &apos;o&apos;, &apos;t&apos;, &apos;r&apos;, &apos;B&apos;, &apos;e&apos;, &apos;T&apos;, &apos; &apos;, &apos;u&apos;, &apos;c&apos;, &apos;m&apos;, &apos;i&apos;, &apos;h&apos;, &apos;k&apos;, &apos;a&apos;, &apos;l&apos;, &apos;s&apos;&#125;</span><br><span class="line">&#123;&apos;b&apos;, &apos;d&apos;, &apos;c&apos;, &apos;x&apos;, &apos;a&apos;&#125;</span><br><span class="line">set()</span><br></pre></td></tr></table></figure>
+<p>2)清除clear</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">char_list = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'d'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">sentence = <span class="string">'Welcome Back to this Tutorial'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(set(sentence))</span><br><span class="line">unique_char = set(char_list)</span><br><span class="line">unique_char.add(<span class="string">'x'</span>)</span><br><span class="line">print(unique_char)</span><br><span class="line"></span><br><span class="line"><span class="comment">#unique_char.clear()</span></span><br><span class="line"><span class="comment">#print(unique_char)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(unique_char.remove(<span class="string">'x'</span>))  <span class="comment">#返回值为NONE</span></span><br><span class="line">print(unique_char)  <span class="comment">#返回结果</span></span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&apos;m&apos;, &apos;s&apos;, &apos;i&apos;, &apos;c&apos;, &apos;a&apos;, &apos;T&apos;, &apos;l&apos;, &apos;o&apos;, &apos;e&apos;, &apos;u&apos;, &apos; &apos;, &apos;r&apos;, &apos;B&apos;, &apos;k&apos;, &apos;h&apos;, &apos;t&apos;, &apos;W&apos;&#125;</span><br><span class="line">&#123;&apos;c&apos;, &apos;d&apos;, &apos;a&apos;, &apos;x&apos;, &apos;b&apos;&#125;</span><br><span class="line">None</span><br><span class="line">&#123;&apos;c&apos;, &apos;d&apos;, &apos;a&apos;, &apos;b&apos;&#125;</span><br></pre></td></tr></table></figure>
+<p>如果remove的东西不存在于数组中会报错</p>
+<p>3)dicard</p>
+<p>因此多了一个dicard 可以避免报错 会继续返回原有数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&apos;h&apos;, &apos;u&apos;, &apos;m&apos;, &apos;k&apos;, &apos;o&apos;, &apos;W&apos;, &apos;c&apos;, &apos;r&apos;, &apos;i&apos;, &apos; &apos;, &apos;B&apos;, &apos;a&apos;, &apos;s&apos;, &apos;t&apos;, &apos;e&apos;, &apos;T&apos;, &apos;l&apos;&#125;</span><br><span class="line">&#123;&apos;b&apos;, &apos;d&apos;, &apos;c&apos;, &apos;x&apos;, &apos;a&apos;&#125;</span><br><span class="line">None</span><br><span class="line">&#123;&apos;b&apos;, &apos;d&apos;, &apos;c&apos;, &apos;x&apos;, &apos;a&apos;&#125;</span><br></pre></td></tr></table></figure>
+<p>4）set1.difference(set2) 可以输出set1中有set2中没有的东西</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">char_list = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'d'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">sentence = <span class="string">'Welcome Back to this Tutorial'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">unique_char = set(char_list)</span><br><span class="line">unique_char.add(<span class="string">'x'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">set1 = unique_char</span><br><span class="line">set2 = &#123;<span class="string">'a'</span>, <span class="string">'e'</span>, <span class="string">'i'</span>&#125;</span><br><span class="line">print(set1)</span><br><span class="line">print(set2)</span><br><span class="line">print(set1.difference(set2))</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;x&apos;, &apos;d&apos;&#125;</span><br><span class="line">&#123;&apos;a&apos;, &apos;e&apos;, &apos;i&apos;&#125;</span><br><span class="line">&#123;&apos;b&apos;, &apos;x&apos;, &apos;c&apos;, &apos;d&apos;&#125;</span><br></pre></td></tr></table></figure>
+<p>5）相同的地方</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">char_list = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'d'</span>, <span class="string">'d'</span>]</span><br><span class="line"></span><br><span class="line">sentence = <span class="string">'Welcome Back to this Tutorial'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">unique_char = set(char_list)</span><br><span class="line">unique_char.add(<span class="string">'x'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">set1 = unique_char</span><br><span class="line">set2 = &#123;<span class="string">'a'</span>, <span class="string">'e'</span>, <span class="string">'i'</span>&#125;</span><br><span class="line">print(set1)</span><br><span class="line">print(set2)</span><br><span class="line">print(set1.intersection(set2))</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&apos;x&apos;, &apos;c&apos;, &apos;b&apos;, &apos;a&apos;, &apos;d&apos;&#125;</span><br><span class="line">&#123;&apos;e&apos;, &apos;i&apos;, &apos;a&apos;&#125;</span><br><span class="line">&#123;&apos;a&apos;&#125;</span><br></pre></td></tr></table></figure>
+<p>三、正则表达式</p>
+<p>用于做爬虫</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/27/A1088题解/" rel="next" title="A1088题解">
+                <i class="fa fa-chevron-left"></i> A1088题解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/07/Dijkstra算法解决最短路径问题/" rel="prev" title="Dijkstra算法解决最短路径问题">
+                Dijkstra算法解决最短路径问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Gao Lijie">
+            
+              <p class="site-author-name" itemprop="name">Gao Lijie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gaolijiemathcs" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="gaolijiemathcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gao Lijie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
