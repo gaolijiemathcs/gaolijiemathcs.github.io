@@ -249,6 +249,151 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/10/链表模板/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/10/链表模板/" itemprop="url">链表模板</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-10T20:28:04+08:00">
+                2020-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>静态链表解决相对复杂题目的模板，一般结点数据都不会太大100010以内都可以，所以使用静态链表即可。</p>
+<p>①定义静态链表</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> address;	<span class="comment">//结点地址</span></span><br><span class="line">	<span class="keyword">typename</span> data;	<span class="comment">//数据域</span></span><br><span class="line">	<span class="keyword">int</span> next;	<span class="comment">//指针域</span></span><br><span class="line">	xxx; 	<span class="comment">//结点的某个性质 要依据不同题目定义</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上对结点地址、数据域、指针域定义，留下xxx适应不同题目(例如可以设置为结点是否为某条链表上的结点 bool flag;)</p>
+<p>②初始化链表</p>
+<p>一般i定义中的XXX进行初始化，将其初始化为正常情况下到达不了的数字(一般要小于所有能够到达的数字，理由在④中说明)，例如对结点是否在链表上的性质， 就要初始化为0(flag=false)，代表结点不在链表上。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxn; i++) &#123;</span><br><span class="line">    node[i].xxx = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>③通过题目给定的首地址，遍历一次整个链表，同时对xxx进行标记。</p>
+<p>遍历一次整条链，并且对链表上的xxx进行标记、并且对有效结点的个数进行计数，例如对结点是否在链表上的性质，当我们遍历的时候可以设置为1(true); 并添加count变量统计此链表长度。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> p = begin, count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(p != <span class="number">-1</span>) &#123;	<span class="comment">//-1代表链表结束</span></span><br><span class="line">	xxx = <span class="number">1</span>;</span><br><span class="line">	count++;</span><br><span class="line">	p = node[p]-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>④使用静态链表，对链表进行排序。（静态链表+二级cmp排序）</p>
+<p>静态链表使用hash表，所以很多结点并不是有效结点(可能存在不在链表上的结点)，为了可以控制有效结点，一般对数组进行排序可以把有效结点移到数组左端，这样可以使用count来访问结点。</p>
+<p>需要把有效结点挪到前面就可以用xxx来帮忙。步骤②的时候xxx可以定义一个数字，这个数字比正常的xxx取值都小很多的数，这样写cmp的时候就可以在cmp的两个参数中又无效节点的时候按照xxx按照从大到小排序，就可以把有效数字都放到数组左边。</p>
+<p>一般题目还会有其他要求，因此一般cmp会有二级排序，不过具体要看题目要求。例如题目要求把链表按照结点顺序排序，就需要在cmp中建立二级排序，cmp两个参数结点中有无效节点时候按照xxx从大到小排序 而两个参数结点都是有效结点的时候 按照结点在链表中的位置从小到大排序(结点顺序可以在第三步得到)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Node a, Node b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(a.xxx == <span class="number">-1</span> || b.xxx == <span class="number">-1</span>) &#123;</span><br><span class="line">		<span class="comment">//至少一个结点是无效节点放在后面</span></span><br><span class="line">		<span class="keyword">return</span> a.xxx &gt; b.xxx; (xxx的定义可以在②中实现)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">//均为有效结点进行二级排序</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>⑤经过步骤④后 有效结点在数组左端 并且按照结点的性质进行了排序 之后按照题目要求输出排序 （比较常见为按照各种不同的要求进行输出链表）</p>
+<p>例子~</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Given a constant K <span class="keyword">and</span> a singly linked <span class="built_in">list</span> L, you are supposed to reverse the links of every K elements on L. For example, given L being <span class="number">1</span>→<span class="number">2</span>→<span class="number">3</span>→<span class="number">4</span>→<span class="number">5</span>→<span class="number">6</span>, <span class="keyword">if</span> K=<span class="number">3</span>, then you must output <span class="number">3</span>→<span class="number">2</span>→<span class="number">1</span>→<span class="number">6</span>→<span class="number">5</span>→<span class="number">4</span>; <span class="keyword">if</span> K=<span class="number">4</span>, you must output <span class="number">4</span>→<span class="number">3</span>→<span class="number">2</span>→<span class="number">1</span>→<span class="number">5</span>→<span class="number">6.</span></span><br><span class="line"></span><br><span class="line">Input Specification:</span><br><span class="line">Each input file contains one test <span class="keyword">case</span>. For each <span class="keyword">case</span>, the first line contains the address of the first node, a positive N (≤<span class="number">10</span></span><br><span class="line">​<span class="number">5</span></span><br><span class="line">​​ ) which is the total number of nodes, <span class="keyword">and</span> a positive K (≤N) which is the length of the sublist to be reversed. The address of a node is a <span class="number">5</span>-digit nonnegative integer, <span class="keyword">and</span> <span class="literal">NULL</span> is represented by <span class="number">-1.</span></span><br><span class="line"></span><br><span class="line">Then N lines follow, each describes a node in the format:</span><br><span class="line"></span><br><span class="line">Address Data Next</span><br><span class="line"></span><br><span class="line">      </span><br><span class="line">    </span><br><span class="line">where Address is the position of the node, Data is an integer, <span class="keyword">and</span> Next is the position of the next node.</span><br><span class="line"></span><br><span class="line">Output Specification:</span><br><span class="line">For each <span class="keyword">case</span>, output the resulting ordered linked <span class="built_in">list</span>. Each node occupies a line, <span class="keyword">and</span> is printed in the same format as in the input.</span><br><span class="line"></span><br><span class="line">Sample Input:</span><br><span class="line"><span class="number">00100</span> <span class="number">6</span> <span class="number">4</span></span><br><span class="line"><span class="number">00000</span> <span class="number">4</span> <span class="number">99999</span></span><br><span class="line"><span class="number">00100</span> <span class="number">1</span> <span class="number">12309</span></span><br><span class="line"><span class="number">68237</span> <span class="number">6</span> <span class="number">-1</span></span><br><span class="line"><span class="number">33218</span> <span class="number">3</span> <span class="number">00000</span></span><br><span class="line"><span class="number">99999</span> <span class="number">5</span> <span class="number">68237</span></span><br><span class="line"><span class="number">12309</span> <span class="number">2</span> <span class="number">33218</span></span><br><span class="line"></span><br><span class="line">      </span><br><span class="line">    </span><br><span class="line">Sample Output:</span><br><span class="line"><span class="number">00000</span> <span class="number">4</span> <span class="number">33218</span></span><br><span class="line"><span class="number">33218</span> <span class="number">3</span> <span class="number">12309</span></span><br><span class="line"><span class="number">12309</span> <span class="number">2</span> <span class="number">00100</span></span><br><span class="line"><span class="number">00100</span> <span class="number">1</span> <span class="number">99999</span></span><br><span class="line"><span class="number">99999</span> <span class="number">5</span> <span class="number">68237</span></span><br><span class="line"><span class="number">68237</span> <span class="number">6</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<p>代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100010</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> address, data, next;</span><br><span class="line">	<span class="keyword">bool</span> flag;</span><br><span class="line">	<span class="keyword">int</span> order;</span><br><span class="line">&#125;node[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Node a, Node b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a.order &lt; b.order;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp2</span><span class="params">(Node a, Node b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a.order &gt; b.order;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxn; i++) &#123;</span><br><span class="line">		node[i].flag = <span class="literal">false</span>;</span><br><span class="line">		node[i].order = maxn;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> first, n, k;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;first, &amp;n, &amp;k);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> add;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;add);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;node[add].data, &amp;node[add].next);</span><br><span class="line">		node[add].address = add;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> temp = first;</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(temp != <span class="number">-1</span>) &#123;</span><br><span class="line">		node[temp].flag = <span class="literal">true</span>;</span><br><span class="line">		node[temp].order = count++;</span><br><span class="line">		temp = node[temp].next;</span><br><span class="line">	&#125;</span><br><span class="line">	sort(node, node + maxn, cmp);</span><br><span class="line">	<span class="keyword">int</span> tempnum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> tempadd = first;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i=i+k) &#123;</span><br><span class="line">		<span class="keyword">if</span>(i &lt; count/k * k) &#123;	<span class="comment">//还未到达最后一组 </span></span><br><span class="line">			sort(node + i, node+i+k, cmp2);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(i != count<span class="number">-1</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%05d %d %05d\n"</span>, node[i].address, node[i].data, node[i+<span class="number">1</span>].address);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%05d %d -1\n"</span>,node[i].address, node[i].data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>步骤一：定义链表 bool性质定义flag </p>
+<p>步骤二：初始化 flag均为false 初始化order</p>
+<p>步骤三：遍历链表 标记flag为true 计算order 同时统计有效结点个数count</p>
+<p>步骤四：对结点排序 cmp为对order排序 对有效结点使有效结点往前挪 对每个组内的有效结点进行排序sort(node + i, node+i+k, cmp2); 组内逆序</p>
+<p>步骤五：有效结点已经按照数据域排序 因此直接输出就可以。</p>
+<p>要注意最后一个结点的输出为-1避免%05d化为-00001</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/07/Dijkstra算法解决最短路径问题/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1658,148 +1803,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/01/二叉树的存储结构与基本操作/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/01/二叉树的存储结构与基本操作/" itemprop="url">二叉树的存储结构与基本操作</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-01T14:38:46+08:00">
-                2019-03-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>1.二叉树的存储结构</strong></p>
-<p>一般来说，二叉树使用链表来定义。和普通的链表不同的是，由于二叉树的每个结点有两条出边，因此指针域变成了两个—分别指向左子树的根结点地址和左子树的根结点地址。如果某个子树不存在，则指向NULL，其他地方和普通链表完全相同，因此又把这种链表叫做二叉链表，其定义如下：</p>
-<p>二叉树定义如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	<span class="keyword">typename</span> data;	<span class="comment">//数据域</span></span><br><span class="line">	node* lchile;	<span class="comment">//指向左子树根结点的指针</span></span><br><span class="line">	node* rchile;	<span class="comment">//指向右子树根结点的指针 </span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>由于在二叉树建树前更结点不存在，因此地址一般设为NULL</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node* root = <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
-<p>而如果需要新建结点(例如往二叉树中插入节点的时候)，就可以使用下面的函数：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">node* <span class="title">newNode</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">	node* Node = <span class="keyword">new</span> node;	<span class="comment">//申请一个node型变量的地址空间</span></span><br><span class="line">	Node-&gt;data = v;		<span class="comment">//结点权值为v</span></span><br><span class="line">	Node-&gt;lchild = Node-&gt;rchild = <span class="literal">NULL</span>;		<span class="comment">//初始状态下没有左右孩子</span></span><br><span class="line">	<span class="keyword">return</span> Node;	<span class="comment">//返回新建结点的地址 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>二叉树的常用操作有以下几个：二叉树的建立、二叉树结点的查找、修改、插入与删除。其中删除操作对不同性质的二叉树的区别较大，因此暂时不在此处介绍。本文主要介绍查找、修改、插入、建树的通用思想。</p>
-<p><strong>2.二叉树结点的查找、修改</strong></p>
-<p>查找操作是指在给定的数据域的条件下，在二叉树中找到所有数据域为给定数据域的结点，并将他们的数据域修改为给定的数据域。</p>
-<p>通常使用递归来完成，两个元素：递归式和递归边界。递归式是指对当前结点的左子树和右子树分别递归，递归边界就是当前结点为空的时候就到达死胡同。查找修改操作就可以用这样的思想，先判断当前结点是否为需要查找的结点，如果是则对其进行修改操作，如果不是则分别往该结点的左右孩子递归，知道当前结点为null为止。有了如下的代码：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(node* root, <span class="keyword">int</span> x, <span class="keyword">int</span> newdata)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(root == <span class="literal">NULL</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span>;		<span class="comment">//空树，死胡同(递归边界) </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(root-&gt;data == x) &#123;	<span class="comment">//找到数据域为x的结点，把它修改成newdata</span></span><br><span class="line">		root-&gt;data = newdata; </span><br><span class="line">	&#125;</span><br><span class="line">	search(root-&gt;lchild, x, newdata);	<span class="comment">//往左子树搜索x(递归式) </span></span><br><span class="line">	search(root-&gt;rchild, x, newdata);	<span class="comment">//往右子树搜索x(递归式) </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>3.二叉树结点的插入</strong></p>
-<p>二叉树的形态很多，所以在此处题目没有说明二叉树的特点的时候是很难给出结点插入的具体方法。在递归查找的过程中一定是更具二叉树的性质来选择左子树还是右子树其中一个树来进行递归。且对后到达空树的地方就是查找失败的地方，也就是结点需要插入的地方。由此可以得到：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//insert函数将二叉树中插入一个数据域为x的新结点</span></span><br><span class="line"><span class="comment">//注意根结点指针root要使用引用， 否则插入会不成功</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(node* &amp;root, <span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(root == <span class="literal">NULL</span>) &#123;	<span class="comment">//空树，说明查找失败，也即插入位置(递归边界)</span></span><br><span class="line">		root = newNode(x);</span><br><span class="line">		<span class="keyword">return</span>; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(由二叉树的性质, x应该插入在左子树) &#123;</span><br><span class="line">		insert(root-&gt;lchild, x);	<span class="comment">//往左子树搜索(递归式) </span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		insert(root-&gt;rchild, x);	<span class="comment">//往右子树搜索(递归式)</span></span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在上述代码中，很关键的一点就是<strong>根结点指针root使用了引用&amp;</strong>。引用的作用是在函数中直接修改root会修改原变量。如果不使用引用，root = new node这个语句对root的修改就无法作用到原变量(即上一层的root-&gt;lchild与root-&gt;rchild)上去，也就不能把新结点接到二叉树上面，因此insert函数必须加引用。</p>
-<p>那为什么search函数不需要加引用？这是因为search函数中修改的是指针root指向的内容，而不是root本身，而对指针指向的结点的内容的修改是不用加引用的。</p>
-<p>如何判断是否加引用：<strong>如果函数中需要新建结点，对二叉树的结构做出修改，则必须加引用；如果只是修改当前已有结点的内容，或仅仅是遍历树，就不需要加引用。至于判断不出来的情况，不妨直接试一下加与不加的区别再决定</strong></p>
-<p>特别提醒，在新建结点之后，<strong>务必令新结点的左右指针域为NULL</strong>表示这个新结点暂时没有左右子树。</p>
-<p><strong>4.二叉树的创建</strong></p>
-<p>二叉树的创建其实就是二叉树结点的插入过程，而插入所需要的结点数据域一般题目会给出，因此比较常用的写法就是把需要插入的数据存储在数组中。然后将他们使用insert函数一个个插入到二叉树中，并且最终返回根结点的指针root。而等读者熟悉后，可能更方便的写法是直接在建立二叉树的过程中边输入数据边插入结点。代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//二叉树的建立</span></span><br><span class="line"><span class="function">node* <span class="title">Create</span><span class="params">(<span class="keyword">int</span> data[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	node* root = <span class="literal">NULL</span>;	<span class="comment">//新建空根结点root</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		insert(root, data[i]);		<span class="comment">//将data[0]~data[n-1]插入二叉树中 </span></span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> root;	<span class="comment">//返回根结点 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1854,7 +1857,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

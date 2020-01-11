@@ -249,6 +249,127 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/28/A1025题解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/28/A1025题解/" itemprop="url">A1025题解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-28T22:43:37+08:00">
+                2019-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这题搞了我大半个晚上还是有一个点过不去也是无语了。重点在于排序的点的起始点 与特殊算例。比如只有一个考场一个考生的时候 排序等等。还有一个点之后再想。我决定还是先跳过排序这一小节，因为看了几个大神的解题，发现用容器会方便很多 所以，之后先从STL开始刷刷完以后刷数据结构的题目。然后数学的模拟题 第4-5章晚上刷 白天先学STL 然后数据结构晚上刷找规律的题目 这样好一些 效率高一些</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span> &#123;</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> ID;</span><br><span class="line">	<span class="keyword">int</span> score, location, local_rank, final_rank;</span><br><span class="line">&#125;stu[<span class="number">30010</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Student a, Student b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(a.score != b.score)	<span class="keyword">return</span> a.score &gt; b.score;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> a.ID &lt; b.ID;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> N;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;N);	<span class="comment">//获取一共有几个考场</span></span><br><span class="line">	<span class="comment">//接下来读取考场信息</span></span><br><span class="line">	<span class="keyword">int</span> K[<span class="number">310</span>];</span><br><span class="line">	K[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;K[i]);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = sum + <span class="number">1</span>; j &lt;= sum + K[i]; j++) &#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%lld %d"</span>, &amp;stu[j].ID, &amp;stu[j].score);</span><br><span class="line">			stu[j].location = i;</span><br><span class="line">		&#125;</span><br><span class="line">		sort(stu + sum + <span class="number">1</span>, stu + sum + K[i] + <span class="number">1</span>, cmp);</span><br><span class="line">		stu[sum + <span class="number">1</span>].local_rank = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = sum + <span class="number">2</span>; j &lt;= sum + K[i]; j++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(stu[j - <span class="number">1</span>].score == stu[j].score)&#123;</span><br><span class="line">				stu[j].local_rank = stu[j - <span class="number">1</span>].local_rank;			</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				stu[j].local_rank = j - sum;</span><br><span class="line">			&#125;	</span><br><span class="line">		&#125;	</span><br><span class="line">		sum = sum + K[i];</span><br><span class="line">	&#125;</span><br><span class="line">	sort(stu + <span class="number">1</span>, stu + sum + <span class="number">1</span>, cmp);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, sum);</span><br><span class="line">	stu[<span class="number">1</span>].final_rank = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= sum; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(stu[i - <span class="number">1</span>].score != stu[i].score) &#123;</span><br><span class="line">			stu[i].final_rank = i;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			stu[i].final_rank = stu[i - <span class="number">1</span>].final_rank;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;= sum; i++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%lld %d %d %d\n"</span>, stu[i].ID, stu[i].final_rank, stu[i].location, stu[i].local_rank);		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/28/A1012题解/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1348,127 +1469,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/A1036题解/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/26/A1036题解/" itemprop="url">A1036题解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-26T00:47:56+08:00">
-                2019-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>结构体搭配bool类型的判断数组很重要的思路 注意输入输出！</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span> &#123;</span></span><br><span class="line">	<span class="keyword">char</span> name[<span class="number">20</span>];</span><br><span class="line">	<span class="keyword">char</span> gender[<span class="number">20</span>];</span><br><span class="line">	<span class="keyword">char</span> ID[<span class="number">20</span>];</span><br><span class="line">	<span class="keyword">int</span> grade;</span><br><span class="line">&#125; male, female, temp;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">great</span><span class="params">(Student stu1, Student stu2)</span> </span>&#123;	<span class="comment">//谁的成绩高则输出true </span></span><br><span class="line">	<span class="keyword">if</span>(stu1.grade != stu2.grade) &#123;</span><br><span class="line">		<span class="keyword">return</span> stu1.grade &gt; stu2.grade;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> N;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;N);</span><br><span class="line">	<span class="keyword">int</span> count_M = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> count_F = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">strcpy</span>(male.name, <span class="string">"abc"</span>); </span><br><span class="line">	<span class="built_in">strcpy</span>(male.gender, <span class="string">"M"</span>); </span><br><span class="line">	<span class="built_in">strcpy</span>(male.ID, <span class="string">"cs101"</span>);</span><br><span class="line">	male.grade = <span class="number">100</span>;</span><br><span class="line">	<span class="built_in">strcpy</span>(female.name, <span class="string">"abc"</span>);</span><br><span class="line">	<span class="built_in">strcpy</span>(female.gender, <span class="string">"F"</span>); </span><br><span class="line">	<span class="built_in">strcpy</span>(female.ID, <span class="string">"CS101"</span>);</span><br><span class="line">	female.grade = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">		<span class="comment">//先读入数据</span></span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%s %s %s %d"</span>, &amp;temp.name, &amp;temp.gender, &amp;temp.ID, &amp;temp.grade);</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">strcmp</span>(temp.gender, <span class="string">"M"</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>(great(temp, male) == <span class="literal">false</span>) &#123;</span><br><span class="line">				male = temp;</span><br><span class="line">				<span class="comment">//printf("%s %s %s %d\n\n", male.name, male.gender, male.ID, male.grade);</span></span><br><span class="line">			&#125; </span><br><span class="line">			count_M++;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">strcmp</span>(temp.gender, <span class="string">"F"</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span>(great(temp, female) == <span class="literal">true</span>) &#123;</span><br><span class="line">				female = temp;</span><br><span class="line">				<span class="comment">//printf("%s %s %s %d\n\n", female.name, female.gender, female.ID, female.grade);</span></span><br><span class="line">			&#125;</span><br><span class="line">			count_F++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//printf("%s %s %s %d\n", male.name, male.gender, male.ID, male.grade);</span></span><br><span class="line">	<span class="comment">//printf("%s %s %s %d\n", female.name, female.gender, female.ID, female.grade);</span></span><br><span class="line">	<span class="comment">//printf("%d %d\n", count_M, count_F);</span></span><br><span class="line">	<span class="keyword">if</span>(count_M == <span class="number">0</span> || count_F == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span>(count_F == <span class="number">0</span> &amp;&amp; count_M == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"Absent\n"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"Absent\n"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"NA\n"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(count_F == <span class="number">0</span> &amp;&amp; count_M != <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"Absent\n"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%s %s\n"</span>, male.name, male.ID);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"NA"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(count_F != <span class="number">0</span> &amp;&amp; count_M == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%s %s\n"</span>, female.name, female.ID);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"Absent\n"</span>);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"NA"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">int</span> dif = female.grade - male.grade;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%s %s\n"</span>, female.name, female.ID);	</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%s %s\n"</span>, male.name, male.ID);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>, dif);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1523,7 +1523,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
