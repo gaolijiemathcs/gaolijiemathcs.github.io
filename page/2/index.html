@@ -249,6 +249,782 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/27/A1088题解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/27/A1088题解/" itemprop="url">A1088题解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-27T00:56:29+08:00">
+                2019-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本题注意long long 而且迭代的时候 要注意化简的时候 要另起一个d 去除 否则每次除以后会发现up会变化。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> up, down;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">gcd</span><span class="params">(<span class="keyword">long</span> <span class="keyword">long</span> a, <span class="keyword">long</span> <span class="keyword">long</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> b == <span class="number">0</span> ?  a : gcd(b, a%b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">reduction</span><span class="params">(Fraction result)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(result.down &lt; <span class="number">0</span>) &#123;	<span class="comment">//如果分母为负数则上下同取相反数 </span></span><br><span class="line">		result.up = -result.up;</span><br><span class="line">		result.down = -result.down;</span><br><span class="line">	&#125;	</span><br><span class="line">	<span class="keyword">if</span>(result.up == <span class="number">0</span>) &#123;	<span class="comment">//如果分子为0令分母为1 </span></span><br><span class="line">		result.down = <span class="number">1</span>; </span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">long</span> <span class="keyword">long</span> d = gcd(<span class="built_in">abs</span>(result.up), <span class="built_in">abs</span>(result.down));</span><br><span class="line">		result.up = result.up / d;</span><br><span class="line">		result.down = result.down / d;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">add</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down + f2.up * f1.down;	</span><br><span class="line">	result.down = f1.down * f2.down;</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">minu</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down - f2.up * f1.down;</span><br><span class="line">	result.down = f1.down * f2.down;</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">multi</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.up;</span><br><span class="line">	result.down = f1.down * f2.down;</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">divide</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down;</span><br><span class="line">	result.down = f1.down * f2.up;</span><br><span class="line">	reduction(result);</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showresult</span><span class="params">(Fraction r)</span> </span>&#123;</span><br><span class="line">	r = reduction(r);</span><br><span class="line">	<span class="keyword">if</span>(r.up &lt; <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">"("</span>);</span><br><span class="line">	<span class="keyword">if</span>(r.down == <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"%lld"</span>, r.up);		<span class="comment">//整数</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">abs</span>(r.up) &gt; r.down) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%lld %lld/%lld"</span>, r.up / r.down, <span class="built_in">abs</span>(r.up) % r.down, r.down);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%lld/%lld"</span>, r.up, r.down); </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(r.up &lt; <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">")"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Fraction a, b;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld/%lld"</span>, &amp;a.up, &amp;a.down);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld/%lld"</span>, &amp;b.up, &amp;b.down);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//求和 </span></span><br><span class="line">	showresult(a);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" + "</span>);</span><br><span class="line">	showresult(b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" = "</span>);</span><br><span class="line">	showresult(add(a, b));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//求差 </span></span><br><span class="line">	showresult(a);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" - "</span>);</span><br><span class="line">	showresult(b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" = "</span>);</span><br><span class="line">	showresult(minu(a, b));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//求积</span></span><br><span class="line">	showresult(a);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" * "</span>);</span><br><span class="line">	showresult(b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" = "</span>);</span><br><span class="line">	showresult(multi(a, b));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//求商</span></span><br><span class="line">	Fraction r;</span><br><span class="line">	showresult(a);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" / "</span>);</span><br><span class="line">	showresult(b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">" = "</span>);</span><br><span class="line">	<span class="keyword">if</span>(b.up == <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">"Inf"</span>);</span><br><span class="line">	<span class="keyword">else</span> showresult(divide(a, b));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/分数的四则运算/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/20/分数的四则运算/" itemprop="url">分数的四则运算</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T13:06:04+08:00">
+                2019-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>所谓的分数的四则运算是指，给定两个分数的分子和分母，求他们加减乘除的结果，先介绍如何表示和化简一个分数。</p>
+<h4 id="一、分数的表示和化简"><a href="#一、分数的表示和化简" class="headerlink" title="一、分数的表示和化简"></a>一、分数的表示和化简</h4><ol>
+<li><p>分数的表示</p>
+<p>对于一个分数来说，最简洁的写法就是写成假分数的形式，即无论分子比分母大或者小，都保留其原数。因此可以使用一个结构体来保存这种只有分子和分母的分数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span>	<span class="comment">//分数</span></span><br><span class="line">    <span class="keyword">int</span> up, down;	<span class="comment">//分子、分母</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>于是就可以定义Fraction类型的变量来表示分数，或者定义数组来表示一堆分数，其中需要对这种表达制定的三项规则：</p>
+<p>①使用down为非负数。如果分数为负数那么令分子up为负即可。</p>
+<p>②如果该分数恰为0， 那么规定其分子为0分母为1.</p>
+<p>③分子和分母没有除了1以外的公约数。</p>
+</li>
+<li><p>分数的化简</p>
+<p>分数的化简主要使用Fraction变量满足分数表示的三项规定，因此化简步骤也分为三步：</p>
+<p>①如果分母down为负数，那么令分子up和分母down都变为相反数</p>
+<p>②如果分子up为0，那么令分数down为1</p>
+<p>③约分：求出分子绝对值与分母绝对值的最大公约数d，然后令分子分母同时除以d；</p>
+<p>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> up, down;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> gcd(b, a%b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">reduction</span><span class="params">(Fraction &amp;result)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(result.down &lt; <span class="number">0</span>) &#123;	<span class="comment">//分母为负数 令分子和分母都变为相反数</span></span><br><span class="line">		result.up = -result.up;</span><br><span class="line">		result.down = - result.down; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(result.up == <span class="number">0</span>) &#123;	<span class="comment">//如果分子为0 </span></span><br><span class="line">		result.down = <span class="number">1</span>;	<span class="comment">//令分母为1 </span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">int</span> d = gcd(<span class="built_in">abs</span>(result.up), <span class="built_in">abs</span>(result.down));	<span class="comment">//求分子与分母的最大公约数</span></span><br><span class="line">		result.up = result.up / d;</span><br><span class="line">		result.down = result.down / d; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Fraction a;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a.up, &amp;a.down);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, a.up, a.down);</span><br><span class="line">	reduction(a);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, a.up, a.down);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="二、分数的四则运算"><a href="#二、分数的四则运算" class="headerlink" title="二、分数的四则运算"></a>二、分数的四则运算</h4><p>1.分数的加法</p>
+<p>对于两个分数f1与f2，其加法的计算公式为<br>$$<br>result = \frac{f1.up<em>f2.down + f2.up</em>f1.down}{f1.down*f2.down}<br>$$<br>2.分数的减法</p>
+<p>对于两个分数f1与f2，其减法的计算公式为<br>$$<br>result = \frac{f1.up<em>f2.down - f2.up</em>f1.down}{f1.down*f2.down}<br>$$<br>3.分数的乘法</p>
+<p>对于两个分数f1与f2，其乘法的计算公式为<br>$$<br>result = \frac{f1.up<em>f2.up}{f1.down</em>f2.down}<br>$$<br>4.分数的除法</p>
+<p>对于两个分数f1和f2，其除法的计算公式为<br>$$<br>result = \frac{f1.up<em>f2.down}{f1.down</em>f2.up}<br>$$<br>做除法的时候应要额外注意 如果输出的除数为0只需要判断f2.up是否为0，那么应当直接特判输出题目要求的语句。只有除数不为0的时候才能够用上面的函数进行输出。</p>
+<p>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> up, down;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> gcd(b, a%b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">reduction</span><span class="params">(Fraction &amp;result)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(result.down &lt; <span class="number">0</span>) &#123;	<span class="comment">//分母为负数 令分子和分母都变为相反数</span></span><br><span class="line">		result.up = -result.up;</span><br><span class="line">		result.down = - result.down; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(result.up == <span class="number">0</span>) &#123;	<span class="comment">//如果分子为0 </span></span><br><span class="line">		result.down = <span class="number">1</span>;	<span class="comment">//令分母为1 </span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">int</span> d = gcd(<span class="built_in">abs</span>(result.up), <span class="built_in">abs</span>(result.down));	<span class="comment">//求分子与分母的最大公约数</span></span><br><span class="line">		result.up = result.up / d;</span><br><span class="line">		result.down = result.down / d; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">add</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//加法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down + f2.up * f1.down;	<span class="comment">//分数和的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;	<span class="comment">//分数和的分母</span></span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">minu</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//减法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down - f2.up * f1.down;	<span class="comment">//分数和的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;	<span class="comment">//分数和的分母</span></span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">multi</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//乘法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.up;	<span class="comment">//分数积的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;</span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">divide</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down;</span><br><span class="line">	result.down = f1.down * f2.up;</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Fraction a, b, c;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;a.up, &amp;a.down, &amp;b.up, &amp;b.down);</span><br><span class="line">	c = add(a, b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, c.up, c.down);</span><br><span class="line">	c = minu(a, b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, c.up, c.down);</span><br><span class="line">	c = multi(a, b);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, c.up, c.down);</span><br><span class="line">	<span class="keyword">if</span>(b.up == <span class="number">0</span>) &#123;	<span class="comment">//保证了分母不为0 </span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"error!\n"</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		c = divide(a, b);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, c.up, c.down);	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">1</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span>/<span class="number">6</span></span><br><span class="line"><span class="number">1</span>/<span class="number">6</span></span><br><span class="line"><span class="number">1</span>/<span class="number">6</span></span><br><span class="line"><span class="number">3</span>/<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h4 id="三、分数的输出"><a href="#三、分数的输出" class="headerlink" title="三、分数的输出"></a>三、分数的输出</h4><p>分数的输出根据题目的要求进行，但是大体上有以下几个注意点：</p>
+<p>①输出分数前，需要对其进行化简</p>
+<p>②如果分数r的分母down为1，说明该分数是整数，一般来说题目会要求直接输出分子而省略分母的输出</p>
+<p>③如果分数r的分子up的绝对值大于分母down，说明应该是假分数，这时候应该以带分数的形式输出，即整数部分为r.up/r.down 而分子部分为abs(r.up) % r.down 分母部分为r.down</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showResult</span><span class="params">(Fraction r)</span> </span>&#123;</span><br><span class="line">	r = reduction(r);</span><br><span class="line">		<span class="keyword">if</span>(r.down == <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"%lld"</span>, r.up);	<span class="comment">//整数</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">abs</span>(r.up) &lt; <span class="built_in">abs</span>(r.down)) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, r.up, r.down);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d %d/%d"</span>, r.up / r.down, <span class="built_in">abs</span>(r.up) % r.down, r.down);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>强调一下：由于分数的乘法和分数的除法过程中会使用分子或分母超过int的表示范围因此一般盈亏下分子和分母应该使用long long类型来存储。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Fraction</span> &#123;</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> up, down;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> gcd(b, a%b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">reduction</span><span class="params">(Fraction &amp;result)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(result.down &lt; <span class="number">0</span>) &#123;	<span class="comment">//分母为负数 令分子和分母都变为相反数</span></span><br><span class="line">		result.up = -result.up;</span><br><span class="line">		result.down = - result.down; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(result.up == <span class="number">0</span>) &#123;	<span class="comment">//如果分子为0 </span></span><br><span class="line">		result.down = <span class="number">1</span>;	<span class="comment">//令分母为1 </span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">int</span> d = gcd(<span class="built_in">abs</span>(result.up), <span class="built_in">abs</span>(result.down));	<span class="comment">//求分子与分母的最大公约数</span></span><br><span class="line">		result.up = result.up / d;</span><br><span class="line">		result.down = result.down / d; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">add</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//加法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down + f2.up * f1.down;	<span class="comment">//分数和的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;	<span class="comment">//分数和的分母</span></span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">minu</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//减法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down - f2.up * f1.down;	<span class="comment">//分数和的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;	<span class="comment">//分数和的分母</span></span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">multi</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;	<span class="comment">//乘法 </span></span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.up;	<span class="comment">//分数积的分子</span></span><br><span class="line">	result.down = f1.down * f2.down;</span><br><span class="line">	<span class="keyword">return</span> reduction(result); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Fraction <span class="title">divide</span><span class="params">(Fraction f1, Fraction f2)</span> </span>&#123;</span><br><span class="line">	Fraction result;</span><br><span class="line">	result.up = f1.up * f2.down;</span><br><span class="line">	result.down = f1.down * f2.up;</span><br><span class="line">	<span class="keyword">return</span> reduction(result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showResult</span><span class="params">(Fraction r)</span> </span>&#123;</span><br><span class="line">	r = reduction(r);</span><br><span class="line">		<span class="keyword">if</span>(r.down == <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, r.up);	<span class="comment">//整数</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">abs</span>(r.up) &lt; <span class="built_in">abs</span>(r.down)) &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%lld/%lld\n"</span>, r.up, r.down);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%lld %lld/%lld\n"</span>, r.up / r.down, <span class="built_in">abs</span>(r.up) % r.down, r.down);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Fraction a, b, c;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld%lld%lld%lld"</span>, &amp;a.up, &amp;a.down, &amp;b.up, &amp;b.down);</span><br><span class="line">	c = add(a, b);</span><br><span class="line">	showResult(c);</span><br><span class="line">	c = minu(a, b);</span><br><span class="line">	showResult(c);</span><br><span class="line">	c = multi(a, b);</span><br><span class="line">	showResult(c);</span><br><span class="line">	<span class="keyword">if</span>(b.up == <span class="number">0</span>) &#123;	<span class="comment">//保证了分母不为0 </span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"error!\n"</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		c = divide(a, b);</span><br><span class="line">		showResult(c);	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/最大公约数与最小公倍数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/20/最大公约数与最小公倍数/" itemprop="url">最大公约数与最小公倍数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T12:52:14+08:00">
+                2019-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="一、最大公约数"><a href="#一、最大公约数" class="headerlink" title="一、最大公约数"></a>一、最大公约数</h4><p>正整数a与b的最大公约数是指a与b的所有公约数中最大的那个公约数。例如4与6的最大公约数为2； 3与9最大公约数为3.一般使用gcd(a, b)来表示a和b的最大公约数。而求解最大公约数常用欧几里得算法（辗转相除法）</p>
+<p>欧几里得算法基于以下定理：</p>
+<p>设a、b均为正整数，则gcd(a, b) = gcd(b, a%b).</p>
+<p>还需要设置递归边界，数据规模减小到什么样的程度就可以计算出结果。0与任何一个整数a的最大公约数都是a，这个结论就可以当做递归边界来使用，就可以使用递归的表达式。</p>
+<p>①递归式：gcd(a, b) = gcd(b, a%b);</p>
+<p>②递归边界：gcd(a, 0) = a.</p>
+<p>于是可以得到下面求解最大公约数的代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(b == <span class="number">0</span>) <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> gcd(b, a%b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更简洁的写法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> !b ? a : gcd(b, a%b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="二、最小公倍数"><a href="#二、最小公倍数" class="headerlink" title="二、最小公倍数"></a>二、最小公倍数</h4><p>正整数a与b的最小公倍数是指a与b的所有公倍数中最小的那个。4与6 最小公倍数为12.一般使用lcm(a, b)来表示a和b的最小公倍数。</p>
+<p>最小公倍数的求解在最大公约数的基础上进行，当得到a与b的最大公约数d可以直接获得a和b的最小公倍数为ab/d.</p>
+<p>由于ab在实际运算时有可能会溢出，因此更加恰当的写法为a/d * b。由于d为a与b的最大公约数因此a/d一定可以整除。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/19/简单数学/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/19/简单数学/" itemprop="url">A1069</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-19T22:42:07+08:00">
+                2019-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>要注意数字的位数必须都是4位的位数 还有判断逆序的时候第一次要排序以后就保证了保序。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dissort1</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">4</span>];		<span class="comment">//四位数abcd</span></span><br><span class="line">	a[<span class="number">0</span>] = n%<span class="number">10</span>;	<span class="comment">//个位 </span></span><br><span class="line">	a[<span class="number">1</span>] = ((n - a[<span class="number">0</span>])/<span class="number">10</span>)%<span class="number">10</span>;	<span class="comment">//十位 </span></span><br><span class="line">	a[<span class="number">2</span>] = (((n - a[<span class="number">0</span>] - <span class="number">10</span>*a[<span class="number">1</span>]))/<span class="number">100</span>)%<span class="number">10</span>;		<span class="comment">//百位</span></span><br><span class="line">	a[<span class="number">3</span>] = (((n - a[<span class="number">0</span>] - <span class="number">10</span>*a[<span class="number">1</span>] - <span class="number">100</span>*a[<span class="number">2</span>]))/<span class="number">1000</span>)%<span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> temp;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; <span class="number">4</span>; j++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(a[i] &lt; a[j]) &#123;</span><br><span class="line">				temp = a[i];</span><br><span class="line">				a[i] = a[j];</span><br><span class="line">				a[j] = temp;	</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> num = a[<span class="number">0</span>]*<span class="number">1000</span> + a[<span class="number">1</span>]*<span class="number">100</span> + a[<span class="number">2</span>]*<span class="number">10</span> + a[<span class="number">3</span>];</span><br><span class="line">	<span class="keyword">return</span> 	num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dissort</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a, b, c, d;		<span class="comment">//四位数abcd</span></span><br><span class="line">	d = n%<span class="number">10</span>;	<span class="comment">//个位 </span></span><br><span class="line">	c = ((n - d)/<span class="number">10</span>)%<span class="number">10</span>;	<span class="comment">//十位 </span></span><br><span class="line">	b = (((n - d - <span class="number">10</span>*c))/<span class="number">100</span>)%<span class="number">10</span>;		<span class="comment">//百位</span></span><br><span class="line">	a = (((n - d - <span class="number">10</span>*c - <span class="number">100</span>*b))/<span class="number">1000</span>)%<span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> num = d*<span class="number">1000</span> + c*<span class="number">100</span> + b*<span class="number">10</span> + a;</span><br><span class="line">	<span class="keyword">return</span> 	num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="keyword">int</span> num1 = dissort1(n);</span><br><span class="line">	<span class="keyword">int</span> num2 = dissort(num1);</span><br><span class="line">	<span class="keyword">if</span>(num1 == n) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d - %d = 0000\n"</span>, num1, n);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">int</span> diff;</span><br><span class="line">		<span class="keyword">do</span> &#123;</span><br><span class="line">			diff = num1 - num2;</span><br><span class="line">			<span class="keyword">if</span>((num2 &gt; <span class="number">0</span>) &amp;&amp; (num2 &lt; <span class="number">10</span>)) &#123;	<span class="comment">//十以内 </span></span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%d - 000%d = "</span>, num1, num2);</span><br><span class="line">				<span class="keyword">if</span>(diff &lt;= <span class="number">999</span>) &#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"0%d\n"</span>, diff);</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, diff);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span>((num2 &gt;= <span class="number">10</span>) &amp;&amp; (num2 &lt; <span class="number">100</span>)) &#123;  <span class="comment">//10~99</span></span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%d - 00%d = "</span>, num1, num2);</span><br><span class="line">				<span class="keyword">if</span>(diff &lt;= <span class="number">999</span>) &#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"0%d\n"</span>, diff);</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, diff);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span>((num2 &gt;= <span class="number">100</span>) &amp;&amp; (num2 &lt; <span class="number">1000</span>)) &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%d - 0%d = "</span>, num1, num2);</span><br><span class="line">				<span class="keyword">if</span>(diff &lt;= <span class="number">999</span>) &#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"0%d\n"</span>, diff);</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, diff);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%d - %d = "</span>, num1, num2);</span><br><span class="line">				<span class="keyword">if</span>(diff &lt;= <span class="number">999</span>) &#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"0%d\n"</span>, diff);</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, diff);</span><br><span class="line">				&#125;				</span><br><span class="line">			&#125;</span><br><span class="line">			num1 = dissort1(diff);</span><br><span class="line">			num2 = dissort(num1);</span><br><span class="line">		&#125;<span class="keyword">while</span>(diff != <span class="number">6174</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/04/二叉树的静态实现/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/04/二叉树的静态实现/" itemprop="url">二叉树的静态实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-04T22:41:28+08:00">
+                2019-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>定义二叉树的时候，采用的是二叉链表结构：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">typename</span> data;	<span class="comment">//数据域</span></span><br><span class="line">    node* lchild;	<span class="comment">//指向左子树结点的指针</span></span><br><span class="line">    node* rchild;	<span class="comment">//指向右子树根结点的指针</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了可以实时的控制新生成的结点的个数，结构体node中的左右指针域都使用了指针，但是指针对于一些刚入门的读者来说容易犯错，因此有必要想办法避免指针的使用，采用的就是使用静态的二叉链表。</p>
+<p>所谓的静态二叉链表，结点的左右指针域使用的int型代替，用来表示左右子树的根结点在数组的下标，为此需要建立一个大小为结点上限个数的node型数组，所有的动态生成的结点都直接使用数组中的结点，所有对指针的操作都改为对数组下标的访问，因此，结点node的定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">typename</span> data;	<span class="comment">//数据域</span></span><br><span class="line">    <span class="keyword">int</span> lchild;		<span class="comment">//指向左子树的指针域</span></span><br><span class="line">    <span class="keyword">int</span> rchild;		<span class="comment">//指向右子树的指针域</span></span><br><span class="line">&#125; Node[maxn];	<span class="comment">//结点数组，maxn为结点上限个数</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/01/A1020题解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/01/A1020题解/" itemprop="url">A1020题解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-01T20:10:46+08:00">
+                2019-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本题要注意几个地方。首先要会自己推树区域的地方。还有一个对树进行输出的时候为对结点进行输出 记得LayerOrder(node<em> root)中</em>不能漏了还有对于输出的模板要注意了。还有create的时候是对总体的create要注意一下。</p>
+<p>题解如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> data;</span><br><span class="line">	<span class="keyword">int</span> layer;</span><br><span class="line">	node* lchild;</span><br><span class="line">	node* rchild;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> post[<span class="number">40</span>], in[<span class="number">40</span>], pre[<span class="number">40</span>];</span><br><span class="line"><span class="keyword">int</span> N;</span><br><span class="line"></span><br><span class="line"><span class="function">node* <span class="title">create</span><span class="params">(<span class="keyword">int</span> postL, <span class="keyword">int</span> postR, <span class="keyword">int</span> inL, <span class="keyword">int</span> inR)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(postL &gt; postR) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;	<span class="comment">//后序序列长度小于等于0时直接返回 </span></span><br><span class="line">	&#125;</span><br><span class="line">	node* root = <span class="keyword">new</span> node;	<span class="comment">//新建一个新的结点用于存放当前的二叉树根结点000</span></span><br><span class="line">	root-&gt;data = post[postR];	<span class="comment">//新结点的数据域为根结点的值 </span></span><br><span class="line">	<span class="keyword">int</span> k;</span><br><span class="line">	<span class="keyword">for</span>(k = inL; k &lt;= inR; k++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(in[k] == post[postR]) &#123;	<span class="comment">//在中序序列中找到in[k] == post[postR] 结点</span></span><br><span class="line">			<span class="keyword">break</span>; </span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> numLeft = k - inL;	<span class="comment">//左子树的结点个数</span></span><br><span class="line">	<span class="comment">//左子树的后序区间为[postL, postL + numLeft - 1]</span></span><br><span class="line">	<span class="comment">//左子树的中序区间为[inL, k - 1]</span></span><br><span class="line">	<span class="comment">//返回左子树的根结点，赋值给root的左指针</span></span><br><span class="line">	root-&gt;lchild = create(postL, postL + numLeft - <span class="number">1</span>, inL, k - <span class="number">1</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//右子树的后序区间为[postL + numLeft, postR - 1]</span></span><br><span class="line">	<span class="comment">//右子树的中序区间为[k + 1, inR]</span></span><br><span class="line">	<span class="comment">//返回右子树的根结点，赋值给root的右指针 </span></span><br><span class="line">	root-&gt;rchild = create(postL + numLeft, postR - <span class="number">1</span>, k + <span class="number">1</span>, inR);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LayerOrder</span><span class="params">(node* root)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;node*&gt; q;	</span><br><span class="line">	root-&gt;layer = <span class="number">1</span>;	<span class="comment">//根的层号为1</span></span><br><span class="line">	q.push(root);	<span class="comment">//将根结点地址入队</span></span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(!q.empty()) &#123;</span><br><span class="line">		node* now = q.front();</span><br><span class="line">		q.pop();</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>, now-&gt;data);	<span class="comment">//访问队首元素</span></span><br><span class="line">		<span class="keyword">if</span>(num &lt; N) <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">		num++;</span><br><span class="line">		<span class="keyword">if</span>(now-&gt;lchild != <span class="literal">NULL</span>) &#123;	<span class="comment">//左子树非空</span></span><br><span class="line">			now-&gt;lchild-&gt;layer = now-&gt;layer + <span class="number">1</span>;	<span class="comment">//左孩子的层数为当前层数+1</span></span><br><span class="line">			q.push(now-&gt;lchild);	 </span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">if</span>(now-&gt;rchild != <span class="literal">NULL</span>) &#123;	<span class="comment">//右子树非空</span></span><br><span class="line">			now-&gt;rchild-&gt;layer = now-&gt;layer + <span class="number">1</span>;	<span class="comment">//右孩子的层号为当前号+1</span></span><br><span class="line">			q.push(now-&gt;rchild); </span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="meta">#<span class="meta-keyword">ifdef</span> ONLINE_JUDGE</span></span><br><span class="line">	<span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">		freopen(<span class="string">"1.txt"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	<span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;N);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;post[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;in[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	node* root;</span><br><span class="line">	root = create(<span class="number">0</span>, N - <span class="number">1</span>, <span class="number">0</span>, N - <span class="number">1</span>);</span><br><span class="line">	LayerOrder(root);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/01/二叉树的遍历/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -776,809 +1552,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/广度优先搜索BFS简介/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/28/广度优先搜索BFS简介/" itemprop="url">广度优先搜索BFS简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T21:38:31+08:00">
-                2019-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>广度优先遍历(Breadth First Search, BFS)，一般由队列实现，且总是按照层次的顺序进行遍历，其基本的写法(模板)：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFS</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">	q.push(s);</span><br><span class="line">	<span class="keyword">while</span>(!q.empty()) &#123;</span><br><span class="line">		取出队首元素top;</span><br><span class="line">		访问队首元素top;</span><br><span class="line">		将队首元素出队;</span><br><span class="line">		将top的下一层结点中未曾入队的结点全部入队，并且设置为已入队; </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>下面是对该模板中的每一步骤的说明：</p>
-<p>①定义队列q 并且将起点s入队</p>
-<p>②写一个while循环，循环条件是队列q非空</p>
-<p>③在while循环中，先取出队首元素top，然后访问他(访问可以是任何事情，例如将其输出)。访问完后将其出队。</p>
-<p>④将top的下一层结点中所有未曾入队的结点入队，并标记他们的层号为now的层号+1，同时设置这些入队的结点已入过队。</p>
-<p>⑤返回②继续循环。</p>
-<p>下面这个例子将学习BFS的思想是如何通过队列实现。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">给出一个m*n的矩阵，矩阵中的元素为0或1，称位置(x,y)与其上下左右的四个位置(x, y+1)、(x, y-1)、(x+1, y)、(x-1, y)是相邻的。如果矩阵中有若干个1是相邻的(不必两两相邻)，那么称这些1构成了一个块。求给定的矩阵中的“块”的个数。</span><br><span class="line">0 1 1 1 0 0 1</span><br><span class="line">0 0 1 0 0 0 0</span><br><span class="line">0 0 0 0 1 0 0</span><br><span class="line">0 0 0 1 1 1 0</span><br><span class="line">1 1 1 0 1 0 0 </span><br><span class="line">1 1 1 1 0 0 0 </span><br><span class="line">例如上面的6*7矩阵中，块的个数为4</span><br></pre></td></tr></table></figure>
-<p>对这个问题的基本求解的基本思想是：枚举每一个位置的元素，如果为0，则跳过；如果为1，则使用BFS查询与该位置元素相邻的4个位置(前提是不出界)，判断他们是否为1(如果某个相邻的位置为1)，则同样去查询与该位置相邻的4个位置，直到整个“1”块访问完毕)。而为了防止走回头路，一般可以设置一个bool型的数组inq(即in queue的简写)来记录每个位置是否在bfs中已入过队。</p>
-<p>一个小技巧：对当前位置(x, y)来说，由于与其相邻的4个位置分别为(x, y + 1)、(x, y - 1)、(x+1, y)、(x-1, y)，那么不妨设置下面两个增量数组，来表示四个方向(竖着看即为(0,1), (0, -1), (1,0), (-1,0) )</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> X[] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> Y[] = &#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br></pre></td></tr></table></figure>
-<p>这样就可以使用for循环来枚举4个方向，以确定与当前的坐标(nowX, nowY)相邻的4个位置，如下所示：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">    newX = nowX + X[i];</span><br><span class="line">    newY = nowY + Y[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>本例代码 要好好体会：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> x, y;	<span class="comment">//位置(x, y) </span></span><br><span class="line">&#125;Node;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m;		<span class="comment">//矩阵大小为n*m</span></span><br><span class="line"><span class="keyword">int</span> matrix[maxn][maxn];		<span class="comment">//01矩阵</span></span><br><span class="line"><span class="keyword">bool</span> inq[maxn][maxn] = &#123;<span class="literal">false</span>&#125;;		<span class="comment">//记录位置(x, y)是否已经入过队 </span></span><br><span class="line"><span class="keyword">int</span> X[<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>&#125;;	<span class="comment">//增量数组</span></span><br><span class="line"><span class="keyword">int</span> Y[<span class="number">4</span>] = &#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;	</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;	<span class="comment">//判断坐标(x, y)是否需要访问</span></span><br><span class="line">	<span class="comment">//越界返回false</span></span><br><span class="line">	<span class="keyword">if</span>(x &gt;= n || x &lt; <span class="number">0</span> || y &gt;= m || y &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="comment">//当前位置为0 或者(x, y)已经入过队伍 返回false </span></span><br><span class="line">	<span class="keyword">if</span>(matrix[x][y] == <span class="number">0</span> || inq[x][y] == <span class="literal">true</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="comment">//以上都不满足返回true</span></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;	</span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">//BFS函数访问位置(x, y)所在的块， 将该块中所有的"1" 的inq都设置为true </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BFS</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;node&gt; Q;	<span class="comment">//定义队列</span></span><br><span class="line">	Node.x = x, Node.y = y;	<span class="comment">//当前结点的坐标为(x, y)</span></span><br><span class="line">	Q.push(Node);		<span class="comment">//将结点入队</span></span><br><span class="line">	inq[x][y] = <span class="literal">true</span>;	<span class="comment">//已入过队</span></span><br><span class="line">	<span class="keyword">while</span>(!Q.empty()) &#123;</span><br><span class="line">		node top = Q.front();	<span class="comment">//取出队首元素</span></span><br><span class="line">		Q.pop();	<span class="comment">//队首元素出队</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;	<span class="comment">//循环4次得到4个相邻的位置 </span></span><br><span class="line">			<span class="keyword">int</span> newX = top.x + X[i];</span><br><span class="line">			<span class="keyword">int</span> newY = top.y + Y[i];</span><br><span class="line">			<span class="keyword">if</span>(judge(newX, newY)) &#123;		<span class="comment">//如果新位置(newX, newY) 需要访问</span></span><br><span class="line">				<span class="comment">//设置Node的坐标为(newX, newY)</span></span><br><span class="line">				Node.x = newX, Node.y = newY;</span><br><span class="line">				Q.push(Node);		<span class="comment">//将结点Node加入队列</span></span><br><span class="line">				inq[newX][newY] = <span class="literal">true</span>;		<span class="comment">//设置位置(newX, newY)已入过队伍 </span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; n; x++) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; m; y++) &#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;matrix[x][y]);		<span class="comment">//读入01矩阵 </span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> ans = <span class="number">0</span>;	<span class="comment">//存放块数</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; n; x++) &#123;	<span class="comment">//枚举每一个位置</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; m; y++) &#123;	</span><br><span class="line">			<span class="comment">//入过元素为1 且未入过队伍</span></span><br><span class="line">			<span class="keyword">if</span>(matrix[x][y] == <span class="number">1</span> &amp;&amp; inq[x][y] == <span class="literal">false</span>) &#123;</span><br><span class="line">				ans++;	<span class="comment">//块数加1</span></span><br><span class="line">				BFS(x, y);	<span class="comment">//访问整个块，将该块所有"1"的inq都标记为true </span></span><br><span class="line">			&#125; </span><br><span class="line">		&#125; </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>接下来再看一个类似的例子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">给定一个n*m大小的迷宫， 其中*代表不可通过的墙壁“.”代表平地，S代表起点，T代表终点。移动过程中，如果当前位置是(x, y)（下标从0开始），且每次只能够往前上下左右四个位置的平地，求从起点S到终点T最少走多少步。</span><br><span class="line">. . . . .</span><br><span class="line">. * . * .</span><br><span class="line">. * S * .</span><br><span class="line">. * * * .</span><br><span class="line">. . . T *</span><br><span class="line">上面的样例中，S的坐标为(2, 2) T的坐标为(4, 3)</span><br></pre></td></tr></table></figure>
-<p>在本题中，由于求的是最少的步数，而BFS是通过层次的顺序来遍历，因此可以从起点S开始计数遍历的层数，那么在到达终点T时候的层数就是需要求解的起点到终点T的最少步数。</p>
-<p>代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> x, y;	<span class="comment">//位置(x, y)</span></span><br><span class="line">	<span class="keyword">int</span> step;	<span class="comment">//step为从起点S到达该位置的最少步数(即层数) </span></span><br><span class="line">&#125;S, T, Node;	<span class="comment">//S为起点 T为终点 Node为临时结点</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, m;	<span class="comment">//n行 m列 </span></span><br><span class="line"><span class="keyword">char</span> maze[maxn][maxn];	<span class="comment">//用于存储迷宫信息 </span></span><br><span class="line"><span class="keyword">bool</span> inq[maxn][maxn] = &#123;<span class="literal">false</span>&#125;;	<span class="comment">//记录位置(x, y)是否已入过队</span></span><br><span class="line"><span class="keyword">int</span> X[<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>&#125;;	<span class="comment">//增量数组</span></span><br><span class="line"><span class="keyword">int</span> Y[<span class="number">4</span>] = &#123;<span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;	</span><br><span class="line"></span><br><span class="line"><span class="comment">//检测位置(x, y)是否有效</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x &gt;= n || x &lt; <span class="number">0</span> || y &gt;= m || y &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;	<span class="comment">//越界</span></span><br><span class="line">	<span class="keyword">if</span>(maze[x][y] == <span class="string">'*'</span>) <span class="keyword">return</span> <span class="literal">false</span>;		<span class="comment">//墙壁*</span></span><br><span class="line">	<span class="keyword">if</span>(inq[x][y] == <span class="literal">true</span>) <span class="keyword">return</span> <span class="literal">false</span>;		<span class="comment">//已入过队</span></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;	<span class="comment">//有效位置 </span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BFS</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;node&gt; q;	<span class="comment">//定义队列</span></span><br><span class="line">	q.push(S);	<span class="comment">//将起点S入队</span></span><br><span class="line">	<span class="keyword">while</span>(!q.empty()) &#123;</span><br><span class="line">		node top = q.front();	<span class="comment">//取出队首元素</span></span><br><span class="line">		q.pop();	<span class="comment">//队首元素出队</span></span><br><span class="line">		<span class="keyword">if</span>(top.x == T.x &amp;&amp; top.y == T.y) &#123;</span><br><span class="line">			<span class="keyword">return</span> top.step;	<span class="comment">//终点，直接返回最少步数 </span></span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">			<span class="keyword">int</span> newX = top.x + X[i];</span><br><span class="line">			<span class="keyword">int</span> newY = top.y + Y[i];</span><br><span class="line">			<span class="keyword">if</span>(test(newX, newY)) &#123;	<span class="comment">//位置(newX, newY)有效</span></span><br><span class="line">				<span class="comment">//设置Node的坐标为(newX, newY)</span></span><br><span class="line">				Node.x = newX;</span><br><span class="line">				Node.y = newY;</span><br><span class="line">				Node.step = top.step + <span class="number">1</span>;	<span class="comment">//Node层数为top的层数+1</span></span><br><span class="line">				q.push(Node);	<span class="comment">//将结点Node加入队列</span></span><br><span class="line">				inq[newX][newY] = <span class="literal">true</span>;		<span class="comment">//设置位置(newX, newY)已入过队伍 </span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;	<span class="comment">//无法到达终点T时返回-1  </span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		getchar();	<span class="comment">//过滤掉每行后面的换行符</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++) &#123;</span><br><span class="line">			maze[i][j] = getchar();</span><br><span class="line">		&#125; </span><br><span class="line">		maze[i][m + <span class="number">1</span>] = <span class="string">'\0'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;S.x, &amp;S.y, &amp;T.x, &amp;T.y);	<span class="comment">//起点和终点的坐标</span></span><br><span class="line">	S.step = <span class="number">0</span>;	<span class="comment">//初始化起点的层数为0 即S到S的最少步数为0</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, BFS());</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输入数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">5 5</span><br><span class="line">.....</span><br><span class="line">.*.*.</span><br><span class="line">.*S*.</span><br><span class="line">.***.</span><br><span class="line">...T*</span><br><span class="line">2 2 4 3  //起点与终点的坐标</span><br></pre></td></tr></table></figure>
-<p>输出数据：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">11</span><br></pre></td></tr></table></figure>
-<p>这里最后还要强调一点，在BFS中设置的inq数组的含义是判断该节点是否已经入过队列，而不是结点是否已经被访问，区别在于，如果设置成是否已经被访问过，有可能在某个结点正在队列中(但是还没有访问)时由于其他节点可以到达这个而将这个再次入队，导致很多结点反复入队，计算量大大增加。因此BFS中让每个结点只入队一次，故需要设置inq数组，判断结点是否入队过 而不是结点是否已经被访问。</p>
-<p>最后指出，当使用STL的queue时，元素入队的push操作知识制造了该元素的一个副本入队，因此在入队后对原元素的修改不会影响队列中的副本，而对队列中副本的修改也不会改变原元素，需要注意此处可能会引入bug。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> data;</span><br><span class="line">&#125;a[<span class="number">10</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;node&gt; q;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">		a[i].data = i; 	<span class="comment">//a[1] = 1, a[2] = 2, a[3] = 3</span></span><br><span class="line">		q.push(a[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//尝试直接把队首元素(即a[1])的数据域改为100</span></span><br><span class="line">	q.front().data = <span class="number">100</span>;</span><br><span class="line">	<span class="comment">//事实上对队列元素的修改无法改变原元素</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d %d %d\n"</span>, a[<span class="number">1</span>].data, a[<span class="number">2</span>].data, a[<span class="number">3</span>].data);</span><br><span class="line">	<span class="comment">//然后尝试直接修改a[1]的数据域为200(即a[1] 上面已经修改为100)</span></span><br><span class="line">	a[<span class="number">1</span>].data = <span class="number">200</span>;</span><br><span class="line">	<span class="comment">//事实上对原元素的修改也无法改变队列中的元素</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, q.front().data);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 2 3</span><br><span class="line">100</span><br></pre></td></tr></table></figure>
-<p>依据这一特性，当需要对队列中的元素进行修改而不仅仅是访问的时候，队列中存放的元素最好不是元素本身，而是它们的编号(如果是数组的话则是下标)。例如，把上面的程序改为:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> data;</span><br><span class="line">&#125;a[<span class="number">10</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">		a[i].data = i;	<span class="comment">//a[1] = 1, a[2] = 2, a[3] = 3;</span></span><br><span class="line">		q.push(i);	<span class="comment">//这里是将数组下标i入队 而不是结点a[i]本身 </span></span><br><span class="line">	&#125;</span><br><span class="line">	a[q.front()].data = <span class="number">100</span>;	<span class="comment">//q.front()为下标 通过a[q.front()]即可修改元素</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, a[<span class="number">1</span>].data); </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/深度优先遍历DFS简介/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/28/深度优先遍历DFS简介/" itemprop="url">深度优先遍历DFS简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T17:58:44+08:00">
-                2019-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>从起点开始前进当碰到岔道口的时候总是选择其中一条岔路前进，在岔路上又碰到新的岔道口，任然选择新岔道口的其中一条前进，直到碰到死胡同的时候才退回到最近的岔道口选择另外一条岔路。也就是说，当碰到岔道口的时候，总是以“深度”作为前进的关键词，不碰到死胡同就不回头，因此把这种搜索的方式称为<strong>深度优先搜索(Depth First Search, DFS)</strong></p>
-<p>深度优先搜索会走遍所有路径，并且每次走到死胡同就代表一条完整的路径形成，就是说<strong>深度优先搜索是一种枚举所有完整路径以及遍历所有情况的搜索方法</strong></p>
-<p>深度优先遍历可以使用栈来实现，但是实现起来不容易。因此我们利用递归的思想。递归中的递归式就是岔道口而递归边界就是死胡同。使用递归可以很好的实现DFS，但是这个说法并不是说递归就是深度优先搜索的一种实现方式，因为使用非递归也可以实现DFS思想，但是一般情况下使用递归会较为麻烦。使用递归的时候，系统会调用叫系统栈的东西来存放递归中每一层的状态，因此使用递归来实现DFS的本质还是栈。</p>
-<p>接下来的例子，用于讲解DFS的思想，必须可以独立写出来。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有n件物品，每件物品的重量为w[i],价值为c[i]。现在需要选出若干件物品放入一个容量为V的背包中，使得在选入背包的物品重量和不超过容量重量V的前提下，让背包的价值之和最大，求出最大价值。(1 &lt;= n &lt;= 20)</span><br></pre></td></tr></table></figure>
-<p>在这个问题中，需要从n件物品中选择若干件物品放入背包，使得他们的价值之和最大。这样对每件物品都有选与不选两种选择，即为岔道口，死胡同就是—题目要求选择的物品总重之和不得超过V，因此一旦选择了物品总重量和超过V就会到达死胡同，需要返回最近的岔道口。</p>
-<p>显然，每次都要对物品进行选择，因此DFS的参数中必须记录当前处理物品的编号index， 而题目中涉及了物品的重量与价值，因此也需要参数来记录在处理当前物品之前，已选物品的总重量sumW与总价值sumC，于是DFS的函数看上去是这样的：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> sumW, <span class="keyword">int</span> sumC)</span> </span>&#123; ... &#125;	</span><br><span class="line"><span class="comment">//index为当前处理物品的编号</span></span><br><span class="line"><span class="comment">//sumW为目前已选放入背包的物品的总重量</span></span><br><span class="line"><span class="comment">//sumC为目前已选放入背包的物品的总价值</span></span><br></pre></td></tr></table></figure>
-<p>于是，如果选择不放入index号的物品，那么sumW与sumC就将不变，接下来处理index+1 index为从0号物品开始，即前往DFS(index + 1, sumW, sumC)这条分支；而如果选择放入index号物品那么sumW将增加当前物品的重力w[index], sumC将增加当前物品的价值c[index]，接着处理index + 1号物品，即将前往DFS(index + 1, sumW + w[index], sumC + c[index]);这条分支。</p>
-<p>一旦index增长到了n则说明已经把n件物品处理完(因为物品的下标是从0到n-1)此时记录的sumW和sumC就是所选的物品的总重量和总价值，如果sumW不超过V且sumC大于一个全局的记录最大价值的变量maxValue，就说明当前的这种选择方案何以得到更大的价值于是用sumC更新maxValue。</p>
-<p>下面的代码具体体现了上面的思路，注意岔道口和死胡同在代码中的体现方式：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">30</span>;</span><br><span class="line"><span class="keyword">int</span> n, V, maxValue = <span class="number">0</span>;	<span class="comment">//最大价值</span></span><br><span class="line"><span class="keyword">int</span> w[maxn], c[maxn];	<span class="comment">//此处为物品的重量和物品的价值</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> sumW, <span class="keyword">int</span> sumC)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(index == n) &#123;</span><br><span class="line">		<span class="keyword">if</span>(sumW &lt;= V &amp;&amp; sumC &gt;= maxValue) &#123;</span><br><span class="line">			maxValue = sumC;</span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//进行遍历</span></span><br><span class="line">	DFS(index + <span class="number">1</span>, sumW, sumC);	<span class="comment">//当第index 件物品没有放入的时候</span></span><br><span class="line">	DFS(index + <span class="number">1</span>, sumW + w[index], sumC + c[index]);	<span class="comment">//当第index件物品放入的时候 </span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;V);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;w[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;c[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	DFS(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);	<span class="comment">//从第0件物品开始 总重量与总价值为0</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>, maxValue);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以注意到，由于每件物品都有两种选择，因此上面的代码复杂度为O(2^n)，这看起来不是很好，但是可以通过对算法的优化，来使其在随机数据的表现上有更好的效率，在上述代码中总是把n件物品的选择全部确定以后才会去更新最大的价值，但是事实上忽略了背包容量不超过V的特点。也就是说，完全可以把对sumW的判断放入“岔道口”中，只有当sumW&lt;=V时才能进入岔道，效率会高很多，栗子如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> sumW, <span class="keyword">int</span> sumC)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(index == n) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	DFS(index + <span class="number">1</span>, sumW, sumC);</span><br><span class="line">	<span class="keyword">if</span>(sumW + w[index] &lt;= V) &#123;</span><br><span class="line">		<span class="keyword">if</span>(sumC + c[index] &gt; maxValue) &#123;</span><br><span class="line">			maxValue = sumC + c[index];</span><br><span class="line">		&#125;</span><br><span class="line">		DFS(index + <span class="number">1</span>, sumW + w[index], sumC + c[index]);  <span class="comment">//选第index件物品放入的岔道</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以看出来，原本第二条岔道是直接进入的：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DFS(index + <span class="number">1</span>, sumW + w[index], sumC + c[index]);</span><br></pre></td></tr></table></figure>
-<p>但这里变为先判断在进入第index件的物品后能否满足容量不超过V的要求，只有当前条件满足的时候才更新最大价值以及进入这条岔路，这样可以降低计算的量，使得算法在数据不极端的时候会有较好的表现。这种通过题目的条件的限制来节省DFS的计算量的方法，称为<strong>剪枝</strong>(前提是剪枝后算法仍然正确才可以)。剪枝是一门艺术，灵活运用有助于精简代码的计算量。</p>
-<p>事实上，上面的问题给出了一类常见的DFS问题的解决方法，通过给定一个序列，枚举这个序列的所有子列（可以不连续）。例如对序列{1, 2, 3}来说，它的所有子序列为{1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3}。枚举所有的子序列的目的很明显—可以从中选择一个最优的子序列，使它的某个特征是所有子序列中最优的；如果有需要 还可以把这个最优的子序列保存下来。显然，这个问题等价于<strong>枚举从N个整数中选择K个数的所有方案</strong>。</p>
-<p>例如这样一个问题：给定N个整数(有可能是复数)，从中选择K个数，使得这K个数之和恰好是一个给定的整数X；如果有多种方案，选择他们中元素平方和最大的一个。数据保证这样的方案唯一。例如，从四个整数{2, 3, 3, 4}中选择2个数；另外还需要参数sum和sumSqu分别记录当前已选整数和与平方和。于是DFS就写为：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> nowK, <span class="keyword">int</span> sum, <span class="keyword">int</span> sumSqu)</span> </span>&#123;...&#125;</span><br><span class="line"><span class="comment">//整数编号index</span></span><br><span class="line"><span class="comment">//nowK记录已经选择的数的个数</span></span><br><span class="line"><span class="comment">//sum已经选择的整数之和</span></span><br><span class="line"><span class="comment">//sumSqu已经选择的整数的平方和</span></span><br></pre></td></tr></table></figure>
-<p>此处主要讲解如何保存最优方案，即平方和最大的方案，首先需要一个数组temp，用于存储当前已经选择的数，如果有更好的就将temp去覆盖保存ans。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//序列A中选择k个数使得和为x，最大平方和为maxSumSqu</span></span><br><span class="line"><span class="keyword">int</span> n, k, x, maxSumSqu = <span class="number">-1</span>, A[maxn];</span><br><span class="line"><span class="comment">//temp存放临时方案，ans存放平方和最大的方案</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; temp, ans;</span><br><span class="line"><span class="comment">//当前处理index号整数，当前已选整个数为nowK</span></span><br><span class="line"><span class="comment">//当前已选整数之和为sum，当前已选整数平方和为sumSqu</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DFS</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> nowK, <span class="keyword">int</span> sum, <span class="keyword">int</span> sumSqu)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(nowK == k &amp;&amp; sum == x) &#123;	<span class="comment">//找到k个数的和为x</span></span><br><span class="line">		<span class="keyword">if</span>(sumSqu &gt; maxSumSqu) &#123;	<span class="comment">//如果比当时找到的更优</span></span><br><span class="line">			maxSumSqu = sumSqu;	<span class="comment">//更新最大平方和</span></span><br><span class="line">			ans = temp;	<span class="comment">//更新方案 </span></span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//执行下面 用于判断已经处理完了n个数字 或者超过k个数字 或者和超过x</span></span><br><span class="line">	<span class="keyword">if</span>(index == n || nowK &gt; k || sum &gt; x) <span class="keyword">return</span>;</span><br><span class="line">	<span class="comment">//选index号数</span></span><br><span class="line">	temp.push_back(A[index]);</span><br><span class="line">	DFS(index + <span class="number">1</span>, nowK + <span class="number">1</span>, sum + A[index], sumSqu + A[index] * A[index]);</span><br><span class="line">	temp.pop_back();</span><br><span class="line">	<span class="comment">//不选第index号数</span></span><br><span class="line">	DFS(index + <span class="number">1</span>, nowK, sum, sumSqu);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>本题每个数字只可以选一次，如果稍改题目：假设N个整数中的每一个都可以被选择多次，那么选择K个数字，使得K个数之和都恰好为X。</p>
-<p>这里只要修改原题代码就可以，由于每个整数都可以被选择多次，因此选择了index后不应该直接进入index+1号而是可以继续选择index号，直到某个时刻不再选择index号就会通过“不选择index号的分支进入index+1号的处理。故只需要把“选index号”这条分支的代码修改为</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DFS(index, nowK + <span class="number">1</span>, sum + A[index], sumSqu + A[index] * A[index]);</span><br></pre></td></tr></table></figure>
-<p>通过上面对深度遍历的学习 我们发现 这里所有选择加入后 在对应的DFS()括号内的数据依次都作出了修改，是深度遍历的特点。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/A1097题解/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/27/A1097题解/" itemprop="url">A1097题解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-27T23:04:10+08:00">
-                2019-02-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本题要注意理解题意再做题！！！！！！！！！！！！</p>
-<p>明天重写一遍</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100005</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> TABLE = <span class="number">1000010</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span>	<span class="comment">//定义静态链表 </span></span><br><span class="line">	<span class="keyword">int</span> address, data, next;</span><br><span class="line">	<span class="keyword">int</span> order;	<span class="comment">//结点在链表上的序号，无效结点记为 2 maxn  </span></span><br><span class="line">&#125;node[maxn];</span><br><span class="line"><span class="keyword">bool</span> isExist[TABLE] = &#123;<span class="literal">false</span>&#125;;	<span class="comment">//绝对值是否出现</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Node a, Node b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a.order &lt; b.order;	<span class="comment">//按照order的从小到大进行排序 </span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(isExist, <span class="literal">false</span>, <span class="keyword">sizeof</span>(isExist));	<span class="comment">//初始化isExist为未出现</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxn; i++) &#123;	<span class="comment">//初始化(步骤2) </span></span><br><span class="line">		node[i].order = <span class="number">2</span> * maxn;	<span class="comment">//表示初始时均为无效结点 </span></span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">int</span> n, begin, address;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;begin, &amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;address);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;node[address].data, &amp;node[address].next);</span><br><span class="line">		node[address].address = address;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//未删除的有效结点个数和已经删除的有效结点个数 </span></span><br><span class="line">	<span class="keyword">int</span> countValid = <span class="number">0</span>, countRemoved = <span class="number">0</span>, p = begin;</span><br><span class="line">	<span class="keyword">while</span>(p != <span class="number">-1</span>) &#123;	<span class="comment">//枚举链表(步骤3)</span></span><br><span class="line">		<span class="keyword">if</span>(!isExist[<span class="built_in">abs</span>(node[p].data)]) &#123;	<span class="comment">//data的绝对值不存在</span></span><br><span class="line">			isExist[<span class="built_in">abs</span>(node[p].data)] = <span class="literal">true</span>; 	<span class="comment">//标记存在</span></span><br><span class="line">			node[p].order = countValid++;	<span class="comment">//不删除 编号从0开始 </span></span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			node[p].order = maxn + countRemoved++;	<span class="comment">//被删除 编号从maxn开始 </span></span><br><span class="line">		&#125;</span><br><span class="line">		p = node[p].next;	<span class="comment">//下一结点 </span></span><br><span class="line">	&#125;</span><br><span class="line">	sort(node, node + maxn, cmp);	<span class="comment">//按照order从小到大排序</span></span><br><span class="line">	<span class="comment">//输出结果</span></span><br><span class="line">	<span class="keyword">int</span> count = countValid + countRemoved;	<span class="comment">//有效结点个数</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span>(i != countValid <span class="number">-1</span> &amp;&amp; i != count - <span class="number">1</span>) &#123;	<span class="comment">//非最后一个结点</span></span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%05d %d %05d\n"</span>, node[i].address, node[i].data, node[i + <span class="number">1</span>].address); </span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;	<span class="comment">//最后一个结点 </span></span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%05d %d -1\n"</span>, node[i].address, node[i].data);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/A1074题解/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/27/A1074题解/" itemprop="url">A1074题解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-27T20:36:51+08:00">
-                2019-02-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本题注意两个点 一个是静态数组的标志位的选择 还有一个输出格式的模拟 要细细的推 本次代码还有两个点没有过。卡了太久了。</p>
-<p>先贴上代码 之后再看看。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100010</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> address;</span><br><span class="line">	<span class="keyword">int</span> date;</span><br><span class="line">	<span class="keyword">int</span> next;</span><br><span class="line">	<span class="keyword">int</span> rank;	<span class="comment">//结点在链表上的序号，无效结点即为maxn </span></span><br><span class="line">&#125;node[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Node a, Node b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a.rank &lt; b.rank; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> begin, n, k, address;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;begin, &amp;n, &amp;k);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxn; i++) &#123;</span><br><span class="line">		node[i].rank = maxn;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;address); </span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;node[address].date, &amp;node[address].next);</span><br><span class="line">		node[address].address = address;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> p = begin, count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(p != <span class="number">-1</span>) &#123;</span><br><span class="line">		node[p].rank = count++;</span><br><span class="line">		p = node[p].next;</span><br><span class="line">	&#125;</span><br><span class="line">	sort(node, node + maxn, cmp);	<span class="comment">//按照单链表从头到尾顺序排列</span></span><br><span class="line">	<span class="comment">//有效结点为前count个结点 </span></span><br><span class="line">	n = count;</span><br><span class="line">	<span class="comment">//单链表已经形成 接下来按照题目要求去输出(步骤5) </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n / k; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> j;</span><br><span class="line">		<span class="keyword">for</span>(j = (i + <span class="number">1</span>) * k - <span class="number">1</span>; j &gt; i * k; j--) &#123;</span><br><span class="line">			<span class="keyword">if</span>(node[j].next != <span class="number">-1</span>)&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%05d %d %05d\n"</span>, node[j].address, node[j].date, node[j - <span class="number">1</span>].address);	</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%05d %d "</span>, node[j].address, node[j].date);</span><br><span class="line">		<span class="keyword">if</span>(i &lt; n/k - <span class="number">1</span>) &#123;	<span class="comment">//如果不是最后一块 就指向下一块的最后一个结点</span></span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%05d\n"</span>, node[(i + <span class="number">2</span>) * k - <span class="number">1</span>].address); </span><br><span class="line">		&#125; <span class="keyword">else</span> &#123; <span class="comment">//当i等于n/k -1 的时候正好为最后一组 可能出现 最后一组不存在 也可能出现最后一组存在 </span></span><br><span class="line">			<span class="keyword">if</span>(n % k == <span class="number">0</span>) &#123;	<span class="comment">//恰好为最后一块 则输出-1</span></span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"-1\n"</span>); 	<span class="comment">//正好不存在的时候 </span></span><br><span class="line">			&#125; <span class="keyword">else</span> &#123; 	<span class="comment">//存在 就把最后面输出出来 </span></span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%05d\n"</span>, node[n/k * k].address);</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> s = n - n%k; s &lt; n; s++) &#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"%05d %d "</span>, node[s].address, node[s].date);</span><br><span class="line">					<span class="keyword">if</span>(s &lt; (n - <span class="number">1</span>)) <span class="built_in">printf</span>(<span class="string">"%05d\n"</span>, node[s].next);</span><br><span class="line">					<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"-1\n"</span>);			</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/A1052题解/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/27/A1052题解/" itemprop="url">A1052题解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-27T11:51:41+08:00">
-                2019-02-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本题需要按照链表的典型做法，利用hash表来做，记住必须观察输出结果来编程。还有排序的时候要注意是依据什么排序 来写具体的cmp。一定注意！</p>
-<p>①结构体重有地址、数据域、指针域、XXX</p>
-<p>②初始化链表要注意是建立hash表</p>
-<p>③初始化XXX当有效结点时才令XXX为具体的数字刚刚开始为-1然后再令有效的结点XXX不一样同时统计。(此处利用静态链表串联)</p>
-<p>④排序算法的书写要注意依据什么排序！</p>
-<p>本题题解：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100010</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> address;</span><br><span class="line">	<span class="keyword">int</span> date;</span><br><span class="line">	<span class="keyword">int</span> next;</span><br><span class="line">	<span class="keyword">int</span> flag;	</span><br><span class="line">&#125;node[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Node a, Node b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(a.flag == <span class="number">0</span> || b.flag == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> a.flag &gt; b.flag;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> a.date &lt; b.date;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxn; i++) &#123;</span><br><span class="line">		node[i].flag = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> n, begin;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;begin);</span><br><span class="line">	<span class="keyword">int</span> address, date, next;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;address, &amp;date, &amp;next);</span><br><span class="line">		node[address].address = address;</span><br><span class="line">		node[address].date = date;</span><br><span class="line">		node[address].next = next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> p = begin;</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(p != <span class="number">-1</span>) &#123;	<span class="comment">//-1代表链表结束</span></span><br><span class="line">		node[p].flag = <span class="number">1</span>;</span><br><span class="line">		count++;</span><br><span class="line">		p = node[p].next; </span><br><span class="line">	&#125;</span><br><span class="line">	sort(node, node + maxn, cmp);</span><br><span class="line">	<span class="keyword">if</span>(count == <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">"0 -1"</span>);</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d %05d\n"</span>, count, node[<span class="number">0</span>].address);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(i &lt; count - <span class="number">1</span>)  </span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%05d %d %05d\n"</span>, node[i].address, node[i].date, node[i+<span class="number">1</span>].address);</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%05d %d -1"</span>, node[i].address, node[i].date);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/A1032题解/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/27/A1032题解/" itemprop="url">A1032题解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-27T10:39:18+08:00">
-                2019-02-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本题是使用静态链表较为简单的题目，稍微复杂一些的题目可以归纳出较为通用的解题步骤。</p>
-<p>需要注意的是每次next是哪一个 flag是哪一个 要带入特殊的算例去验证。</p>
-<p>题解如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">100010</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	<span class="keyword">char</span> data;</span><br><span class="line">	<span class="keyword">int</span> next;</span><br><span class="line">	<span class="keyword">bool</span> flag;  <span class="comment">// 是否在第一条中出现 </span></span><br><span class="line">&#125;size[maxn]; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> stAdd1, stAdd2, n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxn; i++) &#123;</span><br><span class="line">		size[i].flag = <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;stAdd1, &amp;stAdd2, &amp;n);</span><br><span class="line">	<span class="keyword">int</span> address, next;</span><br><span class="line">	<span class="keyword">char</span> data;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d %c %d"</span>, &amp;address, &amp;data, &amp;next);</span><br><span class="line">		size[address].data = data;</span><br><span class="line">		size[address].next = next;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="comment">//处理第一个单词 </span></span><br><span class="line">	<span class="keyword">int</span> x = stAdd1;</span><br><span class="line">	<span class="keyword">while</span>(x != <span class="number">-1</span>) &#123;</span><br><span class="line">		size[x].flag = <span class="literal">true</span>;</span><br><span class="line">		x = size[x].next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//处理第二个单词 </span></span><br><span class="line">	<span class="keyword">int</span> y = stAdd2;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">for</span>(i = y; i != <span class="number">-1</span>; i = size[i].next) &#123;</span><br><span class="line">		<span class="keyword">if</span>(size[i].flag == <span class="literal">true</span>) <span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(i != <span class="number">-1</span>) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%05d"</span>, i);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"-1"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>较为通用的解题模板：</p>
-<p>①定义静态链表：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> address;	<span class="comment">//结点地址</span></span><br><span class="line">    <span class="keyword">typename</span> data;	<span class="comment">//数据域</span></span><br><span class="line">    <span class="keyword">int</span> next;	<span class="comment">//指针域</span></span><br><span class="line">    XXX;	<span class="comment">//结点的某个性质，不同的题目会有不同的设置。</span></span><br><span class="line">&#125;node[<span class="number">100010</span>];	<span class="comment">//注意结构体变量的名字与结构体类型的名字在静态链表中尽量不要一样 因为会涉及排序 相同易报错</span></span><br></pre></td></tr></table></figure>
-<p>上面的定义中，我们将结点地址、数据域、指针域都进行了定义，并且留校了一个XXX来适应不同的题目(例如适应结点是否为链表上的一个结点)</p>
-<p>②对静态链表初始化。通常还需要对XXX进行初始化，将其定义为正常情况下达不到的数字(一般来说需要小于所有能够达到的数字)例如是否在链表上性质 我们可以设置为0(即false)表示结点不在链表上：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; maxn; i++) &#123;</span><br><span class="line">    node[i].XXX = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>③题目都会给出一条链表的首节点的地址，那么我们就可以依据这个地址来遍历得到整条的链表。需要注意的是，这一步同时也是我们对结点的性质XXX进行标记、并且对有效结点的个数进行计数，遍历的过程可以把XXX设置为1(true)</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> p = begin, count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(p != <span class="number">-1</span>) &#123;	<span class="comment">//-1代表链表结束</span></span><br><span class="line">    XXX = <span class="number">-1</span>;</span><br><span class="line">    count++;</span><br><span class="line">    p = node[p]-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>④由于使用静态链表，直接采用地址映射(hash)，故下标的数组往往是不连续的，而很多时候题目给出的结点并不是有效结点，可能存在不在链表上的节点，为了能够给可控的访问有效结点，一般都需要用对数组进行排序以吧有效结点移动到数组的左端，这样就可以用步骤3得到的count来访问。</p>
-<p>既然需要把有效结点一道前面，那么就可以用之前定义的XXX来帮忙。步骤2中XXX需要被初始化为不正常结点的XXX取值要小的数字，这个做法就可以在这一步骤起到作用，由于无效结点的XXX在步骤3中不会被修改，因此一定会比有效结点的XX小，于是我们写sort函数的排序函数cmp的时候，可以在cmp的两个参数结点中有无效结点的时候按xxx从大到小排序，这一就可以把有效结点全部移动到数组的左端。</p>
-<p>一般题目还会有额外的要求因此cmp函数中一般都是需要二级排序，不过这个需要以不同的题目要求来确定，例如如果题目要求把链表按节点顺序排序 就要在cmp中函数建立第二级排序，即在cmp的两个参数结点中有无效结点是按照XXX从大到小排序，而当两个参数结点都是有效结点的时候回按照在链表中的位置从小到大排序(结点顺序可以在步骤③中得到)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">bool cmp(Node a, Node b) &#123;</span><br><span class="line">    if(a.XXX == -1 || b.XXX == -1) &#123;</span><br><span class="line">        //至少有一个结点是无效结点，就把她放在数组后面</span><br><span class="line">        return a.XXX &gt; b.XXX;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        //第二级排序</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>⑤在经历步骤4后链表中的有效结点就都在数组的左端了，而且已经按照结点的性质进行了排序，接下来就要看题目再排序后具体要求做什么。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1633,7 +1606,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
