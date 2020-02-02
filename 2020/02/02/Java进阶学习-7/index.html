@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="以一个城堡游戏为例子谈面向对象程序设计原则 Game.java 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java进阶学习-7 面向对象程序设计原则">
+<meta property="og:url" content="http://yoursite.com/2020/02/02/Java进阶学习-7/index.html">
+<meta property="og:site_name" content="GaoLijie&#39;s Blog">
+<meta property="og:description" content="以一个城堡游戏为例子谈面向对象程序设计原则 Game.java 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-02-02T13:43:31.923Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java进阶学习-7 面向对象程序设计原则">
+<meta name="twitter:description" content="以一个城堡游戏为例子谈面向对象程序设计原则 Game.java 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/02/Java进阶学习-7/">
+
+
+
+
+
+  <title>Java进阶学习-7 面向对象程序设计原则 | GaoLijie's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GaoLijie's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello world</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/Java进阶学习-7/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java进阶学习-7 面向对象程序设计原则</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-02T18:02:27+08:00">
+                2020-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>以一个城堡游戏为例子谈面向对象程序设计原则</p>
+<p>Game.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> castle;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Room currentRoom;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Game</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		creatRooms();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">creatRooms</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		Room outside, lobby,pub,study,bedroom;</span><br><span class="line">		</span><br><span class="line">	   <span class="comment">// 制造房间</span></span><br><span class="line">		outside = <span class="keyword">new</span> Room(<span class="string">"城堡外"</span>);</span><br><span class="line">		lobby = <span class="keyword">new</span> Room(<span class="string">"大堂"</span>);</span><br><span class="line">		pub = <span class="keyword">new</span> Room(<span class="string">"小酒吧"</span>);</span><br><span class="line">		study = <span class="keyword">new</span> Room(<span class="string">"书房"</span>);</span><br><span class="line">		bedroom = <span class="keyword">new</span> Room(<span class="string">"卧室"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 初始化房间的出口</span></span><br><span class="line">		outside.setExits(<span class="keyword">null</span>,lobby,study,pub);</span><br><span class="line">		lobby.setExits(<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,outside);</span><br><span class="line">		pub.setExits(outside,bedroom,<span class="keyword">null</span>,<span class="keyword">null</span>);</span><br><span class="line">		bedroom.setExits(<span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">null</span>,study);</span><br><span class="line">		</span><br><span class="line">		currentRoom = outside;        <span class="comment">//从城堡门外开始</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">printWelcome</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		System.out.println();</span><br><span class="line">		System.out.println(<span class="string">"欢迎来到城堡!"</span>);</span><br><span class="line">		System.out.println(<span class="string">"这是一个超级无聊的游戏。"</span>);</span><br><span class="line">		System.out.println(<span class="string">"如果需要帮助，请输入'help'。"</span>);</span><br><span class="line">		System.out.println();</span><br><span class="line">		System.out.println(<span class="string">"现在你在:"</span> + currentRoom);</span><br><span class="line">		System.out.print(<span class="string">"出口有："</span>);</span><br><span class="line">		<span class="keyword">if</span>(currentRoom.northExit != <span class="keyword">null</span>)</span><br><span class="line">			System.out.print(<span class="string">"north "</span>);</span><br><span class="line">		<span class="keyword">if</span>(currentRoom.eastExit != <span class="keyword">null</span>)</span><br><span class="line">			System.out.print(<span class="string">"east "</span>);</span><br><span class="line">		<span class="keyword">if</span>(currentRoom.southExit != <span class="keyword">null</span>)</span><br><span class="line">			System.out.print(<span class="string">"south "</span>);</span><br><span class="line">		<span class="keyword">if</span>(currentRoom.westExit != <span class="keyword">null</span>)</span><br><span class="line">			System.out.print(<span class="string">"west "</span>);</span><br><span class="line">		System.out.println();</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//  以下为用户命令</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">printHelp</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"迷路了吗？你可以做的命令有：go bye help"</span>);</span><br><span class="line">		System.out.println(<span class="string">"如：\tgo east"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">goRoom</span><span class="params">(String direction)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		Room nextRoom = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">if</span>(direction.equals(<span class="string">"north"</span>))&#123;</span><br><span class="line">			nextRoom = currentRoom.northExit;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(direction.equals(<span class="string">"east"</span>))&#123;</span><br><span class="line">			nextRoom = currentRoom.eastExit;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(direction.equals(<span class="string">"south"</span>))&#123;</span><br><span class="line">			nextRoom = currentRoom.southExit;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(direction.equals(<span class="string">"west"</span>))&#123;</span><br><span class="line">			nextRoom = currentRoom.westExit;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(nextRoom == <span class="keyword">null</span>)&#123;</span><br><span class="line">			System.out.println(<span class="string">"那里没有门！"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			currentRoom = nextRoom;</span><br><span class="line">			System.out.println(<span class="string">"你在"</span>+ currentRoom);</span><br><span class="line">			System.out.println(<span class="string">"出口有："</span>);</span><br><span class="line">			<span class="keyword">if</span>(currentRoom.northExit != <span class="keyword">null</span>)</span><br><span class="line">				System.out.print(<span class="string">"norh "</span>);</span><br><span class="line">			<span class="keyword">if</span>(currentRoom.eastExit != <span class="keyword">null</span>)</span><br><span class="line">				System.out.print(<span class="string">"east "</span>);</span><br><span class="line">			<span class="keyword">if</span>(currentRoom.southExit != <span class="keyword">null</span>)</span><br><span class="line">				System.out.print(<span class="string">"south "</span>);</span><br><span class="line">			<span class="keyword">if</span>(currentRoom.westExit != <span class="keyword">null</span>)</span><br><span class="line">				System.out.print(<span class="string">"west "</span>);		</span><br><span class="line">			System.out.println();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		Game game = <span class="keyword">new</span> Game();</span><br><span class="line">		game.printWelcome();</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">			String line = in.nextLine();</span><br><span class="line">			String[] words = line.split(<span class="string">" "</span>);</span><br><span class="line">			<span class="keyword">if</span> ( words[<span class="number">0</span>].equals(<span class="string">"help"</span>))&#123;</span><br><span class="line">				game.printHelp();</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span> ( words[<span class="number">0</span>].equals(<span class="string">"go"</span>))&#123;</span><br><span class="line">				game.goRoom(words[<span class="number">1</span>]);</span><br><span class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span> ( words[<span class="number">0</span>].equals(<span class="string">"bye"</span>))&#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"感谢您的光临。再见！"</span>);</span><br><span class="line">		in.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Room.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> castle;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Room</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> String description;</span><br><span class="line">	<span class="keyword">public</span> Room northExit;</span><br><span class="line">	<span class="keyword">public</span> Room southExit;</span><br><span class="line">	<span class="keyword">public</span> Room eastExit;</span><br><span class="line">	<span class="keyword">public</span> Room westExit;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Room</span><span class="params">(String description)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.description = description;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setExits</span><span class="params">(Room north,Room east,Room south,Room west)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(north != <span class="keyword">null</span>)</span><br><span class="line">			northExit = north;</span><br><span class="line">		<span class="keyword">if</span>(east != <span class="keyword">null</span>)</span><br><span class="line">			eastExit = east;</span><br><span class="line">		<span class="keyword">if</span>(south != <span class="keyword">null</span>)</span><br><span class="line">			southExit = east;</span><br><span class="line">		<span class="keyword">if</span>(west != <span class="keyword">null</span>)</span><br><span class="line">			westExit = west;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> description;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">southExit</span><span class="params">(Object object, Room lobby, Room study, Room pub)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="原则一：代码复制问题"><a href="#原则一：代码复制问题" class="headerlink" title="原则一：代码复制问题"></a>原则一：代码复制问题</h2><p>消除代码复制</p>
+<p>将showPrompt()引入将重复的代码部分使用showPrompt()代替</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showPrompt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"你在"</span>+ currentRoom);</span><br><span class="line">		System.out.println(<span class="string">"出口有："</span>);</span><br><span class="line">		<span class="keyword">if</span>(currentRoom.northExit != <span class="keyword">null</span>)</span><br><span class="line">			System.out.print(<span class="string">"norh "</span>);</span><br><span class="line">		<span class="keyword">if</span>(currentRoom.eastExit != <span class="keyword">null</span>)</span><br><span class="line">			System.out.print(<span class="string">"east "</span>);</span><br><span class="line">		<span class="keyword">if</span>(currentRoom.southExit != <span class="keyword">null</span>)</span><br><span class="line">			System.out.print(<span class="string">"south "</span>);</span><br><span class="line">		<span class="keyword">if</span>(currentRoom.westExit != <span class="keyword">null</span>)</span><br><span class="line">			System.out.print(<span class="string">"west "</span>);		</span><br><span class="line">		System.out.println();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="原则二：可维护性—封装"><a href="#原则二：可维护性—封装" class="headerlink" title="原则二：可维护性—封装"></a>原则二：可维护性—封装</h2><p>自己的代码是否可以很好的维护，他人可以在这个代码上继续做事情。是否适合于扩展</p>
+<h3 id="增加可扩展性"><a href="#增加可扩展性" class="headerlink" title="增加可扩展性"></a><strong>增加可扩展性</strong></h3><p>可以运行的代码!=良好的代码</p>
+<p>对代码做维护的时候最可以看出代码的质量</p>
+<p>如果想要增加一个方向，如down或者up</p>
+<h3 id="用封装来降低耦合"><a href="#用封装来降低耦合" class="headerlink" title="用封装来降低耦合"></a>用封装来降低耦合</h3><p>耦合 类和类的关系</p>
+<p>Room类和Game类都有大量的代码和出口相关</p>
+<p>尤其是Game类中大量使用了Room类的成员变量</p>
+<p>类和类之间的关系叫做耦合</p>
+<p>耦合越低越好，保持距离是形成良好代码的关键</p>
+<p>此处的问题是Room中的所有的成员变量都要改为private</p>
+<p>在Room增加两个函数 在Game中做相应处理</p>
+<p>getExitDesc()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getExitDesc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">	<span class="keyword">if</span>( northExit != <span class="keyword">null</span> ) </span><br><span class="line">		sb.append(<span class="string">"north"</span>);</span><br><span class="line">	<span class="keyword">if</span>( eastExit != <span class="keyword">null</span> ) </span><br><span class="line">		sb.append(<span class="string">"east"</span>);</span><br><span class="line">	<span class="keyword">if</span>( westExit != <span class="keyword">null</span> ) </span><br><span class="line">		sb.append(<span class="string">"west"</span>);</span><br><span class="line">	<span class="keyword">if</span>( southExit != <span class="keyword">null</span> ) </span><br><span class="line">		sb.append(<span class="string">"south"</span>);</span><br><span class="line">	<span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>getExit()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Room <span class="title">getExit</span><span class="params">(String direction)</span> </span>&#123;</span><br><span class="line">	Room ret = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">if</span>(direction.equals(<span class="string">"north"</span>))&#123;</span><br><span class="line">		ret = northExit;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(direction.equals(<span class="string">"east"</span>))&#123;</span><br><span class="line">		ret = eastExit;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(direction.equals(<span class="string">"south"</span>))&#123;</span><br><span class="line">		ret = southExit;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(direction.equals(<span class="string">"west"</span>))&#123;</span><br><span class="line">		ret = westExit;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="用接口实现聚合"><a href="#用接口实现聚合" class="headerlink" title="用接口实现聚合"></a>用接口实现聚合</h2><p>给Room类实现的新的方法，把方向的细节彻底隐藏在Room内部</p>
+<p>今后方向如何实现和外部无关</p>
+<h3 id="用容器来实现灵活性"><a href="#用容器来实现灵活性" class="headerlink" title="用容器来实现灵活性"></a>用容器来实现灵活性</h3><p>Room的方向使用成员变量表示的，如果想要增加或者减少方向都要大面积的改代码</p>
+<p>如果用Hash表来表示方向，那么方向就不是硬编码。可以任意的增加方向。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">private Room northExit;</span><br><span class="line">private Room southExit;</span><br><span class="line">private Room eastExit;</span><br><span class="line">private Room westExit;</span><br></pre></td></tr></table></figure>
+<p>用下代替</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private HashMap&lt;String, Room&gt; exit = new HashMap&lt;String, Room&gt;();</span><br></pre></td></tr></table></figure>
+<p>修改</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setExits</span><span class="params">(Room north,Room east,Room south,Room west)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(north != <span class="keyword">null</span>)</span><br><span class="line">			northExit = north;</span><br><span class="line">		<span class="keyword">if</span>(east != <span class="keyword">null</span>)</span><br><span class="line">			eastExit = east;</span><br><span class="line">		<span class="keyword">if</span>(south != <span class="keyword">null</span>)</span><br><span class="line">			southExit = east;</span><br><span class="line">		<span class="keyword">if</span>(west != <span class="keyword">null</span>)</span><br><span class="line">			westExit = west;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>用下代替 一次输出一个方向</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void setExit(String dir, Room room) &#123;</span><br><span class="line">	exits.put(dir, room);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>获取方向的时候 直接遍历一遍hashMap 使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public String getExitDesc() &#123;</span><br><span class="line">	StringBuffer sb = new StringBuffer();</span><br><span class="line">	for( String dir : exits.keySet() ) &#123;</span><br><span class="line">		sb.append(dir);</span><br><span class="line">		sb.append(&apos; &apos;);</span><br><span class="line">	&#125;</span><br><span class="line">	return sb.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>getExit()修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public Room getExit(String direction) &#123;</span><br><span class="line">	return exits.get(direction);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>则在Room中的方向就要修改为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化房间的出口</span></span><br><span class="line">	outside.setExit(<span class="string">"east"</span>,lobby); </span><br><span class="line">	outside.setExit(<span class="string">"south"</span>, study);</span><br><span class="line">	outside.setExit(<span class="string">"west"</span>, pub);</span><br><span class="line">	lobby.setExit(<span class="string">"west"</span>,outside);</span><br><span class="line">	pub.setExit(<span class="string">"east"</span>,outside);</span><br><span class="line">	study.setExit(<span class="string">"north"</span>, outside);</span><br><span class="line">	study.setExit(<span class="string">"east"</span>, bedroom);</span><br><span class="line">	bedroom.setExit(<span class="string">"west"</span>,study);</span><br><span class="line">	lobby.setExit(<span class="string">"up"</span>, pub);</span><br><span class="line">	pub.setExit(<span class="string">"down"</span>, lobby);</span><br><span class="line">	</span><br><span class="line">	currentRoom = outside;        <span class="comment">//从城堡门外开始</span></span><br></pre></td></tr></table></figure>
+<p>同时也很方便的进行对上下层的扩展 加上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lobby.setExit(&quot;up&quot;, pub);</span><br><span class="line">pub.setExit(&quot;down&quot;, lobby);</span><br></pre></td></tr></table></figure>
+<p>就可以很好的扩展地图。</p>
+<h2 id="原则三：以框架-数据来提高可扩展性"><a href="#原则三：以框架-数据来提高可扩展性" class="headerlink" title="原则三：以框架+数据来提高可扩展性"></a>原则三：以框架+数据来提高可扩展性</h2><p>命令的解析是否可以脱离if-else</p>
+<p>定义一个Handler来处理命令</p>
+<p>用Hash表来保存命令和Handler之间的关系</p>
+<p>将硬编码转化为框架和数据</p>
+<p>框架使用Hash表 和 函数接口 代表</p>
+<p>数据为放在hashMap中的东西</p>
+<p>main函数中的硬编码 循环</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">	String line = in.nextLine();</span><br><span class="line">	String[] words = line.split(<span class="string">" "</span>);</span><br><span class="line">	<span class="keyword">if</span> ( words[<span class="number">0</span>].equals(<span class="string">"help"</span>))&#123;</span><br><span class="line">		game.printHelp();</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span> ( words[<span class="number">0</span>].equals(<span class="string">"go"</span>))&#123;</span><br><span class="line">		game.goRoom(words[<span class="number">1</span>]);</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span> ( words[<span class="number">0</span>].equals(<span class="string">"bye"</span>))&#123;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数不是对象 但是类里面有函数</p>
+<p>故最后修改城堡游戏为：</p>
+<p>Game.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> castle;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Room currentRoom;</span><br><span class="line">	<span class="keyword">private</span> HashMap&lt;String, Handler&gt; handlers = <span class="keyword">new</span> HashMap&lt;String, Handler&gt;();</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Game</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line"><span class="comment">//		handlers.put("go", new HandlerGo());</span></span><br><span class="line">		handlers.put(<span class="string">"bye"</span>, <span class="keyword">new</span> HandlerBye(<span class="keyword">this</span>));</span><br><span class="line">		handlers.put(<span class="string">"help"</span>, <span class="keyword">new</span> HandlerHelp(<span class="keyword">this</span>));</span><br><span class="line">		handlers.put(<span class="string">"go"</span>, <span class="keyword">new</span> HandlerGo(<span class="keyword">this</span>));</span><br><span class="line">		creatRooms();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">creatRooms</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		Room outside, lobby,pub,study,bedroom;</span><br><span class="line">		</span><br><span class="line">	   <span class="comment">// 制造房间</span></span><br><span class="line">		outside = <span class="keyword">new</span> Room(<span class="string">"城堡外"</span>);</span><br><span class="line">		lobby = <span class="keyword">new</span> Room(<span class="string">"大堂"</span>);</span><br><span class="line">		pub = <span class="keyword">new</span> Room(<span class="string">"小酒吧"</span>);</span><br><span class="line">		study = <span class="keyword">new</span> Room(<span class="string">"书房"</span>);</span><br><span class="line">		bedroom = <span class="keyword">new</span> Room(<span class="string">"卧室"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 初始化房间的出口</span></span><br><span class="line">		outside.setExit(<span class="string">"east"</span>,lobby); </span><br><span class="line">		outside.setExit(<span class="string">"south"</span>, study);</span><br><span class="line">		outside.setExit(<span class="string">"west"</span>, pub);</span><br><span class="line">		lobby.setExit(<span class="string">"west"</span>,outside);</span><br><span class="line">		pub.setExit(<span class="string">"east"</span>,outside);</span><br><span class="line">		study.setExit(<span class="string">"north"</span>, outside);</span><br><span class="line">		study.setExit(<span class="string">"east"</span>, bedroom);</span><br><span class="line">		bedroom.setExit(<span class="string">"west"</span>,study);</span><br><span class="line">		lobby.setExit(<span class="string">"up"</span>, pub);</span><br><span class="line">		pub.setExit(<span class="string">"down"</span>, lobby);</span><br><span class="line">		</span><br><span class="line">		currentRoom = outside;        <span class="comment">//从城堡门外开始</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">printWelcome</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		System.out.println();</span><br><span class="line">		System.out.println(<span class="string">"欢迎来到城堡!"</span>);</span><br><span class="line">		System.out.println(<span class="string">"这是一个超级无聊的游戏。"</span>);</span><br><span class="line">		System.out.println(<span class="string">"如果需要帮助，请输入'help'。"</span>);</span><br><span class="line">		System.out.println();</span><br><span class="line">		showPrompt();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//  以下为用户命令</span></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">goRoom</span><span class="params">(String direction)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		Room nextRoom = currentRoom.getExit(direction);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(nextRoom == <span class="keyword">null</span>)&#123;</span><br><span class="line">			System.out.println(<span class="string">"那里没有门！"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			currentRoom = nextRoom;</span><br><span class="line">			showPrompt();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showPrompt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"你在"</span>+ currentRoom);</span><br><span class="line">		System.out.println(<span class="string">"出口有："</span>);</span><br><span class="line">		System.out.print(currentRoom.getExitDesc());</span><br><span class="line">		System.out.println();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">			String line = in.nextLine();</span><br><span class="line">			String[] words = line.split(<span class="string">" "</span>);</span><br><span class="line">			Handler handler = handlers.get(words[<span class="number">0</span>]);</span><br><span class="line">			String value = <span class="string">""</span>;</span><br><span class="line">			<span class="keyword">if</span>( words.length &gt; <span class="number">1</span> )</span><br><span class="line">				value = words[<span class="number">1</span>];</span><br><span class="line">			<span class="keyword">if</span>( handler != <span class="keyword">null</span> ) &#123;</span><br><span class="line">				handler.doCmd(value);</span><br><span class="line">				<span class="keyword">if</span>( handler.isBye()) &#123;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"><span class="comment">//			if ( words[0].equals("help"))&#123;</span></span><br><span class="line"><span class="comment">//				printHelp();</span></span><br><span class="line"><span class="comment">//			&#125;else if ( words[0].equals("go"))&#123;</span></span><br><span class="line"><span class="comment">//				goRoom(words[1]);</span></span><br><span class="line"><span class="comment">//			&#125;else if ( words[0].equals("bye"))&#123;</span></span><br><span class="line"><span class="comment">//				break;</span></span><br><span class="line"><span class="comment">//			&#125;</span></span><br><span class="line">		&#125;</span><br><span class="line">		in.close();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		Game game = <span class="keyword">new</span> Game();</span><br><span class="line">		game.printWelcome();</span><br><span class="line">		game.play();</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"感谢您的光临。再见！"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HandlerHelp.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> castle;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HandlerHelp</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">HandlerHelp</span><span class="params">(Game game)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(game);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doCmd</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"迷路了吗？你可以做的命令有：go bye help"</span>);</span><br><span class="line">		System.out.println(<span class="string">"如：\tgo east"</span>);	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Room.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">package castle;</span><br><span class="line"></span><br><span class="line">import java.util.HashMap;</span><br><span class="line"></span><br><span class="line">public class Room &#123;</span><br><span class="line">	private String description;</span><br><span class="line">	private HashMap&lt;String, Room&gt; exits = new HashMap&lt;String, Room&gt;();</span><br><span class="line">	</span><br><span class="line">	public Room(String description)</span><br><span class="line">	&#123;</span><br><span class="line">		this.description = description;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void setExit(String dir, Room room) &#123;</span><br><span class="line">		exits.put(dir, room);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public String toString()</span><br><span class="line">	&#123;</span><br><span class="line">		return description;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String getExitDesc() &#123;</span><br><span class="line">		StringBuffer sb = new StringBuffer();</span><br><span class="line">		for( String dir : exits.keySet() ) &#123;</span><br><span class="line">			sb.append(dir);</span><br><span class="line">			sb.append(&apos; &apos;);</span><br><span class="line">		&#125;</span><br><span class="line">		return sb.toString();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public Room getExit(String direction) &#123;</span><br><span class="line">		return exits.get(direction);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void southExit(Object object, Room lobby, Room study, Room pub) &#123;</span><br><span class="line">		// TODO Auto-generated method stub</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HandlerHelp.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> castle;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HandlerGo</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">HandlerGo</span><span class="params">(Game game)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(game);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doCmd</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">		game.goRoom(word);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HandlerGo.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> castle;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HandlerGo</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">HandlerGo</span><span class="params">(Game game)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(game);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doCmd</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">		game.goRoom(word);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HandlerBye.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> castle;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HandlerBye</span> <span class="keyword">extends</span> <span class="title">Handler</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">HandlerBye</span><span class="params">(Game game)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(game);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isBye</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/02/Java进阶学习-6/" rel="next" title="Java进阶学习-6 Object类、可扩展性">
+                <i class="fa fa-chevron-left"></i> Java进阶学习-6 Object类、可扩展性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/02/Java进阶学习-8/" rel="prev" title="Java进阶学习-8 抽象">
+                Java进阶学习-8 抽象 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Gao Lijie">
+            
+              <p class="site-author-name" itemprop="name">Gao Lijie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">91</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gaolijiemathcs" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="gaolijiemathcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原则一：代码复制问题"><span class="nav-number">1.</span> <span class="nav-text">原则一：代码复制问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则二：可维护性—封装"><span class="nav-number">2.</span> <span class="nav-text">原则二：可维护性—封装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#增加可扩展性"><span class="nav-number">2.1.</span> <span class="nav-text">增加可扩展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用封装来降低耦合"><span class="nav-number">2.2.</span> <span class="nav-text">用封装来降低耦合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用接口实现聚合"><span class="nav-number">3.</span> <span class="nav-text">用接口实现聚合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用容器来实现灵活性"><span class="nav-number">3.1.</span> <span class="nav-text">用容器来实现灵活性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则三：以框架-数据来提高可扩展性"><span class="nav-number">4.</span> <span class="nav-text">原则三：以框架+数据来提高可扩展性</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gao Lijie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

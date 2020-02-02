@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="记事本Demo功能设计  接口设计  之前我们写的程序 人机交互(输入输出部分) 业务逻辑(对输入进行计算的部分)都在一块 初学的时候为了表达方便所以写在一块，真正的软件不是这样的。UI和业务逻辑要分开。 此处接口为业务逻辑。  容器类ArrayList notes = new ArrayList 容器有两个类型： 容器的类型 元素的类型 对象数组123456	int[] ia = new int">
+<meta name="keywords" content="Java学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java进阶学习-3 容器类 对象数组 set HashMap">
+<meta property="og:url" content="http://yoursite.com/2020/02/01/Java进阶学习-3/index.html">
+<meta property="og:site_name" content="GaoLijie&#39;s Blog">
+<meta property="og:description" content="记事本Demo功能设计  接口设计  之前我们写的程序 人机交互(输入输出部分) 业务逻辑(对输入进行计算的部分)都在一块 初学的时候为了表达方便所以写在一块，真正的软件不是这样的。UI和业务逻辑要分开。 此处接口为业务逻辑。  容器类ArrayList notes = new ArrayList 容器有两个类型： 容器的类型 元素的类型 对象数组123456	int[] ia = new int">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201221246201.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201221306790.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201230701698.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201232537996.png">
+<meta property="og:updated_time" content="2020-02-02T02:50:44.005Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java进阶学习-3 容器类 对象数组 set HashMap">
+<meta name="twitter:description" content="记事本Demo功能设计  接口设计  之前我们写的程序 人机交互(输入输出部分) 业务逻辑(对输入进行计算的部分)都在一块 初学的时候为了表达方便所以写在一块，真正的软件不是这样的。UI和业务逻辑要分开。 此处接口为业务逻辑。  容器类ArrayList notes = new ArrayList 容器有两个类型： 容器的类型 元素的类型 对象数组123456	int[] ia = new int">
+<meta name="twitter:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201221246201.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/01/Java进阶学习-3/">
+
+
+
+
+
+  <title>Java进阶学习-3 容器类 对象数组 set HashMap | GaoLijie's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GaoLijie's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello world</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/Java进阶学习-3/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java进阶学习-3 容器类 对象数组 set HashMap</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-01T22:10:26+08:00">
+                2020-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="记事本Demo"><a href="#记事本Demo" class="headerlink" title="记事本Demo"></a>记事本Demo</h2><p><strong>功能设计</strong></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201221246201.png" alt="image-20200201221246201"></p>
+<p><strong>接口设计</strong></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201221306790.png" alt="image-20200201221306790"></p>
+<p>之前我们写的程序 人机交互(输入输出部分) 业务逻辑(对输入进行计算的部分)都在一块 初学的时候为了表达方便所以写在一块，真正的软件不是这样的。UI和业务逻辑要分开。</p>
+<p>此处接口为业务逻辑。 </p>
+<h2 id="容器类"><a href="#容器类" class="headerlink" title="容器类"></a>容器类</h2><p>ArrayList<string> notes = new ArrayList<string></string></string></p>
+<p>容器有两个类型：</p>
+<p>容器的类型</p>
+<p>元素的类型</p>
+<h2 id="对象数组"><a href="#对象数组" class="headerlink" title="对象数组"></a>对象数组</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	int[] ia = new int[10];</span><br><span class="line">		String[] a = new String[10];	//定义了一个String数组 为一个管理者</span><br><span class="line">		System.out.println(ia[0]+2);</span><br><span class="line">//		System.out.println(a[0].length());</span><br><span class="line">		String s = null;</span><br><span class="line">		System.out.println(s.length());</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输出报错</span><br></pre></td></tr></table></figure>
+<p>String[] a = new String[10];    //定义了一个String数组 为一个管理者</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201230701698.png" alt="image-20200201230701698"></p>
+<p>所以String[]数组当中每一个是一个String类型的管理者 需要指向一个内容做管理</p>
+<p>初始没管故为null</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] ia = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line">		String[] a = <span class="keyword">new</span> String[<span class="number">10</span>];	<span class="comment">//定义了一个String数组 为一个管理者</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">			a[i] = <span class="string">""</span>+i;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(ia[<span class="number">0</span>]+<span class="number">2</span>);</span><br><span class="line">		System.out.println(a[<span class="number">0</span>].length());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<p>对象数组中的每一个元素都是对象的管理者而非对象本身。</p>
+<p>创建了一个对象数组以后 还要创建对象以后 才有意义，原本没有可以管理的对象 故为null</p>
+<h2 id="对象数组的for-each循环"><a href="#对象数组的for-each循环" class="headerlink" title="对象数组的for-each循环"></a>对象数组的for-each循环</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> notebook;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Value</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> i;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;<span class="keyword">this</span>.i = i;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> i;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NoteBook</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> ArrayList&lt;String&gt; notes = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">	<span class="comment">//ArrayList of String 范型类 是一种容器 notes为对象管理者</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">		notes.add(s);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(String s, <span class="keyword">int</span> location)</span> </span>&#123;</span><br><span class="line">		notes.add(location, s);	<span class="comment">//在location插入一个元素 原来元素后移</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> notes.size();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getNote</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> notes.get(index);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeNote</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">		notes.remove(index);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> String[] list() &#123;	<span class="comment">//不直接输出 而是返回一个结果的数组 为以后上层扩展服务</span></span><br><span class="line">		<span class="keyword">int</span>[] ia = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line">		String[] a = <span class="keyword">new</span> String[notes.size()];</span><br><span class="line"><span class="comment">//		for(int i = 0; i &lt; notes.size(); i++) &#123;</span></span><br><span class="line"><span class="comment">//			a[i] = notes.get(i);</span></span><br><span class="line"><span class="comment">//		&#125;</span></span><br><span class="line">		notes.toArray(a);</span><br><span class="line">		<span class="keyword">return</span> a;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Value[] a = <span class="keyword">new</span> Value[<span class="number">10</span>];</span><br><span class="line">		<span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">			a[i] = <span class="keyword">new</span> Value();</span><br><span class="line">			a[i].set(i);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(Value v : a) &#123;	<span class="comment">//a在不断的改变管理对象</span></span><br><span class="line">			System.out.println(v.get());</span><br><span class="line">			v.set(<span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(Value v : a) &#123;</span><br><span class="line">			System.out.println(v.get());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201232537996.png" alt="image-20200201232537996"></p>
+<p>for-each循环可以 不断改变v指向的管理对象 </p>
+<p>容器也可以使用for-each循环</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ArrayList&lt;String&gt; a = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">		a.add(<span class="string">"first"</span>);</span><br><span class="line">		a.add(<span class="string">"second"</span>);</span><br><span class="line">		<span class="keyword">for</span>( String  s : a) &#123;</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">first</span><br><span class="line">second</span><br></pre></td></tr></table></figure>
+<h2 id="集合容器set"><a href="#集合容器set" class="headerlink" title="集合容器set"></a>集合容器set</h2><p>set去重</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		ArrayList&lt;String&gt; a = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">		a.add(<span class="string">"first"</span>);</span><br><span class="line">		a.add(<span class="string">"second"</span>);</span><br><span class="line">		a.add(<span class="string">"first"</span>);</span><br><span class="line">		<span class="keyword">for</span>( String  s : a) &#123;</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">"-----------"</span>);</span><br><span class="line">		HashSet&lt;String&gt; s = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">		s.add(<span class="string">"first"</span>);</span><br><span class="line">		s.add(<span class="string">"second"</span>);</span><br><span class="line">		s.add(<span class="string">"first"</span>);</span><br><span class="line">		<span class="keyword">for</span>( String  k : s) &#123;</span><br><span class="line">			System.out.println(k);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">first</span><br><span class="line">second</span><br><span class="line">first</span><br><span class="line">-----------</span><br><span class="line">first</span><br><span class="line">second</span><br></pre></td></tr></table></figure>
+<p>容器可以直接输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	ArrayList&lt;String&gt; a = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">	a.add(<span class="string">"first"</span>);</span><br><span class="line">	a.add(<span class="string">"second"</span>);</span><br><span class="line">	a.add(<span class="string">"first"</span>);</span><br><span class="line">	System.out.println(a);</span><br><span class="line">	System.out.println(<span class="string">"-----------"</span>);</span><br><span class="line">	HashSet&lt;String&gt; s = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">	s.add(<span class="string">"first"</span>);</span><br><span class="line">	s.add(<span class="string">"second"</span>);</span><br><span class="line">	s.add(<span class="string">"first"</span>);</span><br><span class="line">	System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[first, second, first]</span><br><span class="line">-----------</span><br><span class="line">[first, second]</span><br></pre></td></tr></table></figure>
+<p>set不排序</p>
+<p>toString函数可以保证输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Value</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> i;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;<span class="keyword">this</span>.i = i;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> i;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> <span class="string">""</span>+i; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Value v = <span class="keyword">new</span> Value();</span><br><span class="line">		v.set(<span class="number">10</span>);</span><br><span class="line">		System.out.println(v);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>如果没有加上toString() 则不可以输出</p>
+<p>所以在容器中都实现了toString()函数 才可以把 容器直接输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(a);</span><br><span class="line">System.out.println(s);</span><br></pre></td></tr></table></figure>
+<h2 id="HashMap-哈希表"><a href="#HashMap-哈希表" class="headerlink" title="HashMap()哈希表"></a>HashMap()哈希表</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> coins;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Coin</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> HashMap&lt;Integer, String&gt; coinnames = <span class="keyword">new</span> HashMap&lt;Integer, String&gt;();</span><br><span class="line">	<span class="comment">//必须要为Integer 不能用int</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Coin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		coinnames.put(<span class="number">1</span>, <span class="string">"penny"</span>);	<span class="comment">//一个包裹类型的量可以接受int</span></span><br><span class="line">		coinnames.put(<span class="number">10</span>, <span class="string">"dime"</span>);</span><br><span class="line">		coinnames.put(<span class="number">25</span>, <span class="string">"quarter"</span>);</span><br><span class="line">		coinnames.put(<span class="number">50</span>, <span class="string">"half-dollar"</span>);</span><br><span class="line">		coinnames.put(<span class="number">50</span>, <span class="string">"五毛"</span>);</span><br><span class="line">		System.out.println(coinnames.keySet().size());</span><br><span class="line">		System.out.println(coinnames);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">(<span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(coinnames.containsKey(amount))</span><br><span class="line">			<span class="keyword">return</span> coinnames.get(amount);</span><br><span class="line">		<span class="keyword">else</span> </span><br><span class="line">			<span class="keyword">return</span> <span class="string">"NOT FOUND"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="keyword">int</span> amount = in.nextInt();</span><br><span class="line">		Coin coin = <span class="keyword">new</span> Coin();</span><br><span class="line">		String name = coin.getName(amount);</span><br><span class="line">		System.out.println(name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">4</span><br><span class="line">&#123;1=penny, 50=五毛, 25=quarter, 10=dime&#125;</span><br><span class="line">dime</span><br></pre></td></tr></table></figure>
+<p>键值唯一</p>
+<p>遍历的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">package coins;</span><br><span class="line"></span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class Coin &#123;</span><br><span class="line">	private HashMap&lt;Integer, String&gt; coinnames = new HashMap&lt;Integer, String&gt;();</span><br><span class="line">	//必须要为Integer 不能用int</span><br><span class="line">	public Coin() &#123;</span><br><span class="line">		coinnames.put(1, &quot;penny&quot;);	//一个包裹类型的量可以接受int</span><br><span class="line">		coinnames.put(10, &quot;dime&quot;);</span><br><span class="line">		coinnames.put(25, &quot;quarter&quot;);</span><br><span class="line">		coinnames.put(50, &quot;half-dollar&quot;);</span><br><span class="line">		coinnames.put(50, &quot;五毛&quot;);</span><br><span class="line">		System.out.println(coinnames.keySet().size());</span><br><span class="line">		System.out.println(coinnames);</span><br><span class="line">		for(Integer k : coinnames.keySet()) &#123;	//拿keySet</span><br><span class="line">			String s = coinnames.get(k);</span><br><span class="line">			System.out.println(s);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	public String getName(int amount) &#123;</span><br><span class="line">		if(coinnames.containsKey(amount))</span><br><span class="line">			return coinnames.get(amount);</span><br><span class="line">		else </span><br><span class="line">			return &quot;NOT FOUND&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		Scanner in = new Scanner(System.in);</span><br><span class="line">		int amount = in.nextInt();</span><br><span class="line">		Coin coin = new Coin();</span><br><span class="line">		String name = coin.getName(amount);</span><br><span class="line">		System.out.println(name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">4</span><br><span class="line">&#123;1=penny, 50=五毛, 25=quarter, 10=dime&#125;</span><br><span class="line">penny</span><br><span class="line">五毛</span><br><span class="line">quarter</span><br><span class="line">dime</span><br><span class="line">dime</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java学习/" rel="tag"># Java学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/01/Java进阶学习-2/" rel="next" title="Java进阶学习(2) 对象 访问属性 包 类变量 类函数">
+                <i class="fa fa-chevron-left"></i> Java进阶学习(2) 对象 访问属性 包 类变量 类函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/02/Java进阶学习-4/" rel="prev" title="Java进阶学习-4 继承">
+                Java进阶学习-4 继承 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Gao Lijie">
+            
+              <p class="site-author-name" itemprop="name">Gao Lijie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">91</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gaolijiemathcs" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="gaolijiemathcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#记事本Demo"><span class="nav-number">1.</span> <span class="nav-text">记事本Demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器类"><span class="nav-number">2.</span> <span class="nav-text">容器类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象数组"><span class="nav-number">3.</span> <span class="nav-text">对象数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象数组的for-each循环"><span class="nav-number">4.</span> <span class="nav-text">对象数组的for-each循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合容器set"><span class="nav-number">5.</span> <span class="nav-text">集合容器set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap-哈希表"><span class="nav-number">6.</span> <span class="nav-text">HashMap()哈希表</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gao Lijie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

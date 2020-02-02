@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="12345678910111213public static void main(String[] args) 	&amp;#123;		Picture pic = new Picture(420,250);		Circle c1 = new Circle(320,40,80);		Rectangle r1 = new Rectangle(100, 100, 100, 100);		Triangle t1">
+<meta name="keywords" content="Java学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java进阶学习(1) 类与对象初始化 成员变量成员函数">
+<meta property="og:url" content="http://yoursite.com/2020/02/01/Java进阶学习-1/index.html">
+<meta property="og:site_name" content="GaoLijie&#39;s Blog">
+<meta property="og:description" content="12345678910111213public static void main(String[] args) 	&amp;#123;		Picture pic = new Picture(420,250);		Circle c1 = new Circle(320,40,80);		Rectangle r1 = new Rectangle(100, 100, 100, 100);		Triangle t1">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201152159741.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201152353357.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201152743971.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201153106599.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201153222964.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201154618620.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201163105728.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201163132951.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201163156478.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201163223751.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201164404594.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201164435763.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201170316245.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201170808437.png">
+<meta property="og:updated_time" content="2020-02-01T10:06:09.556Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java进阶学习(1) 类与对象初始化 成员变量成员函数">
+<meta name="twitter:description" content="12345678910111213public static void main(String[] args) 	&amp;#123;		Picture pic = new Picture(420,250);		Circle c1 = new Circle(320,40,80);		Rectangle r1 = new Rectangle(100, 100, 100, 100);		Triangle t1">
+<meta name="twitter:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200201152159741.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/01/Java进阶学习-1/">
+
+
+
+
+
+  <title>Java进阶学习(1) 类与对象初始化 成员变量成员函数 | GaoLijie's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GaoLijie's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello world</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/Java进阶学习-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java进阶学习(1) 类与对象初始化 成员变量成员函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-01T14:19:05+08:00">
+                2020-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		Picture pic = <span class="keyword">new</span> Picture(<span class="number">420</span>,<span class="number">250</span>);</span><br><span class="line">		Circle c1 = <span class="keyword">new</span> Circle(<span class="number">320</span>,<span class="number">40</span>,<span class="number">80</span>);</span><br><span class="line">		Rectangle r1 = <span class="keyword">new</span> Rectangle(<span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">		Triangle t1 = <span class="keyword">new</span> Triangle(<span class="number">100</span>, <span class="number">100</span>, <span class="number">200</span>, <span class="number">100</span>, <span class="number">150</span>, <span class="number">50</span>);</span><br><span class="line">		Line l1 = <span class="keyword">new</span> Line(<span class="number">0</span>,<span class="number">205</span>,<span class="number">400</span>,<span class="number">205</span>);</span><br><span class="line">		pic.add(c1);</span><br><span class="line">		pic.add(r1);</span><br><span class="line">		pic.add(t1);</span><br><span class="line">		pic.add(l1);</span><br><span class="line">		pic.draw();	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>GUI = 图形用户界面 读作 古一~</p>
+<p>用这个例子用于理解类和对象关系的例子</p>
+<p><strong>对象与类</strong></p>
+<p>对象是实体 需要被创建 可以为我们做事情</p>
+<p>类的规范 根据类的定义来创建对象</p>
+<p>类用于创建对象 制定创建对象的规则 规范定义</p>
+<p>对象是实体 是被创建出来的物体</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201152159741.png" alt="image-20200201152159741"></p>
+<p>对象 是这只猫 指具体的某一只猫 此时这只猫就是一个对象</p>
+<p>而我们说猫的时候是指类 猫所有的属性 定义一只猫的规范</p>
+<p>类定义了对象 每一个对象是那个类的实体</p>
+<p>对象具有属性和服务</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201152353357.png" alt="image-20200201152353357"></p>
+<p>把数据和对数据的操作放在一起称为<strong>封装</strong></p>
+<p>由这些操作保护内部的数据 数据是不对外开发的</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201152743971.png" alt="image-20200201152743971"></p>
+<p>面向对象思维看待事物看到功能</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201153106599.png" alt="image-20200201153106599"></p>
+<p>属性和动作</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201153222964.png" alt="image-20200201153222964"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public class VendingMachine &#123;</span><br><span class="line">	int price = 80;</span><br><span class="line">	int balance;	//余额</span><br><span class="line">	int total;</span><br><span class="line">	</span><br><span class="line">	void showPrompt()</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(&quot;Welcome&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	void insertMoney(int amount)</span><br><span class="line">	&#123;</span><br><span class="line">		balance = balance + amount;</span><br><span class="line">	&#125;</span><br><span class="line">	void showBalnace() </span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(balance);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	void getFood()</span><br><span class="line">	&#123;</span><br><span class="line">		if(balance &gt;= price)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(&quot;Here you are&quot;);</span><br><span class="line">			balance = balance - price;</span><br><span class="line">			total = total + price;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		VendingMachine vm = new VendingMachine();</span><br><span class="line">		vm.showPrompt();</span><br><span class="line">		vm.showBalnace();</span><br><span class="line">		vm.insertMoney(100);</span><br><span class="line">		vm.getFood();</span><br><span class="line">		vm.showBalnace();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义了一个对象VendingMachine</p>
+<p><strong>创建对象</strong></p>
+<p>new VendingMachine();</p>
+<p>VendingMachine vm = new VendingMachine();</p>
+<p>自己设计了一个类 就可以用新设计的类型 VendingMachine  定义一个对象变量vm 用于接收新定义的一个对象new VendingMachine();</p>
+<p>对象变量是对象的管理者。</p>
+<p><strong>让对象做事</strong></p>
+<p>使用点运算符 .</p>
+<p>v.insertMoney(100);</p>
+<p>v.getFood();</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		VendingMachine vm = <span class="keyword">new</span> VendingMachine();</span><br><span class="line">		vm.showPrompt();</span><br><span class="line">		vm.showBalnace();</span><br><span class="line">		vm.insertMoney(<span class="number">100</span>);</span><br><span class="line">		vm.getFood();</span><br><span class="line">		vm.showBalnace();</span><br><span class="line">		VendingMachine vm1 = <span class="keyword">new</span> VendingMachine();</span><br><span class="line">		vm1.insertMoney(<span class="number">200</span>);</span><br><span class="line">		vm.showBalnace();</span><br><span class="line">		vm1.showBalnace();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>创建不同的对象</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201154618620.png" alt="image-20200201154618620"></p>
+<p>在debug的时候不同的对象id号不同则为不同的对象而且点开内容也不同</p>
+<p>类是定义了这个类所有对象长什么样 </p>
+<p>对象是这个类的一个具体实例</p>
+<p>在类中定义的变量在每一个对象中都存在，且每个对象中的变量都不一样 不是同一个变量。</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201163105728.png" alt="image-20200201163105728"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201163132951.png" alt="image-20200201163132951"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201163156478.png" alt="image-20200201163156478"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201163223751.png" alt="image-20200201163223751"></p>
+<p><strong>函数与成员变量</strong></p>
+<p>在函数㕜可以直接写成员变量的名字来访问成员变量</p>
+<p>究竟访问哪个对象 函数是通过对象来调用的</p>
+<p>v.insertMoney()</p>
+<p>这次调用临时建立了insertMoney()和v之间的关系 让insertMoney()内部的成员变量指的是成员变量</p>
+<p>使用的是this联系</p>
+<p><strong>this</strong></p>
+<p>this是成员函数的一个特殊固有的本地变量 代表的是调用了这个函数的那个对象在调试的时候可以看到。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> price = <span class="number">80</span>;		<span class="comment">//成员变量price</span></span><br><span class="line"><span class="keyword">int</span> balance;	<span class="comment">//余额</span></span><br><span class="line"><span class="keyword">int</span> total;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setPrice</span><span class="params">(<span class="keyword">int</span> price)</span>	<span class="comment">//此处的price是此函数的参数price 而不是上面的成员变量price=80的price</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.price = price;		<span class="comment">//直接的price为此函数的参数 要访问成员变量的price 要使用this来区分成员变量的price(this.price来表示成员变量)和函数参数的price(只可表示函数花括号内的参数) </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>this 常用还有因为可以少打字</p>
+<p>this.getFood();//少打字使用this. </p>
+<p><strong>调用函数</strong></p>
+<p>通过.函数调用某个对象的函数 而this为当前调用这个函数的对象</p>
+<p>在成员函数内部直接调用自己(this)的其他函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertMoney</span><span class="params">(<span class="keyword">int</span> amount)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		balance = balance + amount;</span><br><span class="line">		showBalnace();	<span class="comment">//在成员函数内部 调用函数不同加前缀 this.可加可不加</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">showBalnace</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		System.out.println(<span class="keyword">this</span>.balance);	<span class="comment">//this.balance 与balance 一样</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>showBalnace();    //在成员函数内部 调用函数不同加前缀 this.可加可不加</p>
+<p>但在成员函数外部调用的时候必须加上是哪个对象调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vm.showBalnace();</span><br><span class="line">vm1.showBalnace();</span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201164404594.png" alt="image-20200201164404594"></p>
+<p>j进了insertMoney再进showBalance 此时id为18</p>
+<p>进入showBalance后仍为18 this会带入</p>
+<p>此处是在成员函数中调用成员函数不用加前缀 默认直接带入当前调用类中函数的对象</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201164435763.png" alt="image-20200201164435763"></p>
+<p><strong>本地变量</strong></p>
+<p>定义在函数内部的变量是<strong>本地变量</strong> 定义在函数外部的变量为<strong>成员变量</strong></p>
+<p><strong>本地变量</strong>的生存期和作用域都是函数内部</p>
+<p><strong>成员变量</strong>的生存期是对象的生存期(new出一个对象才开始存在) 作用域是类内部的成员函数 </p>
+<p>成员变量的消失是java自动垃圾回收自动消失 只要关心什么时候开始存在</p>
+<p>成员变量是new一个新的对象出来成员变量就存在 而本地变量是在函数当中存在的，当调用一个函数进入函数内部的时候本地变量存在 当函数调用结束本地变量消失。</p>
+<p>作用域 本地变量在大括号内 而成员变量作用域在一个类的内部。类中的成员函数都可以使用这些成员变量。</p>
+<h2 id="对象的初始化"><a href="#对象的初始化" class="headerlink" title="对象的初始化"></a>对象的初始化</h2><p>成员变量的初始化</p>
+<p>类中的成员变量 java会保证 给成员变量一个初始值0 </p>
+<p><strong>成员变量定义初始化</strong></p>
+<p>1.成员变量在定义的地方就可以给出初始值</p>
+<p>2.没有给出初始值的成员变量会自动获得0值</p>
+<p>​    对象变量的0值代表没有管理任何对象也可以主动给null值</p>
+<p>3.定义初始化可以调用函数 甚至可以使用已经定义的成员变量</p>
+<p><strong>构造函数</strong></p>
+<p>如果一个成员变量函数的名字和类的名字完全相同 则在创建这个类的每一个对象的时候会自动调用这个函数 构造函数</p>
+<p>这个类不能有返回类型</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201170316245.png" alt="image-20200201170316245"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> price = <span class="number">80</span>;		<span class="comment">//成员变量price</span></span><br><span class="line"><span class="keyword">int</span> balance = f();	<span class="comment">//余额 使用函数调用</span></span><br><span class="line"><span class="keyword">int</span> total;</span><br><span class="line"></span><br><span class="line">VendingMachine()		<span class="comment">//构造函数 在构造的时候会调用构造函数 但下一步不是进入函数 而是把上面的成员变量先初始化 再进入构造函数语句</span></span><br><span class="line">&#123;</span><br><span class="line">	total = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">VendingMachine(<span class="keyword">int</span> price)	<span class="comment">//构造函数可以有多个 重载</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">this</span>.price = price;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个同名函数看初始化的时候叫做<strong>函数重载</strong></p>
+<p>一个类可以有多个构造函数 只要他们的参数表不同</p>
+<p>创建对象的时候给出不同的参数值 就会自动调用不同的构造函数</p>
+<p>通过this()还可以调用其他构造函数</p>
+<p>一个类里的同名但是参数表不同的函数构成了重载关系</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201170808437.png" alt="image-20200201170808437"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java学习/" rel="tag"># Java学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/31/Java基础语法学习/" rel="next" title="Java基础语法学习">
+                <i class="fa fa-chevron-left"></i> Java基础语法学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/01/Java进阶学习-2/" rel="prev" title="Java进阶学习(2) 对象 访问属性 包 类变量 类函数">
+                Java进阶学习(2) 对象 访问属性 包 类变量 类函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Gao Lijie">
+            
+              <p class="site-author-name" itemprop="name">Gao Lijie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">91</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gaolijiemathcs" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="gaolijiemathcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的初始化"><span class="nav-number">1.</span> <span class="nav-text">对象的初始化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gao Lijie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

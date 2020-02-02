@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="死亡：如果活着的邻居数量&amp;lt;2或&amp;gt;3 则死亡 新生：如果正好有3个邻居活着，则新生 其他情况则保持原状  两种看程序的方法 ①从main开始看程序 看完 ②从小的部件开始看 追父类一直看到顶层 从细节开始看 最后拼在一起  代码展示入下： CellMachine.java 1234567891011121314151617181920212223242526272829303132333">
+<meta name="keywords" content="Java学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java进阶学习-9 细胞自动机">
+<meta property="og:url" content="http://yoursite.com/2020/02/02/Java进阶学习-9/index.html">
+<meta property="og:site_name" content="GaoLijie&#39;s Blog">
+<meta property="og:description" content="死亡：如果活着的邻居数量&amp;lt;2或&amp;gt;3 则死亡 新生：如果正好有3个邻居活着，则新生 其他情况则保持原状  两种看程序的方法 ①从main开始看程序 看完 ②从小的部件开始看 追父类一直看到顶层 从细节开始看 最后拼在一起  代码展示入下： CellMachine.java 1234567891011121314151617181920212223242526272829303132333">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200202233122833.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200202234328557.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200202234817310.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200202234840269.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200202234943014.png">
+<meta property="og:updated_time" content="2020-02-02T15:53:09.016Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java进阶学习-9 细胞自动机">
+<meta name="twitter:description" content="死亡：如果活着的邻居数量&amp;lt;2或&amp;gt;3 则死亡 新生：如果正好有3个邻居活着，则新生 其他情况则保持原状  两种看程序的方法 ①从main开始看程序 看完 ②从小的部件开始看 追父类一直看到顶层 从细节开始看 最后拼在一起  代码展示入下： CellMachine.java 1234567891011121314151617181920212223242526272829303132333">
+<meta name="twitter:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200202233122833.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/02/Java进阶学习-9/">
+
+
+
+
+
+  <title>Java进阶学习-9 细胞自动机 | GaoLijie's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GaoLijie's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello world</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/Java进阶学习-9/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java进阶学习-9 细胞自动机</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-02T22:06:23+08:00">
+                2020-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>死亡：如果活着的邻居数量&lt;2或&gt;3 则死亡</p>
+<p>新生：如果正好有3个邻居活着，则新生</p>
+<p>其他情况则保持原状</p>
+<hr>
+<p>两种看程序的方法</p>
+<p>①从main开始看程序 看完</p>
+<p>②从小的部件开始看 追父类一直看到顶层 从细节开始看 最后拼在一起</p>
+<hr>
+<p>代码展示入下：</p>
+<p>CellMachine.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cellmachine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.JFrame;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cell.Cell;</span><br><span class="line"><span class="keyword">import</span> field.Field;</span><br><span class="line"><span class="keyword">import</span> field.View;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CellMachine</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//  准备数据</span></span><br><span class="line">		Field field = <span class="keyword">new</span> Field(<span class="number">30</span>,<span class="number">30</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>;row&lt;field.getHeight();row++) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>;col&lt;field.getWidth();col++)&#123;</span><br><span class="line">				field.place(row, col, <span class="keyword">new</span> Cell());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>;row&lt;field.getHeight();row++) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>;col&lt;field.getWidth();col++)&#123;</span><br><span class="line">				Cell cell =field.get(row,col);</span><br><span class="line">				<span class="keyword">if</span>(Math.random()&lt;<span class="number">0.2</span>)&#123;</span><br><span class="line">					cell.reborn();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//  准备窗口</span></span><br><span class="line">		View view = <span class="keyword">new</span> View(field);</span><br><span class="line">		JFrame frame = <span class="keyword">new</span> JFrame();</span><br><span class="line">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">		frame.setTitle(<span class="string">"Cells"</span>);</span><br><span class="line">		frame.setResizable(<span class="keyword">true</span>);</span><br><span class="line">		frame.add(view);</span><br><span class="line">		frame.pack();</span><br><span class="line">		frame.setVisible(<span class="keyword">true</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//  计算业务逻辑</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span> ;i&lt;<span class="number">1000</span>; i++)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;field.getHeight();row++) &#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>;col&lt;field.getHeight();col++)&#123;</span><br><span class="line">					Cell cell = field.get(row, col);</span><br><span class="line">					Cell[] neighbour = field.getNeighbour(row, col);	<span class="comment">//取出邻居</span></span><br><span class="line">					<span class="keyword">int</span> numOfLive = <span class="number">0</span>;</span><br><span class="line">					<span class="keyword">for</span>(Cell c: neighbour)&#123;	<span class="comment">//遍历所有邻居</span></span><br><span class="line">						<span class="keyword">if</span>(c.isAlive()) &#123;</span><br><span class="line">							numOfLive++;	<span class="comment">//统计邻居数量</span></span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					System.out.print(<span class="string">"["</span>+row+<span class="string">"]["</span>+col+<span class="string">"]:"</span>);</span><br><span class="line">					System.out.print(cell.isAlive()?<span class="string">"live"</span>:<span class="string">"dead"</span>);</span><br><span class="line">					System.out.print(<span class="string">":"</span>+numOfLive+<span class="string">"--&gt;"</span>);</span><br><span class="line">					</span><br><span class="line">					<span class="keyword">if</span>(cell.isAlive()) &#123;</span><br><span class="line">						<span class="keyword">if</span>(numOfLive &lt; <span class="number">2</span> || numOfLive &gt; <span class="number">3</span>) &#123;	<span class="comment">//死掉规则</span></span><br><span class="line">							cell.die();</span><br><span class="line">							System.out.print(<span class="string">"die"</span>);</span><br><span class="line">						&#125;</span><br><span class="line">					&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( numOfLive == <span class="number">3</span> ) &#123;</span><br><span class="line">						cell.reborn();</span><br><span class="line">						System.out.print(<span class="string">"reborn"</span>);</span><br><span class="line">					&#125;</span><br><span class="line">					System.out.println();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.print(<span class="string">"UPDATE"</span>);</span><br><span class="line">			frame.repaint();	<span class="comment">//此处每轮重画 field 每次重画一次</span></span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				Thread.sleep(<span class="number">200</span>);</span><br><span class="line">			&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>cell.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package cell;</span><br><span class="line"></span><br><span class="line">import java.awt.Graphics;</span><br><span class="line"></span><br><span class="line">public class Cell &#123;</span><br><span class="line">	public boolean alive = false;</span><br><span class="line">	</span><br><span class="line">	public void die() &#123; alive = false; &#125; </span><br><span class="line">	public void reborn()&#123; alive = true;&#125;</span><br><span class="line">	public boolean isAlive() &#123;	return alive; &#125;</span><br><span class="line">	</span><br><span class="line">	public void draw(Graphics g,int x,int y,int size)&#123;</span><br><span class="line">		g.drawRect(x, y, size, size);</span><br><span class="line">		if(alive) &#123;</span><br><span class="line">			g.fillRect(x, y, size, size);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Field.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> field;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cell.Cell;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Field</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> width;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> height;</span><br><span class="line">	<span class="keyword">private</span> Cell[][] field;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Field</span><span class="params">(<span class="keyword">int</span> width, <span class="keyword">int</span> height)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.width = width;</span><br><span class="line">		<span class="keyword">this</span>.height = height;</span><br><span class="line">		field = <span class="keyword">new</span> Cell[height][width];		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getWidth</span><span class="params">()</span> </span>&#123;	<span class="keyword">return</span> width; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHeight</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> height; &#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Cell <span class="title">place</span><span class="params">(<span class="keyword">int</span> row,<span class="keyword">int</span> col,Cell o)</span></span>&#123;</span><br><span class="line">		Cell ret = field[row][col];</span><br><span class="line">		field[row][col] = o;</span><br><span class="line">		<span class="keyword">return</span> ret;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Cell <span class="title">get</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> col)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> field[row][col];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;width;i++) </span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;height;j++)&#123;</span><br><span class="line">				field[i][j] = <span class="keyword">null</span>;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> Cell[] getNeighbour(<span class="keyword">int</span> row,<span class="keyword">int</span> col)&#123;</span><br><span class="line">		ArrayList&lt;Cell&gt; neighbour = <span class="keyword">new</span> ArrayList&lt;Cell&gt;();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = -<span class="number">1</span>;i&lt;<span class="number">2</span>;i++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = -<span class="number">1</span>;j&lt;<span class="number">2</span>;j++)&#123;</span><br><span class="line">				<span class="keyword">int</span> r=row+i;</span><br><span class="line">				<span class="keyword">int</span> c=col+j;</span><br><span class="line">				<span class="keyword">if</span> (!(i==<span class="number">0</span>&amp;&amp;j==<span class="number">0</span>)&amp;&amp;r&lt;width&amp;&amp;c&lt;height&amp;&amp;r&gt;-<span class="number">1</span>&amp;&amp;c&gt;-<span class="number">1</span>)&#123;</span><br><span class="line">				neighbour.add(field[r][c]);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">return</span> neighbour.toArray(<span class="keyword">new</span> Cell[neighbour.size()]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>View.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> field;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.Dimension;</span><br><span class="line"><span class="keyword">import</span> java.awt.Graphics;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.JFrame;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JPanel;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cell.Cell;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">View</span> <span class="keyword">extends</span> <span class="title">JPanel</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">5258995676212660595L</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> GRID_SIZE = <span class="number">16</span>;</span><br><span class="line">	<span class="keyword">private</span> Field theField;</span><br><span class="line"></span><br><span class="line">	 </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">View</span><span class="params">(Field field)</span> </span>&#123;</span><br><span class="line">		theField = field;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paint</span><span class="params">(Graphics g)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>.paint(g);</span><br><span class="line">		<span class="keyword">for</span>( <span class="keyword">int</span> row = <span class="number">0</span>; row &lt; theField.getHeight();row++ ) &#123;</span><br><span class="line">			<span class="keyword">for</span>( <span class="keyword">int</span> col = <span class="number">0</span>; col &lt; theField.getWidth(); col++)&#123;</span><br><span class="line">				Cell cell = theField.get(row, col);</span><br><span class="line">				<span class="keyword">if</span>( cell != <span class="keyword">null</span> )&#123;</span><br><span class="line">					cell.draw(g, col*GRID_SIZE, row*GRID_SIZE, GRID_SIZE);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Dimension <span class="title">getPreferredSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Dimension(theField.getWidth()*GRID_SIZE+<span class="number">1</span>, theField.getHeight()*GRID_SIZE+<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Field theField = <span class="keyword">new</span> Field(<span class="number">10</span>,<span class="number">10</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">10</span>;j++)&#123;</span><br><span class="line">				theField.place(i, j, <span class="keyword">new</span> Cell());</span><br><span class="line">			&#125;</span><br><span class="line">		View view = <span class="keyword">new</span> View(theField);</span><br><span class="line">		JFrame frame = <span class="keyword">new</span> JFrame();</span><br><span class="line">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">		frame.setTitle(<span class="string">"测试标题"</span>);</span><br><span class="line">		frame.setResizable(<span class="keyword">true</span>);</span><br><span class="line">		frame.add(view);</span><br><span class="line">		frame.pack();</span><br><span class="line">		frame.setVisible(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>java的语法是简单的，难是难在设计理念上，学习程序，最重要的是学习设计理念。</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200202233122833.png" alt="image-20200202233122833"></p>
+<p>此处，数据就是每一轮计算后的结果使用Field存储数据，Field当中是一个一个的Cell，而View单纯只是拿到数据以后进行绘制整个图形。</p>
+<p>CellMachine的作用一个是业务逻辑主体，绘制图形一个是重新绘制图形。是连接Field和View功能实现的桥梁。</p>
+<p>此代码很重要的思想就是体现了<strong>数据与表现的分离</strong></p>
+<h2 id="数据与表现分离"><a href="#数据与表现分离" class="headerlink" title="数据与表现分离"></a>数据与表现分离</h2><p>程序的业务逻辑与表现无关</p>
+<p>表现可以是图形的也可以是文本的</p>
+<p>表现可以是当地的也可以是远程的</p>
+<p>学习语法是基础，学习编程最重要的是学习设计理念。</p>
+<p>此处数据与表现是分离的。</p>
+<p>数据与表现分开有很大好处，因为表现可以有很多，可以远程socket通信、画页面、使用文本ASCII码……故数据域表现分开好处很多 也易于扩展</p>
+<h2 id="View与Field的关系"><a href="#View与Field的关系" class="headerlink" title="View与Field的关系"></a>View与Field的关系</h2><p>表现与数据的关系</p>
+<p>View只管根据Field画出图形</p>
+<p>Field只管数据的存放</p>
+<p>一旦数据更新 通知View重新画出整个画面</p>
+<p>​    ·不去精心设计哪个布局需要更新</p>
+<p>​    ·这样简化了程序逻辑</p>
+<p>​    ·是在计算机运行速度提高的基础上实现的</p>
+<h2 id="责任驱动的设计"><a href="#责任驱动的设计" class="headerlink" title="责任驱动的设计"></a>责任驱动的设计</h2><p>将程序要实现的功能分配到合适的类/对象中，是设计中非常重要的一环。</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200202234328557.png" alt="image-20200202234328557"></p>
+<h3 id="网络化"><a href="#网络化" class="headerlink" title="网络化"></a>网络化</h3><p>图形界面本身有更高的解析度</p>
+<p>但是画面网格化以后，数据就更容易处理。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>问题0.<img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200202234817310.png" alt="image-20200202234817310"></p>
+<p>问题1.</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200202234840269.png" alt="image-20200202234840269"></p>
+<p>问题2.</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200202234943014.png" alt="image-20200202234943014"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java学习/" rel="tag"># Java学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/02/Java进阶学习-8/" rel="next" title="Java进阶学习-8 抽象">
+                <i class="fa fa-chevron-left"></i> Java进阶学习-8 抽象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/02/Java进阶学习-10/" rel="prev" title="Java进阶学习-10">
+                Java进阶学习-10 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Gao Lijie">
+            
+              <p class="site-author-name" itemprop="name">Gao Lijie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">91</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gaolijiemathcs" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="gaolijiemathcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据与表现分离"><span class="nav-number">1.</span> <span class="nav-text">数据与表现分离</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#View与Field的关系"><span class="nav-number">2.</span> <span class="nav-text">View与Field的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#责任驱动的设计"><span class="nav-number">3.</span> <span class="nav-text">责任驱动的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络化"><span class="nav-number">3.1.</span> <span class="nav-text">网络化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">4.</span> <span class="nav-text">问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gao Lijie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
