@@ -249,644 +249,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/03/Java进阶学习-12/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/03/Java进阶学习-12/" itemprop="url">Java进阶学习-12 MVC设计模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-03T16:39:41+08:00">
-                2020-02-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="JTable"><a href="#JTable" class="headerlink" title="JTable"></a>JTable</h2><p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203164013555.png" alt="image-20200203164013555"></p>
-<p>数据和表现是分开的。</p>
-<p>JTable实现一个课程表</p>
-<p>KCB.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> kcb;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.JFrame;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JScrollPane;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JTable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KCB</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		JFrame frame = <span class="keyword">new</span> JFrame();</span><br><span class="line">		JTable table = <span class="keyword">new</span> JTable(<span class="keyword">new</span> KCBData());</span><br><span class="line">		JScrollPane pane = <span class="keyword">new</span> JScrollPane(table);</span><br><span class="line">		frame.add(pane);</span><br><span class="line">		frame.pack();</span><br><span class="line">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	<span class="comment">//设置关闭</span></span><br><span class="line">		frame.setVisible(<span class="keyword">true</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>KCBData.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> kcb;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.event.TableModelListener;</span><br><span class="line"><span class="keyword">import</span> javax.swing.table.TableModel;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KCBData</span> <span class="keyword">implements</span> <span class="title">TableModel</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String[] title = &#123;</span><br><span class="line">		<span class="string">"周一"</span>,<span class="string">"周二"</span>,<span class="string">"周三"</span>,<span class="string">"周四"</span>,<span class="string">"周五"</span>,<span class="string">"周六"</span>,<span class="string">"周日"</span></span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">private</span> String[][] data = <span class="keyword">new</span> String[<span class="number">8</span>][<span class="number">7</span>];</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">KCBData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>( <span class="keyword">int</span> i=<span class="number">0</span>; i&lt;data.length; i++ ) &#123;</span><br><span class="line">			<span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; data[i].length; j++ ) &#123;</span><br><span class="line">				data[i][j] = <span class="string">""</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addTableModelListener</span><span class="params">(TableModelListener arg0)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> Class&lt;?&gt; getColumnClass(<span class="keyword">int</span> arg0) &#123;</span><br><span class="line">		<span class="keyword">return</span> String.class;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getColumnCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">7</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getColumnName</span><span class="params">(<span class="keyword">int</span> arg0)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> title[arg0];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getRowCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">8</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">getValueAt</span><span class="params">(<span class="keyword">int</span> arg0, <span class="keyword">int</span> arg1)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> data[arg0][arg1];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isCellEditable</span><span class="params">(<span class="keyword">int</span> arg0, <span class="keyword">int</span> arg1)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeTableModelListener</span><span class="params">(TableModelListener arg0)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValueAt</span><span class="params">(Object arg0, <span class="keyword">int</span> arg1, <span class="keyword">int</span> arg2)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		data[arg1][arg2] = (String)arg0;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="MVC设计模式"><a href="#MVC设计模式" class="headerlink" title="MVC设计模式"></a>MVC设计模式</h2><p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203165926818.png" alt="image-20200203165926818"></p>
-<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203165935328.png" alt="image-20200203165935328"></p>
-<p>MVC</p>
-<p>数据表现和控制三者分离，各负其责。</p>
-<p>M = Model (模型)</p>
-<p>V = View(表现)</p>
-<p>C = Control(控制)</p>
-<p>模型M：保存和维护数据 提供接口让外部修改数据，通知表现V需要刷新。</p>
-<p>表现V：从模型获取数据，根据数据画出表现。</p>
-<p>控制C：从用户得到输入，根据输入调整数据。</p>
-<p>此处非常关键 控制与表现不直接挂钩，用户在界面上的操作不直接显示在界面上，而是用户在界面上的操作，调整了模型的数据，模型的数据修改导致表现改变。不是直接控制以后导致表现改变。</p>
-<p>是内部的数据改变去交给View。</p>
-<p>这样的好处是View不用管数据怎么变，直接拿全部数据重新画一遍。很多细节可以忽略。</p>
-<p>在课程表为：</p>
-<p>MVC分工为</p>
-<p>JTable</p>
-<p>JTable View</p>
-<p>TableModel 为Model</p>
-<p>此处View与Control放在一起合并为JTable</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/03/Java进阶学习-11/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/03/Java进阶学习-11/" itemprop="url">Java进阶学习-11</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-03T15:24:33+08:00">
-                2020-02-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Swing布局管理器"><a href="#Swing布局管理器" class="headerlink" title="Swing布局管理器"></a>Swing布局管理器</h2><p>部件和容器</p>
-<p>在容器当中可以放部件</p>
-<p>容器本身也是一种部件，容器可以放在容器里头。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">theView = <span class="keyword">new</span> View(theField);</span><br><span class="line">JFrame frame = <span class="keyword">new</span> JFrame();</span><br><span class="line">frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">frame.setResizable(<span class="keyword">false</span>);</span><br><span class="line">frame.setTitle(<span class="string">"Cells"</span>);</span><br><span class="line">frame.add(theView);</span><br><span class="line">JButton btuStep = <span class="keyword">new</span> JButton(<span class="string">"单步"</span>);</span><br><span class="line">frame.add(btuStep, BorderLayout.NORTH);</span><br><span class="line">frame.pack();</span><br><span class="line">frame.setVisible(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
-<p>theView和frame为两个容器 theView可以被加入到frame中去。通过add可以把部件加入到容器当中。</p>
-<p>容器对部件的管理，一个是部件的大小和位置。</p>
-<p>使用的手段是布局管理器LayoutManager</p>
-<p>例如BorderLayout把容器分为五个部分NORTH . WEST. EAST. CENTER. SOUTH</p>
-<p>加入部件需要指定位置，如果没有指定加入的位置，默认是加入到CENTER。</p>
-<p>如果在        frame.add(btuStep, BorderLayout.NORTH); 不加入NORTH则会加入到CENTER就和上面的theView加入到同一个位置，这样原来图形就会被覆盖。所以只会显示一个部件。</p>
-<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203153421734.png" alt="image-20200203153421734"></p>
-<p>LayoutManager的好处不用给出坐标，不一定美观，但是一定可以被用户看到。</p>
-<h2 id="控制反转"><a href="#控制反转" class="headerlink" title="控制反转"></a>控制反转</h2><p>消息机制，如何让按入的按钮可以有反应。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">JButton btuStep = <span class="keyword">new</span> JButton(<span class="string">"单步"</span>);</span><br><span class="line">btuStep.addActionListener(<span class="keyword">new</span> ActionListener() &#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"按下了！"</span>);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>每次按下按钮会返回按下了消息</p>
-<p>按钮按下去如何</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">JButton btuStep = new JButton(&quot;单步&quot;);</span><br><span class="line">		frame.add(btuStep, BorderLayout.NORTH);</span><br><span class="line">		btuStep.addActionListener(new ActionListener() &#123;</span><br><span class="line">			@Override</span><br><span class="line">			public void actionPerformed(ActionEvent e) &#123;</span><br><span class="line">				System.out.println(&quot;按下了！&quot;);</span><br><span class="line">				step();</span><br><span class="line">				frame.repaint();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">		frame.pack();</span><br><span class="line">		frame.setVisible(true);</span><br></pre></td></tr></table></figure>
-<p>使得每按一下重新绘制一次(把main函数的绘制给注释掉)</p>
-<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203155628340.png" alt="image-20200203155628340"></p>
-<p>实现按钮按下去可以执行对应的函数。</p>
-<p>一种思路如上MyBtn去继承btnStep() 在MyBtn中有函数为doPrease让doprease去执行step</p>
-<p>另外一个方法是(实际上Sun公司采用的方法)</p>
-<p>实现一个接口ActionLister 如果对JButton要实现动作监听， 要实现一个接口的对象 在ActionLister中实现一个actionPerformance。 通过接口对象 注册给JButton。对JButton检查有没有接口的对象注册给自己，如果有就顺着这个接口去调用每次按下按钮触发的actionPerformer函数。即JButton作为一个已经公布出来的按钮类，公布一个接口，我们只要实现一个实现按下接口对象的类把这个类交给按钮，把实现接口对象的类注册给JButton来执行你所写的按下功能。</p>
-<p>这个过程称为反转控制 SWing的消息机制</p>
-<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FoxAndRabbit</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Field theField;</span><br><span class="line">	<span class="keyword">private</span> View theView;</span><br><span class="line">	<span class="keyword">private</span> JFrame frame;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//  内部类  在别人的类的内部的类</span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">StepListener</span> <span class="keyword">implements</span> <span class="title">ActionListener</span> </span>&#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">			step();</span><br><span class="line">			frame.repaint();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<p>在类的类里面定义一个类为内部类这样可以保证在类内的权限足够使用类内部的成员。</p>
-<p>如果定义在外部需要额外写很多过渡权限的说明</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StepListener</span> <span class="keyword">implements</span> <span class="title">ActionListener</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> FoxAndRabbit aa;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">StepListener</span><span class="params">(FoxAndRabbit a)</span> </span>&#123;</span><br><span class="line">		aa = a;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">		aa.step();</span><br><span class="line">		aa.repaint();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FoxAndRabbit</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Field theField;</span><br><span class="line">	<span class="keyword">private</span> View theView;</span><br><span class="line">	<span class="keyword">private</span> JFrame frame;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//  内部类  在别人的类的内部的类</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">repaint</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		frame.repaint();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<p>使用了内部类可以直接调用所在类内的成员变量和函数</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FoxAndRabbit</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Field theField;</span><br><span class="line">	<span class="keyword">private</span> View theView;</span><br><span class="line">	<span class="keyword">private</span> JFrame frame;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//  内部类  在别人的类的内部的类</span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">StepListener</span> <span class="keyword">implements</span> <span class="title">ActionListener</span> </span>&#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">			step();</span><br><span class="line">			frame.repaint();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<p>这是内部类的特权。</p>
-<p><strong>内部类</strong></p>
-<p>(1)定义在别的类的内部、函数内部的类</p>
-<p>(2)内部类能够直接访问外部的全部资源</p>
-<p>​    1)包括任何私有成员</p>
-<p>​    2)外部是函数的时候，只能访问哪个函数里final的变量</p>
-<h2 id="匿名类"><a href="#匿名类" class="headerlink" title="匿名类"></a>匿名类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  匿名类</span></span><br><span class="line">		btnStep.addActionListener(<span class="keyword">new</span> ActionListener() &#123;</span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent e)</span> </span>&#123;</span><br><span class="line">				System.out.println(<span class="string">"按下了！"</span>);</span><br><span class="line">				step();</span><br><span class="line">				frame.repaint();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br></pre></td></tr></table></figure>
-<p>也可以用匿名类来实现按钮的功能。</p>
-<p>(1)匿名类在new对象的时候给出的类的定义形成匿名类。</p>
-<p>(2)匿名类可以继承某类，也可以实现某接口。</p>
-<p>(3)Swing的消息机制广泛使用匿名类。</p>
-<p>匿名类可以避免起名字。</p>
-<h2 id="注入反转"><a href="#注入反转" class="headerlink" title="注入反转"></a>注入反转</h2><p>(1)由按钮公布一个守听者接口和一对注册/注销函数</p>
-<p>(2)你的代码实现那个接口，将守听者对象注册在按钮上</p>
-<p>(3)一旦按钮被按下，就会反过来调用你的守听者对象的某个函数</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/Java进阶学习-10/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/02/Java进阶学习-10/" itemprop="url">Java进阶学习-10 接口</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-02T23:54:57+08:00">
-                2020-02-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203142050528.png" alt="image-20200203142050528"></p>
-<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203142310425.png" alt="image-20200203142310425"></p>
-<p>多继承在OOP语言中(除C++)都是不被允许的。</p>
-<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203142529135.png" alt="image-20200203142529135"></p>
-<p>而Animal是一个体系 里面包括了Fox和Rabbit。但是Cell为一个细胞 或者一个格子，位于filed当中。view是显示结果的。</p>
-<p>但是cell和animal本身是没有关系的 不能说动物是格子或者动物是细胞。</p>
-<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>(1)接口是纯抽象类</p>
-<p>​    1)所有的成员函数都是抽象函数</p>
-<p>​    2)所有的成员变量都是public static final</p>
-<p>(2)接口规定了长什么样，但是不管里面有什么</p>
-<p>此处Cell就作为接口 一个纯抽象的类</p>
-<p>Cell.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cell;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.Graphics;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cell</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">(Graphics g, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> size)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>cell只做一件事情就是draw只进行将fox和rabbit画在field上</p>
-<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203143030074.png" alt="image-20200203143030074"></p>
-<p>例如Fox中</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Fox</span> <span class="keyword">extends</span> <span class="title">Animal</span> <span class="keyword">implements</span> <span class="title">Cell</span> </span>&#123;</span><br></pre></td></tr></table></figure>
-<p>继承了Animal 同时实现了接口Cell 故可以放到field中</p>
-<p>在Filed.java中实现了cell放在filed的函数</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Cell <span class="title">place</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> col, Cell o)</span> </span>&#123;</span><br><span class="line">	Cell ret = field[row][col];</span><br><span class="line">	field[row][col] = o;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此处理解 Cell作为一个纯抽象的类 不会制造Cell 的对象，此处Cell object的变量含义是 所有实现了Cell接口的类的对象都可以交给Cell o的对象。只管是不是一个Cell 如果是Cell o就可以接收绘在Field上</p>
-<p>故此时在Fox.java中要实现draw函数向上造型</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Graphics g, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> alpha = (<span class="keyword">int</span>)((<span class="number">1</span>-getAgePercent())*<span class="number">255</span>);</span><br><span class="line">	g.setColor(<span class="keyword">new</span> Color(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, alpha));<span class="comment">//(int)((20-getAge())/20.0*255)));</span></span><br><span class="line">	g.fillRect(x, y, size, size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在Fox中实现draw的函数 这样通过Cell接口 可以在Field上绘制图像。</p>
-<h2 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cell</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">(Graphics g, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> size)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>interface是一种特殊的class</p>
-<p>interface是指接口，其中只有抽象方法，没有数据域，不能用其创建对象，可以继承其他接口，但是不能实现其他接口。</p>
-<p>class是指类，不能有抽象方法，可以有数据域，可以创建对象，可以实现接口不能继承接口。</p>
-<h2 id="实现接口"><a href="#实现接口" class="headerlink" title="实现接口"></a>实现接口</h2><p>类用extends 接口用implements</p>
-<p>类可以实现很多接口</p>
-<p>接口可以继承接口 但是不能继承类</p>
-<p>接口不能实现接口</p>
-<h2 id="面向接口的编程方式"><a href="#面向接口的编程方式" class="headerlink" title="面向接口的编程方式"></a>面向接口的编程方式</h2><p>接口是当你需要一个东西 不是定义一个类 而是定义一个接口出来</p>
-<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203151034937.png" alt="image-20200203151034937"></p>
-<p>如此处Cell是 Field实现的 之后才实现Animal的内容使得通过Cell接口使得Animal与Field连接在一起。</p>
-<p>设计程序的时候先定义接口，再实现类</p>
-<p>任何需要在函数间传入传出的一定是接口而不是具体的类</p>
-<p>是Java成功的关键 因为很适合多人同时写一个大程序，使用接口分隔开每一个部件。</p>
-<p>架构做的好的程序是有很多接口的。</p>
-<p>但也是java被批评的要点，因为代码量膨胀很快，因为写一个类要先写一个接口。程序容易臃肿。</p>
-<h2 id="Cell-和-Field的关系"><a href="#Cell-和-Field的关系" class="headerlink" title="Cell 和 Field的关系"></a>Cell 和 Field的关系</h2><p>Cell在Field中，但是Cell的很多操作需要Field的数据</p>
-<p>方法一：</p>
-<p>​    让每一个Cell有一个Field的管理者(Cell知道Field)</p>
-<p>方法二：</p>
-<p>​    由外部第三方建立两者之间的关系(Cell不知道Field) 此处就是不知道</p>
-<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203152013448.png" alt="image-20200203152013448"></p>
-<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203152057373.png" alt="image-20200203152057373"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/Java进阶学习-9/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gao Lijie">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GaoLijie's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/02/Java进阶学习-9/" itemprop="url">Java进阶学习-9 细胞自动机</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-02T22:06:23+08:00">
-                2020-02-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>死亡：如果活着的邻居数量&lt;2或&gt;3 则死亡</p>
-<p>新生：如果正好有3个邻居活着，则新生</p>
-<p>其他情况则保持原状</p>
-<hr>
-<p>两种看程序的方法</p>
-<p>①从main开始看程序 看完</p>
-<p>②从小的部件开始看 追父类一直看到顶层 从细节开始看 最后拼在一起</p>
-<hr>
-<p>代码展示入下：</p>
-<p>CellMachine.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cellmachine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.JFrame;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cell.Cell;</span><br><span class="line"><span class="keyword">import</span> field.Field;</span><br><span class="line"><span class="keyword">import</span> field.View;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CellMachine</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//  准备数据</span></span><br><span class="line">		Field field = <span class="keyword">new</span> Field(<span class="number">30</span>,<span class="number">30</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>;row&lt;field.getHeight();row++) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>;col&lt;field.getWidth();col++)&#123;</span><br><span class="line">				field.place(row, col, <span class="keyword">new</span> Cell());</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>;row&lt;field.getHeight();row++) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>;col&lt;field.getWidth();col++)&#123;</span><br><span class="line">				Cell cell =field.get(row,col);</span><br><span class="line">				<span class="keyword">if</span>(Math.random()&lt;<span class="number">0.2</span>)&#123;</span><br><span class="line">					cell.reborn();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//  准备窗口</span></span><br><span class="line">		View view = <span class="keyword">new</span> View(field);</span><br><span class="line">		JFrame frame = <span class="keyword">new</span> JFrame();</span><br><span class="line">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">		frame.setTitle(<span class="string">"Cells"</span>);</span><br><span class="line">		frame.setResizable(<span class="keyword">true</span>);</span><br><span class="line">		frame.add(view);</span><br><span class="line">		frame.pack();</span><br><span class="line">		frame.setVisible(<span class="keyword">true</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//  计算业务逻辑</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span> ;i&lt;<span class="number">1000</span>; i++)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> row=<span class="number">0</span>; row&lt;field.getHeight();row++) &#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>;col&lt;field.getHeight();col++)&#123;</span><br><span class="line">					Cell cell = field.get(row, col);</span><br><span class="line">					Cell[] neighbour = field.getNeighbour(row, col);	<span class="comment">//取出邻居</span></span><br><span class="line">					<span class="keyword">int</span> numOfLive = <span class="number">0</span>;</span><br><span class="line">					<span class="keyword">for</span>(Cell c: neighbour)&#123;	<span class="comment">//遍历所有邻居</span></span><br><span class="line">						<span class="keyword">if</span>(c.isAlive()) &#123;</span><br><span class="line">							numOfLive++;	<span class="comment">//统计邻居数量</span></span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">					System.out.print(<span class="string">"["</span>+row+<span class="string">"]["</span>+col+<span class="string">"]:"</span>);</span><br><span class="line">					System.out.print(cell.isAlive()?<span class="string">"live"</span>:<span class="string">"dead"</span>);</span><br><span class="line">					System.out.print(<span class="string">":"</span>+numOfLive+<span class="string">"--&gt;"</span>);</span><br><span class="line">					</span><br><span class="line">					<span class="keyword">if</span>(cell.isAlive()) &#123;</span><br><span class="line">						<span class="keyword">if</span>(numOfLive &lt; <span class="number">2</span> || numOfLive &gt; <span class="number">3</span>) &#123;	<span class="comment">//死掉规则</span></span><br><span class="line">							cell.die();</span><br><span class="line">							System.out.print(<span class="string">"die"</span>);</span><br><span class="line">						&#125;</span><br><span class="line">					&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( numOfLive == <span class="number">3</span> ) &#123;</span><br><span class="line">						cell.reborn();</span><br><span class="line">						System.out.print(<span class="string">"reborn"</span>);</span><br><span class="line">					&#125;</span><br><span class="line">					System.out.println();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.print(<span class="string">"UPDATE"</span>);</span><br><span class="line">			frame.repaint();	<span class="comment">//此处每轮重画 field 每次重画一次</span></span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				Thread.sleep(<span class="number">200</span>);</span><br><span class="line">			&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>cell.java</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package cell;</span><br><span class="line"></span><br><span class="line">import java.awt.Graphics;</span><br><span class="line"></span><br><span class="line">public class Cell &#123;</span><br><span class="line">	public boolean alive = false;</span><br><span class="line">	</span><br><span class="line">	public void die() &#123; alive = false; &#125; </span><br><span class="line">	public void reborn()&#123; alive = true;&#125;</span><br><span class="line">	public boolean isAlive() &#123;	return alive; &#125;</span><br><span class="line">	</span><br><span class="line">	public void draw(Graphics g,int x,int y,int size)&#123;</span><br><span class="line">		g.drawRect(x, y, size, size);</span><br><span class="line">		if(alive) &#123;</span><br><span class="line">			g.fillRect(x, y, size, size);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Field.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> field;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cell.Cell;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Field</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> width;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> height;</span><br><span class="line">	<span class="keyword">private</span> Cell[][] field;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Field</span><span class="params">(<span class="keyword">int</span> width, <span class="keyword">int</span> height)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.width = width;</span><br><span class="line">		<span class="keyword">this</span>.height = height;</span><br><span class="line">		field = <span class="keyword">new</span> Cell[height][width];		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getWidth</span><span class="params">()</span> </span>&#123;	<span class="keyword">return</span> width; &#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getHeight</span><span class="params">()</span></span>&#123; <span class="keyword">return</span> height; &#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Cell <span class="title">place</span><span class="params">(<span class="keyword">int</span> row,<span class="keyword">int</span> col,Cell o)</span></span>&#123;</span><br><span class="line">		Cell ret = field[row][col];</span><br><span class="line">		field[row][col] = o;</span><br><span class="line">		<span class="keyword">return</span> ret;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Cell <span class="title">get</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> col)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> field[row][col];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;width;i++) </span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;height;j++)&#123;</span><br><span class="line">				field[i][j] = <span class="keyword">null</span>;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> Cell[] getNeighbour(<span class="keyword">int</span> row,<span class="keyword">int</span> col)&#123;</span><br><span class="line">		ArrayList&lt;Cell&gt; neighbour = <span class="keyword">new</span> ArrayList&lt;Cell&gt;();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = -<span class="number">1</span>;i&lt;<span class="number">2</span>;i++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = -<span class="number">1</span>;j&lt;<span class="number">2</span>;j++)&#123;</span><br><span class="line">				<span class="keyword">int</span> r=row+i;</span><br><span class="line">				<span class="keyword">int</span> c=col+j;</span><br><span class="line">				<span class="keyword">if</span> (!(i==<span class="number">0</span>&amp;&amp;j==<span class="number">0</span>)&amp;&amp;r&lt;width&amp;&amp;c&lt;height&amp;&amp;r&gt;-<span class="number">1</span>&amp;&amp;c&gt;-<span class="number">1</span>)&#123;</span><br><span class="line">				neighbour.add(field[r][c]);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">return</span> neighbour.toArray(<span class="keyword">new</span> Cell[neighbour.size()]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>View.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> field;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.Dimension;</span><br><span class="line"><span class="keyword">import</span> java.awt.Graphics;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.JFrame;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JPanel;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cell.Cell;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">View</span> <span class="keyword">extends</span> <span class="title">JPanel</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">5258995676212660595L</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> GRID_SIZE = <span class="number">16</span>;</span><br><span class="line">	<span class="keyword">private</span> Field theField;</span><br><span class="line"></span><br><span class="line">	 </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">View</span><span class="params">(Field field)</span> </span>&#123;</span><br><span class="line">		theField = field;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paint</span><span class="params">(Graphics g)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>.paint(g);</span><br><span class="line">		<span class="keyword">for</span>( <span class="keyword">int</span> row = <span class="number">0</span>; row &lt; theField.getHeight();row++ ) &#123;</span><br><span class="line">			<span class="keyword">for</span>( <span class="keyword">int</span> col = <span class="number">0</span>; col &lt; theField.getWidth(); col++)&#123;</span><br><span class="line">				Cell cell = theField.get(row, col);</span><br><span class="line">				<span class="keyword">if</span>( cell != <span class="keyword">null</span> )&#123;</span><br><span class="line">					cell.draw(g, col*GRID_SIZE, row*GRID_SIZE, GRID_SIZE);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Dimension <span class="title">getPreferredSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Dimension(theField.getWidth()*GRID_SIZE+<span class="number">1</span>, theField.getHeight()*GRID_SIZE+<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Field theField = <span class="keyword">new</span> Field(<span class="number">10</span>,<span class="number">10</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">10</span>;j++)&#123;</span><br><span class="line">				theField.place(i, j, <span class="keyword">new</span> Cell());</span><br><span class="line">			&#125;</span><br><span class="line">		View view = <span class="keyword">new</span> View(theField);</span><br><span class="line">		JFrame frame = <span class="keyword">new</span> JFrame();</span><br><span class="line">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">		frame.setTitle(<span class="string">"测试标题"</span>);</span><br><span class="line">		frame.setResizable(<span class="keyword">true</span>);</span><br><span class="line">		frame.add(view);</span><br><span class="line">		frame.pack();</span><br><span class="line">		frame.setVisible(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>java的语法是简单的，难是难在设计理念上，学习程序，最重要的是学习设计理念。</p>
-<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200202233122833.png" alt="image-20200202233122833"></p>
-<p>此处，数据就是每一轮计算后的结果使用Field存储数据，Field当中是一个一个的Cell，而View单纯只是拿到数据以后进行绘制整个图形。</p>
-<p>CellMachine的作用一个是业务逻辑主体，绘制图形一个是重新绘制图形。是连接Field和View功能实现的桥梁。</p>
-<p>此代码很重要的思想就是体现了<strong>数据与表现的分离</strong></p>
-<h2 id="数据与表现分离"><a href="#数据与表现分离" class="headerlink" title="数据与表现分离"></a>数据与表现分离</h2><p>程序的业务逻辑与表现无关</p>
-<p>表现可以是图形的也可以是文本的</p>
-<p>表现可以是当地的也可以是远程的</p>
-<p>学习语法是基础，学习编程最重要的是学习设计理念。</p>
-<p>此处数据与表现是分离的。</p>
-<p>数据与表现分开有很大好处，因为表现可以有很多，可以远程socket通信、画页面、使用文本ASCII码……故数据域表现分开好处很多 也易于扩展</p>
-<h2 id="View与Field的关系"><a href="#View与Field的关系" class="headerlink" title="View与Field的关系"></a>View与Field的关系</h2><p>表现与数据的关系</p>
-<p>View只管根据Field画出图形</p>
-<p>Field只管数据的存放</p>
-<p>一旦数据更新 通知View重新画出整个画面</p>
-<p>​    ·不去精心设计哪个布局需要更新</p>
-<p>​    ·这样简化了程序逻辑</p>
-<p>​    ·是在计算机运行速度提高的基础上实现的</p>
-<h2 id="责任驱动的设计"><a href="#责任驱动的设计" class="headerlink" title="责任驱动的设计"></a>责任驱动的设计</h2><p>将程序要实现的功能分配到合适的类/对象中，是设计中非常重要的一环。</p>
-<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200202234328557.png" alt="image-20200202234328557"></p>
-<h3 id="网络化"><a href="#网络化" class="headerlink" title="网络化"></a>网络化</h3><p>图形界面本身有更高的解析度</p>
-<p>但是画面网格化以后，数据就更容易处理。</p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>问题0.<img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200202234817310.png" alt="image-20200202234817310"></p>
-<p>问题1.</p>
-<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200202234840269.png" alt="image-20200202234840269"></p>
-<p>问题2.</p>
-<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200202234943014.png" alt="image-20200202234943014"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/02/Java进阶学习-8/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1859,11 +1221,814 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/Java进阶学习-2/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/01/Java进阶学习-2/" itemprop="url">Java进阶学习(2) 对象 访问属性 包 类变量 类函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-01T18:07:46+08:00">
+                2020-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="对象的识别"><a href="#对象的识别" class="headerlink" title="对象的识别"></a>对象的识别</h2><p>面向对象的思维方式核心：在看到一个东西，每个东西有什么样的属性，这些属性是怎么交互的。</p>
+<p>例如设计一个时钟：非面向对象就是两个循环反复 每一分钟+1。</p>
+<p>而面向对象的思维方式设计一个时钟，是这个时钟有一些东西组成的。</p>
+<p>如果识别和划分一个对象是非常重要的</p>
+<p>一个钟的对象划分有不同的方式：</p>
+<p>例如一个4位显示器 或者两个两位显示器</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201181650978.png" alt="image-20200201181650978"></p>
+<p>显然后者更好，如果划分为两个两位显示器，两者差别仅仅在于跳转回0的上限不同，而基本的操作都相同，就可以吧小时的时钟与分钟的时钟统一为一个类。</p>
+<p>对每一个类要求最好相对独立故使用钟联系 hour 和minue</p>
+<p>故得到一个时钟模拟的程序</p>
+<p>Display.java </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> clock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Display</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> limit = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Display</span><span class="params">(<span class="keyword">int</span> limit)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.limit = limit;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">increase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		value++;</span><br><span class="line">		<span class="keyword">if</span>(value == limit)</span><br><span class="line">		&#123;</span><br><span class="line">			value = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> value;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Display d = <span class="keyword">new</span> Display(<span class="number">24</span>);</span><br><span class="line">		<span class="keyword">for</span>( ; ; ) &#123;</span><br><span class="line">			d.increase();</span><br><span class="line">			System.out.println(d.getValue());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主函数Clock.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> clock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Clock</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Display hour = <span class="keyword">new</span> Display(<span class="number">24</span>);</span><br><span class="line">	<span class="keyword">private</span> Display minute = <span class="keyword">new</span> Display(<span class="number">60</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">while</span>( <span class="keyword">true</span> ) </span><br><span class="line">		&#123;</span><br><span class="line">			</span><br><span class="line">			minute.increase();</span><br><span class="line">			<span class="keyword">if</span>(minute.getValue() == <span class="number">0</span>) &#123;</span><br><span class="line">				hour.increase();</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.printf(<span class="string">"%02d:%02d\n"</span>, hour.getValue(), minute.getValue());</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Clock clock = <span class="keyword">new</span> Clock();</span><br><span class="line">		clock.start();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201204315344.png" alt="image-20200201204315344"></p>
+<h2 id="封闭的访问属性"><a href="#封闭的访问属性" class="headerlink" title="封闭的访问属性"></a>封闭的访问属性</h2><p><strong>private</strong> 只可以用在成员函数(可以是构造函数或者是普通函数) 和成员变量 </p>
+<p>表示只可以在这个类的内部才可以使用。</p>
+<p>私有的变量 在此变量所在类外的地方不可以被.调用</p>
+<p>例如在Display类内才可以访问value 和limit</p>
+<p>所有的成员变量 应该都是私有的。才可以保护变量不被随意的被使用</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201205900356.png" alt="image-20200201205900356"></p>
+<p>只有这个类内部可以访问</p>
+<p>类内部指的成员函数和定义初始化</p>
+<p>这个限制是对类而不是对对象</p>
+<p>同一个类的不同对象 可以访问这个类中不同对象的私有成员！！！！！</p>
+<p>所以在分数运算中Fraction的运算当中可以在加法中使用Fraction r中的分子和分母成员变量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fraction</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> zi;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mu;</span><br><span class="line">    <span class="function">Fraction <span class="title">plus</span><span class="params">(Fraction r)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="comment">//与当前的进行通分相加</span></span><br><span class="line">            Fraction temp = <span class="keyword">new</span> Fraction(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">            temp.mu = <span class="keyword">this</span>.mu * r.mu;	<span class="comment">//此处r与class类型一样故可以调用私有成员变量</span></span><br><span class="line">            temp.zi = <span class="keyword">this</span>.zi * r.mu + <span class="keyword">this</span>.mu * r.zi;</span><br><span class="line">            <span class="keyword">return</span> temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">Fraction <span class="title">multiply</span><span class="params">(Fraction r)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            Fraction temp = <span class="keyword">new</span> Fraction(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">            temp.zi = <span class="keyword">this</span>.zi * r.zi;</span><br><span class="line">            temp.mu = <span class="keyword">this</span>.mu * r.mu;</span><br><span class="line">            <span class="keyword">return</span> temp;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>私有是针对类而不是针对对象 好好理解</p>
+<h2 id="开放的访问属性"><a href="#开放的访问属性" class="headerlink" title="开放的访问属性"></a>开放的访问属性</h2><p>public </p>
+<p>任何人都可以访问</p>
+<p>任何人指的是在任何类的函数或者定义初始化中可以使用</p>
+<p>使用指的是调用、访问或者定义变量</p>
+<p>例如在Clock类中可以使用Display类中所有的public函数，</p>
+<p><strong>如果没有在前面加上public则在同一个包的其他类可以访问这样叫friendly</strong></p>
+<p>一个类的public class 则任何人都可以用这个类定义变量</p>
+<p>且每个类的命名必须要与文件的名称相同</p>
+<p>编译单元就是一个.java的文件 一个编译单元中可以有很多类</p>
+<p>但只有一个类可以作为public 没有public的类指这个类只可以在这个包中起作用 出了这个包就不能用了</p>
+<p><strong>一个编译单元只可以有一个public 文件名和类的名字必须相同</strong></p>
+<h2 id="包"><a href="#包" class="headerlink" title="包"></a>包</h2><p>细节1</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201213017520.png" alt="image-20200201213017520"></p>
+<p>可以改为全名</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201213107847.png" alt="image-20200201213107847"></p>
+<p>也可以用*代表引用包中的所有类 但是有存在重名引用的风险</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201213154245.png" alt="image-20200201213154245"></p>
+<p>所以一般用什么类引用什么类 后在此类中可以直接用引用包中对应引用的类</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201213451350.png" alt="image-20200201213451350"></p>
+<p>包是一种管理机制 我们可以在包的下面定义包围display.led 后来吧Display.java放入led中 在文件中就发现放入了display中的文件led中</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201213604094.png" alt="image-20200201213604094"></p>
+<h2 id="类变量"><a href="#类变量" class="headerlink" title="类变量"></a>类变量</h2><p>static 的成员变量 一个类中有一个类变量。</p>
+<p>有两种访问</p>
+<p>Display.step</p>
+<p>d1.step </p>
+<p>但是实际上step只属于Display类 d1 与 d2有办法访问所属Display类中的变量step</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201215100930.png" alt="image-20200201215100930"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> display.led;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Display</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> value = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> limit = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> step = <span class="number">1</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Display</span><span class="params">(<span class="keyword">int</span> limit)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.limit = limit;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">increase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		value++;</span><br><span class="line">		<span class="keyword">if</span>(value == limit)</span><br><span class="line">		&#123;</span><br><span class="line">			value = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> value;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">//		value++;  //不可以访问任何非static的变量报错</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Display d1 = <span class="keyword">new</span> Display(<span class="number">10</span>);</span><br><span class="line">		d1.step = <span class="number">2</span>;</span><br><span class="line">		System.out.println(d1.step);</span><br><span class="line">		Display d2 = <span class="keyword">new</span> Display(<span class="number">20</span>);</span><br><span class="line">		System.out.println(d2.step);</span><br><span class="line">		</span><br><span class="line">		d1.increase();</span><br><span class="line"><span class="comment">//		increase();	//不可以调用非static的函数报错</span></span><br><span class="line">		f();	<span class="comment">//可以直接调用static 函数</span></span><br><span class="line">		d1.f();	<span class="comment">//也可以用对象调用static函数</span></span><br><span class="line">		</span><br><span class="line">		System.out.println(d1.getValue());</span><br><span class="line">		System.out.println(d2.getValue());</span><br><span class="line">		System.out.println(d1.step);</span><br><span class="line">		System.out.println(d2.step);</span><br><span class="line">		d1.step = <span class="number">2</span>;</span><br><span class="line">		System.out.println(d1.step);</span><br><span class="line">		System.out.println(d2.step);</span><br><span class="line">		Display.step = <span class="number">3</span>;	<span class="comment">// 类.类中static的成员变量可以被赋值</span></span><br><span class="line">		<span class="comment">//Display.value = 3;  非 类变量会报错</span></span><br><span class="line">		System.out.println(d1.step);</span><br><span class="line">		System.out.println(d2.step);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>static的函数只可以去调用static的函数 只可以去访问static的成员变量</p>
+<p>static的<strong>函数和成员变量</strong>可以通过<strong>类的名字</strong>去访问，但是也可以用某个对象的名字去访问</p>
+<p>这些static的类和对象 不属于任何具体的对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">//		value++;  //不可以访问任何非static的变量报错</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Display d1 = <span class="keyword">new</span> Display(<span class="number">10</span>);</span><br><span class="line">		Display d2 = <span class="keyword">new</span> Display(<span class="number">20</span>);</span><br><span class="line"><span class="comment">//		increase();	//不可以调用非static的函数报错</span></span><br><span class="line">		f();	<span class="comment">//可以直接调用static 函数</span></span><br><span class="line">		d1.f();	<span class="comment">//也可以用对象调用static函数</span></span><br><span class="line">		d1.increase();</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/01/Java进阶学习-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/02/01/Java进阶学习-1/" itemprop="url">Java进阶学习(1) 类与对象初始化 成员变量成员函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-01T14:19:05+08:00">
+                2020-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		Picture pic = <span class="keyword">new</span> Picture(<span class="number">420</span>,<span class="number">250</span>);</span><br><span class="line">		Circle c1 = <span class="keyword">new</span> Circle(<span class="number">320</span>,<span class="number">40</span>,<span class="number">80</span>);</span><br><span class="line">		Rectangle r1 = <span class="keyword">new</span> Rectangle(<span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">		Triangle t1 = <span class="keyword">new</span> Triangle(<span class="number">100</span>, <span class="number">100</span>, <span class="number">200</span>, <span class="number">100</span>, <span class="number">150</span>, <span class="number">50</span>);</span><br><span class="line">		Line l1 = <span class="keyword">new</span> Line(<span class="number">0</span>,<span class="number">205</span>,<span class="number">400</span>,<span class="number">205</span>);</span><br><span class="line">		pic.add(c1);</span><br><span class="line">		pic.add(r1);</span><br><span class="line">		pic.add(t1);</span><br><span class="line">		pic.add(l1);</span><br><span class="line">		pic.draw();	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>GUI = 图形用户界面 读作 古一~</p>
+<p>用这个例子用于理解类和对象关系的例子</p>
+<p><strong>对象与类</strong></p>
+<p>对象是实体 需要被创建 可以为我们做事情</p>
+<p>类的规范 根据类的定义来创建对象</p>
+<p>类用于创建对象 制定创建对象的规则 规范定义</p>
+<p>对象是实体 是被创建出来的物体</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201152159741.png" alt="image-20200201152159741"></p>
+<p>对象 是这只猫 指具体的某一只猫 此时这只猫就是一个对象</p>
+<p>而我们说猫的时候是指类 猫所有的属性 定义一只猫的规范</p>
+<p>类定义了对象 每一个对象是那个类的实体</p>
+<p>对象具有属性和服务</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201152353357.png" alt="image-20200201152353357"></p>
+<p>把数据和对数据的操作放在一起称为<strong>封装</strong></p>
+<p>由这些操作保护内部的数据 数据是不对外开发的</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201152743971.png" alt="image-20200201152743971"></p>
+<p>面向对象思维看待事物看到功能</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201153106599.png" alt="image-20200201153106599"></p>
+<p>属性和动作</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201153222964.png" alt="image-20200201153222964"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public class VendingMachine &#123;</span><br><span class="line">	int price = 80;</span><br><span class="line">	int balance;	//余额</span><br><span class="line">	int total;</span><br><span class="line">	</span><br><span class="line">	void showPrompt()</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(&quot;Welcome&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	void insertMoney(int amount)</span><br><span class="line">	&#123;</span><br><span class="line">		balance = balance + amount;</span><br><span class="line">	&#125;</span><br><span class="line">	void showBalnace() </span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(balance);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	void getFood()</span><br><span class="line">	&#123;</span><br><span class="line">		if(balance &gt;= price)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(&quot;Here you are&quot;);</span><br><span class="line">			balance = balance - price;</span><br><span class="line">			total = total + price;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		VendingMachine vm = new VendingMachine();</span><br><span class="line">		vm.showPrompt();</span><br><span class="line">		vm.showBalnace();</span><br><span class="line">		vm.insertMoney(100);</span><br><span class="line">		vm.getFood();</span><br><span class="line">		vm.showBalnace();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义了一个对象VendingMachine</p>
+<p><strong>创建对象</strong></p>
+<p>new VendingMachine();</p>
+<p>VendingMachine vm = new VendingMachine();</p>
+<p>自己设计了一个类 就可以用新设计的类型 VendingMachine  定义一个对象变量vm 用于接收新定义的一个对象new VendingMachine();</p>
+<p>对象变量是对象的管理者。</p>
+<p><strong>让对象做事</strong></p>
+<p>使用点运算符 .</p>
+<p>v.insertMoney(100);</p>
+<p>v.getFood();</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		VendingMachine vm = <span class="keyword">new</span> VendingMachine();</span><br><span class="line">		vm.showPrompt();</span><br><span class="line">		vm.showBalnace();</span><br><span class="line">		vm.insertMoney(<span class="number">100</span>);</span><br><span class="line">		vm.getFood();</span><br><span class="line">		vm.showBalnace();</span><br><span class="line">		VendingMachine vm1 = <span class="keyword">new</span> VendingMachine();</span><br><span class="line">		vm1.insertMoney(<span class="number">200</span>);</span><br><span class="line">		vm.showBalnace();</span><br><span class="line">		vm1.showBalnace();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>创建不同的对象</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201154618620.png" alt="image-20200201154618620"></p>
+<p>在debug的时候不同的对象id号不同则为不同的对象而且点开内容也不同</p>
+<p>类是定义了这个类所有对象长什么样 </p>
+<p>对象是这个类的一个具体实例</p>
+<p>在类中定义的变量在每一个对象中都存在，且每个对象中的变量都不一样 不是同一个变量。</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201163105728.png" alt="image-20200201163105728"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201163132951.png" alt="image-20200201163132951"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201163156478.png" alt="image-20200201163156478"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201163223751.png" alt="image-20200201163223751"></p>
+<p><strong>函数与成员变量</strong></p>
+<p>在函数㕜可以直接写成员变量的名字来访问成员变量</p>
+<p>究竟访问哪个对象 函数是通过对象来调用的</p>
+<p>v.insertMoney()</p>
+<p>这次调用临时建立了insertMoney()和v之间的关系 让insertMoney()内部的成员变量指的是成员变量</p>
+<p>使用的是this联系</p>
+<p><strong>this</strong></p>
+<p>this是成员函数的一个特殊固有的本地变量 代表的是调用了这个函数的那个对象在调试的时候可以看到。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> price = <span class="number">80</span>;		<span class="comment">//成员变量price</span></span><br><span class="line"><span class="keyword">int</span> balance;	<span class="comment">//余额</span></span><br><span class="line"><span class="keyword">int</span> total;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setPrice</span><span class="params">(<span class="keyword">int</span> price)</span>	<span class="comment">//此处的price是此函数的参数price 而不是上面的成员变量price=80的price</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.price = price;		<span class="comment">//直接的price为此函数的参数 要访问成员变量的price 要使用this来区分成员变量的price(this.price来表示成员变量)和函数参数的price(只可表示函数花括号内的参数) </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>this 常用还有因为可以少打字</p>
+<p>this.getFood();//少打字使用this. </p>
+<p><strong>调用函数</strong></p>
+<p>通过.函数调用某个对象的函数 而this为当前调用这个函数的对象</p>
+<p>在成员函数内部直接调用自己(this)的其他函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertMoney</span><span class="params">(<span class="keyword">int</span> amount)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		balance = balance + amount;</span><br><span class="line">		showBalnace();	<span class="comment">//在成员函数内部 调用函数不同加前缀 this.可加可不加</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">showBalnace</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		System.out.println(<span class="keyword">this</span>.balance);	<span class="comment">//this.balance 与balance 一样</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>showBalnace();    //在成员函数内部 调用函数不同加前缀 this.可加可不加</p>
+<p>但在成员函数外部调用的时候必须加上是哪个对象调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vm.showBalnace();</span><br><span class="line">vm1.showBalnace();</span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201164404594.png" alt="image-20200201164404594"></p>
+<p>j进了insertMoney再进showBalance 此时id为18</p>
+<p>进入showBalance后仍为18 this会带入</p>
+<p>此处是在成员函数中调用成员函数不用加前缀 默认直接带入当前调用类中函数的对象</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201164435763.png" alt="image-20200201164435763"></p>
+<p><strong>本地变量</strong></p>
+<p>定义在函数内部的变量是<strong>本地变量</strong> 定义在函数外部的变量为<strong>成员变量</strong></p>
+<p><strong>本地变量</strong>的生存期和作用域都是函数内部</p>
+<p><strong>成员变量</strong>的生存期是对象的生存期(new出一个对象才开始存在) 作用域是类内部的成员函数 </p>
+<p>成员变量的消失是java自动垃圾回收自动消失 只要关心什么时候开始存在</p>
+<p>成员变量是new一个新的对象出来成员变量就存在 而本地变量是在函数当中存在的，当调用一个函数进入函数内部的时候本地变量存在 当函数调用结束本地变量消失。</p>
+<p>作用域 本地变量在大括号内 而成员变量作用域在一个类的内部。类中的成员函数都可以使用这些成员变量。</p>
+<h2 id="对象的初始化"><a href="#对象的初始化" class="headerlink" title="对象的初始化"></a>对象的初始化</h2><p>成员变量的初始化</p>
+<p>类中的成员变量 java会保证 给成员变量一个初始值0 </p>
+<p><strong>成员变量定义初始化</strong></p>
+<p>1.成员变量在定义的地方就可以给出初始值</p>
+<p>2.没有给出初始值的成员变量会自动获得0值</p>
+<p>​    对象变量的0值代表没有管理任何对象也可以主动给null值</p>
+<p>3.定义初始化可以调用函数 甚至可以使用已经定义的成员变量</p>
+<p><strong>构造函数</strong></p>
+<p>如果一个成员变量函数的名字和类的名字完全相同 则在创建这个类的每一个对象的时候会自动调用这个函数 构造函数</p>
+<p>这个类不能有返回类型</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201170316245.png" alt="image-20200201170316245"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> price = <span class="number">80</span>;		<span class="comment">//成员变量price</span></span><br><span class="line"><span class="keyword">int</span> balance = f();	<span class="comment">//余额 使用函数调用</span></span><br><span class="line"><span class="keyword">int</span> total;</span><br><span class="line"></span><br><span class="line">VendingMachine()		<span class="comment">//构造函数 在构造的时候会调用构造函数 但下一步不是进入函数 而是把上面的成员变量先初始化 再进入构造函数语句</span></span><br><span class="line">&#123;</span><br><span class="line">	total = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">VendingMachine(<span class="keyword">int</span> price)	<span class="comment">//构造函数可以有多个 重载</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">this</span>.price = price;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个同名函数看初始化的时候叫做<strong>函数重载</strong></p>
+<p>一个类可以有多个构造函数 只要他们的参数表不同</p>
+<p>创建对象的时候给出不同的参数值 就会自动调用不同的构造函数</p>
+<p>通过this()还可以调用其他构造函数</p>
+<p>一个类里的同名但是参数表不同的函数构成了重载关系</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201170808437.png" alt="image-20200201170808437"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/31/Java基础语法学习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/31/Java基础语法学习/" itemprop="url">Java基础语法学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-31T20:15:02+08:00">
+                2020-01-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Java基础学习</p>
+<p>求公约数辗转相除法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">      Scanner in = new Scanner(System.in);</span><br><span class="line">      int a = in.nextInt();</span><br><span class="line">int b = in.nextInt();</span><br><span class="line">int oa = a;</span><br><span class="line">int ob = b;</span><br><span class="line">while(b != 0)</span><br><span class="line">&#123;</span><br><span class="line">	int r = a % b;</span><br><span class="line">	System.out.println(a+&quot;,&quot;+b+&quot;,&quot;+r);</span><br><span class="line">	a = b;</span><br><span class="line">	b = r;</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(oa+&quot;和&quot;+ob+&quot;的最大公约数是&quot;+a);</span><br></pre></td></tr></table></figure>
+<p>数组</p>
+<p>数组是一种容器（放东西的东西）特点是：</p>
+<p>①其中所有的元素具有相同的数据类型</p>
+<p>②一旦创建不能改变大小</p>
+<p>定义数组遍历</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;类型&gt;[] &lt;名字&gt; = new &lt;类型&gt;[元素个数]</span><br><span class="line">· int[] grades = new int[100];</span><br><span class="line">` double[] averages = new double[20];</span><br></pre></td></tr></table></figure>
+<p>元素的个数必须为整数</p>
+<p>元素个数必须给出</p>
+<p>元素个数可以为变量</p>
+<p>有效的下标 最小下标为0最大下标为数组元素个数-1</p>
+<p>但是编译器不检查 但是运行的时候会越界。</p>
+<p>写一个用户输入数字的平均值 输出所有大于平均数的数字</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="keyword">double</span> sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">		cnt = in.nextInt();</span><br><span class="line">		<span class="keyword">if</span>(cnt &gt; <span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span>[] numbers = <span class="keyword">new</span> <span class="keyword">int</span>[cnt];</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				numbers[i] = in.nextInt();</span><br><span class="line">				sum += numbers[i];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">double</span> average = sum/cnt;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numbers.length; i++)	<span class="comment">//遍历数组</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span>(numbers[i] &gt; average)</span><br><span class="line">				&#123;</span><br><span class="line">					System.out.println(numbers[i]);	<span class="comment">//使用数组中的元素</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(sum/cnt);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>length 函数用于计算数组的长度</p>
+<p>使得有可扩展性 length与cnt无关</p>
+<p>投票统计 </p>
+<p>写一个程序 统计每一种【0-9】中数字出现的次数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">	Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">	<span class="keyword">int</span> x;</span><br><span class="line">	<span class="keyword">int</span> [] numbers = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numbers.length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(numbers[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	x = in.nextInt();</span><br><span class="line">	<span class="keyword">while</span>(x != -<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(x &gt;= <span class="number">0</span> &amp;&amp; x &lt;= <span class="number">9</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			numbers[x]++;</span><br><span class="line">		&#125;</span><br><span class="line">		x = in.nextInt();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numbers.length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(i+<span class="string">":"</span>+numbers[i]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">1 1 2 3 3 3 4 -1</span><br><span class="line">0:0</span><br><span class="line">1:2</span><br><span class="line">2:1</span><br><span class="line">3:3</span><br><span class="line">4:1</span><br><span class="line">5:0</span><br><span class="line">6:0</span><br><span class="line">7:0</span><br><span class="line">8:0</span><br><span class="line">9:0</span><br></pre></td></tr></table></figure>
+<p>new创建的数组在设置的时候默认初始化为全0数组</p>
+<p>int[] scores = {111, 2222, 33333, 44444, 5555, 6666, 78};</p>
+<p>初始化的时候不需要做个数的设置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="keyword">int</span>[] scores = &#123;<span class="number">87</span>, <span class="number">98</span>, <span class="number">66</span>, <span class="number">410</span>, <span class="number">8798</span>, <span class="number">454</span>&#125;;</span><br><span class="line">		System.out.println(scores.length);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; scores.length; i++) </span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(scores[i]+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">87</span> </span><br><span class="line"><span class="number">98</span> </span><br><span class="line"><span class="number">66</span> </span><br><span class="line"><span class="number">410</span> </span><br><span class="line"><span class="number">8798</span> </span><br><span class="line"><span class="number">454</span></span><br></pre></td></tr></table></figure>
+<p>数组赋值问题</p>
+<p>数组变量和普通变量不同</p>
+<p>普通变量为数据的所有者 变量中有数据</p>
+<p>数据变量只是数据的管理者，数据放在new制造数组当中 只是数组变量指向了那个数据。</p>
+<p>int[] b=a;  为b去管理a所管理的数组 所以 a和b两个数组变量管理同一个数组。所以有：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line">		a[<span class="number">0</span>] = <span class="number">5</span>;</span><br><span class="line">		<span class="keyword">int</span>[] b = a;</span><br><span class="line">		System.out.println(a[<span class="number">0</span>] + <span class="string">" "</span> + b[<span class="number">0</span>]);</span><br><span class="line">		b[<span class="number">0</span>] = <span class="number">16</span>;</span><br><span class="line">		System.out.println(a[<span class="number">0</span>] + <span class="string">" "</span> + b[<span class="number">0</span>]);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5 5</span><br><span class="line">16 16</span><br></pre></td></tr></table></figure>
+<p>a和b指向同一个地方所以改变b的时候a指向的数组(为同一个数组)也被改变</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">数组变量</span><br><span class="line">数组变量是数组的管理者 而不是数组本身</span><br><span class="line">数组必须是创建出来以后交给数组变量来管理</span><br><span class="line">数组变量之间的赋值是管理权限的赋予</span><br><span class="line">数组变量之间的比较是判断是否管理同一个数组</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">	Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">	<span class="keyword">int</span>[] a = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span>[] b = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line">	System.out.println(a==b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">false</span><br></pre></td></tr></table></figure>
+<p>与数组内容无关 是看创建的数组是否是同一个数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">复制数组</span><br><span class="line">必须遍历数组将每一个元素逐一拷贝</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">	Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">	<span class="keyword">int</span>[] a = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span>[] b = <span class="keyword">new</span> <span class="keyword">int</span>[a.length];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; b.length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		b[i] = a[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; b.length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(b[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	System.out.println(a==b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>for each循环 不可以修改数组 但是可以读出所有的元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(&lt;类型(数组元素类型)&gt;&lt;变量&gt;:&lt;数组&gt;)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="keyword">int</span>[] data = &#123;<span class="number">1</span>, <span class="number">123</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">12</span>, <span class="number">11</span>, <span class="number">34</span>, <span class="number">55</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span> x = in.nextInt();</span><br><span class="line">		<span class="keyword">int</span> loc = -<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">boolean</span> found = <span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; data.length; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(x == data[i])</span><br><span class="line">			&#123;</span><br><span class="line">				loc = i;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k : data)	<span class="comment">//for-each循环 对于data数组中的每一个元素 赋值给k</span></span><br><span class="line">		&#123;</span><br><span class="line">			k = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k : data)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(k);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(loc &gt; -<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(x+<span class="string">"是第"</span>+(loc+<span class="number">1</span>)+<span class="string">"个"</span>);	<span class="comment">//(loc+1)加括号是为了表示不是字符串的链接 而是做加法+1</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(x+<span class="string">"不在其中"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入：55</span><br><span class="line">输出：</span><br><span class="line">1</span><br><span class="line">123</span><br><span class="line">4</span><br><span class="line">2</span><br><span class="line">12</span><br><span class="line">11</span><br><span class="line">34</span><br><span class="line">55</span><br><span class="line">55是第8个</span><br></pre></td></tr></table></figure>
+<p>生成素数表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="keyword">int</span>[] primes = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">50</span>];</span><br><span class="line">		primes[<span class="number">0</span>] = <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> cnt = <span class="number">1</span>;	<span class="comment">//目前有一个 下一个放在primes[1]</span></span><br><span class="line">		MAIN_LOOP:</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> x = <span class="number">3</span>; cnt &lt; <span class="number">50</span>; x++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; i++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span>(x % primes[i] == <span class="number">0</span>)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">continue</span> MAIN_LOOP;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			primes[cnt++] = x;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>( <span class="keyword">int</span> k : primes )</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.print(k+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>50以内素数</p>
+<p>另外一种打表法</p>
+<p>构造n以内不含n的素数表</p>
+<p>1.创建prime为boolean[n] 初始化其所有元素为true prime[x]为true为x为素数</p>
+<p>2.令x=2</p>
+<p>3.如果x为速速则对(i=2;i*i&lt;n;i++) </p>
+<p>令prime[i*x]=false</p>
+<p>4.令x++ 如果x&lt;n重复3否则结束</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">	Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">	<span class="keyword">boolean</span>[] isPrime = <span class="keyword">new</span> <span class="keyword">boolean</span>[<span class="number">100</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; isPrime.length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		isPrime[i] = <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; isPrime.length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(isPrime[i])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">2</span>; i*k &lt; isPrime.length; k++)</span><br><span class="line">			&#123;</span><br><span class="line">				isPrime[i*k] = <span class="keyword">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">2</span>; i &lt; isPrime.length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(isPrime[i])</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.print(i+<span class="string">" "</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>二维数组的初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int[][] a = &#123;</span><br><span class="line">	&#123;1, 2, 3, 4&#125;,</span><br><span class="line">	&#123;1, 2, 3&#125;,</span><br><span class="line">&#125;</span><br><span class="line">·编译器来数数</span><br><span class="line">·每一个&#123;&#125;逗号分隔</span><br><span class="line">·最后的逗号可以存在 古老的传统</span><br><span class="line">·如果省略的元素自动补0</span><br></pre></td></tr></table></figure>
+<h4 id="String"><a href="#String" class="headerlink" title="String"></a>String</h4><p>new = 创建</p>
+<p>String s = new String(“a string”);</p>
+<p>创建一个String的对象</p>
+<p>用”a string”初始化这个对象</p>
+<p>创建管理这个对象的变量s</p>
+<p>让s管理这个对象</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201105355406.png" alt="image-20200201105355406"></p>
+<p><strong>初始化字符串变量</strong></p>
+<p>String s = “hello”;</p>
+<p>编译器帮你创建一个String类的对象交给s来管理</p>
+<p><strong>字符串的连接</strong><br>用+可以连接两个字符串</p>
+<p>“hello”+”world”—&gt;”helloworld”</p>
+<p>这个 +的一边为字符串另一边不是的时候会将另一边表达为字符串然后连接</p>
+<p>“I’m “+”18”–&gt;”I’m 18”</p>
+<p>1+2+”age”—&gt;”3age”</p>
+<p>“age”+1+2—&gt;”age12”</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		String s = <span class="keyword">new</span> String(<span class="string">"Hello"</span>);</span><br><span class="line">		System.out.println(s+<span class="number">12</span>+<span class="number">24</span>);</span><br><span class="line">		System.out.println(s+(<span class="number">12</span>+<span class="number">24</span>));</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hello1224</span><br><span class="line">Hello36</span><br></pre></td></tr></table></figure>
+<p><strong>输入字符串</strong></p>
+<p>in.next();读入一个单词 单词结束的标志为空格(包括空格 tab 和换行)</p>
+<p>in.nextLine();读入一整行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">	String s;	<span class="comment">//不能直接输出</span></span><br><span class="line">	s = in.nextLine();</span><br><span class="line">	System.out.println(s);</span><br><span class="line">	s = in.next();</span><br><span class="line">	System.out.println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">This is a test.</span><br><span class="line">This is a test.</span><br><span class="line">This is a test.</span><br><span class="line">This</span><br></pre></td></tr></table></figure>
+<p><strong>比较两个String</strong></p>
+<p>String只比较内容 不比较对象是否相同使用.equal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if(input == &quot;bye&quot;) &#123;//比较是否同一个对象</span><br><span class="line">	...	</span><br><span class="line">&#125;</span><br><span class="line">if(input.equals(&quot;bye&quot;)) &#123;//单纯比较内容是否相同</span><br><span class="line">	...	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">	String s;</span><br><span class="line">	s = in.next();</span><br><span class="line">	System.out.println();</span><br><span class="line">	System.out.println(s==<span class="string">"bye"</span>);</span><br><span class="line">	System.out.println(s.equals(<span class="string">"bye"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入</span><br><span class="line">bye</span><br><span class="line">输出</span><br><span class="line">false</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201110635070.png" alt="image-20200201110635070"></p>
+<p>只是内容相同 对象不同 person1 == person2 为false</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201110710227.png" alt="image-20200201110710227"></p>
+<p>只有对象是同一个的时候 person1 == person2 为true</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201110744798.png" alt="image-20200201110744798"></p>
+<p>equal为比较是否为相同内容 与是否为同一个东西不同。</p>
+<h2 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h2><p>两个字符串可以比较大小</p>
+<p><strong>s1.compareTo(s2)</strong></p>
+<p>如果s1比s2小，那么结果为负的；如果s1和s2相等那么结果为0；如果s1比s2大那么结果为正的</p>
+<p>compareToIgnoreCase 可以不区分大小写的来比较大小</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		String s1 = <span class="string">"abc"</span>;</span><br><span class="line">		String s2 = <span class="string">"ab"</span>;</span><br><span class="line">		System.out.println(s1.compareTo(s2));</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>大于结果为1</p>
+<p>相同结果为0</p>
+<p>小于结果为-1</p>
+<p><strong>length()获取String的长度</strong></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201124843263.png" alt="image-20200201124843263"></p>
+<pre><code>public static void main(String[] args) {
+    Scanner in = new Scanner(System.in);
+    String s1 = &quot;汉字&quot;;
+    for(int i = 0; i &lt; s1.length(); i++)
+    {
+        System.out.println(s1.charAt(i));
+    }
+}
+</code></pre><p><strong>substring</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">	String s1 = <span class="string">"0123456789汉字"</span>;</span><br><span class="line">	System.out.println(s1.substring(<span class="number">2</span>));</span><br><span class="line">	System.out.println(s1.substring(<span class="number">2</span>, <span class="number">4</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">23456789</span>汉字</span><br><span class="line"><span class="number">23</span></span><br></pre></td></tr></table></figure>
+<p>此处注意substring与c++一样4为结束的后一个 所以不是234而是23</p>
+<p>寻找字符</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201125305958.png" alt="image-20200201125305958"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		String s1 = <span class="string">"0123A563789汉字"</span>;</span><br><span class="line">		<span class="keyword">int</span> loc = s1.indexOf(<span class="string">'3'</span>);</span><br><span class="line">		System.out.println(s1.indexOf(<span class="string">'3'</span>, loc+<span class="number">1</span>));	<span class="comment">//从loc+1开始去找</span></span><br><span class="line">		System.out.println(s1.indexOf(<span class="string">"A56"</span>));</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">7</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201125738308.png" alt="image-20200201125738308"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201125755891.png" alt="image-20200201125755891"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		String s1 = <span class="string">"abcd"</span>;</span><br><span class="line">		String s2 = s1.toUpperCase();</span><br><span class="line">		System.out.println(s1);</span><br><span class="line">		System.out.println(s2);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">abcd</span><br><span class="line">ABCD</span><br></pre></td></tr></table></figure>
+<p>String字符串本身不修改 只是制造了一个新的字符串变量 需要交给一个新的字符串去做记录。</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201130053160.png" alt="image-20200201130053160"></p>
+<h2 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">	System.out.println(Math.abs(-<span class="number">12</span>));	<span class="comment">//绝对值</span></span><br><span class="line">	System.out.println(Math.round(<span class="number">10.645</span>));	<span class="comment">//四舍五入</span></span><br><span class="line">	System.out.println(Math.random()*<span class="number">100</span>);	<span class="comment">//01之间随机小数</span></span><br><span class="line">	System.out.println(Math.pow(<span class="number">2</span>, <span class="number">3.2</span>));	<span class="comment">//乘方</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">66.67205833706238</span></span><br><span class="line"><span class="number">9.18958683997628</span></span><br></pre></td></tr></table></figure>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201131155068.png" alt="image-20200201131155068"></p>
+<p>.带()的 s可以操作的一个函数。</p>
+<p>.可以读为的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isPrime</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">boolean</span> isPrime = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">2</span>; k &lt; i; k++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(i%k == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				isPrime = <span class="keyword">false</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> isPrime;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		<span class="keyword">int</span> m = in.nextInt();</span><br><span class="line">		<span class="keyword">int</span> n = in.nextInt();</span><br><span class="line">		<span class="keyword">if</span>( m == <span class="number">1</span>) m = <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = m; i &lt;= n; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(isPrime(i))</span><br><span class="line">			&#123;</span><br><span class="line">				cnt++;</span><br><span class="line">				sum+=i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">"在"</span>+m+<span class="string">"和"</span>+n+<span class="string">"之间有"</span>+cnt+<span class="string">"个素数 总和为"</span>+sum);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2 20</span><br><span class="line">在2和20之间有8个素数 总和为77</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> i;</span><br><span class="line">		<span class="keyword">int</span> sum;</span><br><span class="line">		sum = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(i = a; i &lt;= b; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			sum += i;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(a+<span class="string">"到"</span>+b+<span class="string">"的和是"</span>+sum);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">		sum(<span class="number">1</span>,<span class="number">10</span>);</span><br><span class="line">		sum(<span class="number">20</span>,<span class="number">30</span>);</span><br><span class="line">		sum(<span class="number">35</span>,<span class="number">40</span>);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1到10的和是55</span><br><span class="line">20到30的和是275</span><br><span class="line">35到40的和是225</span><br></pre></td></tr></table></figure>
+<p>函数是一块diamante 接受0个或者多个参数 做一件事情 并且返回零个或者多个参数，并且返回0个或者一个值。</p>
+<p><strong>函数定义</strong></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201132449146.png" alt="image-20200201132449146"></p>
+<p><strong>调用函数</strong></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201132722247.png" alt="image-20200201132722247"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201133050031.png" alt="image-20200201133050031"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201133131253.png" alt="image-20200201133131253"></p>
+<p>如果 返回值 则函数前面要有返回类型 此处为Int</p>
+<p>在函数中要有return返回值。</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201133507112.png" alt="image-20200201133507112"></p>
+<p>如果函数有返回值 必须使用带值的return</p>
+<p>否则我们直接使用不带值的return即可。</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201134149255.png" alt="image-20200201134149255"></p>
+<p>java语言中 调用函数只是值传递 只能传值给函数 函数对值的修改 不对主函数有任何影响</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201134650368.png" alt="image-20200201134650368"></p>
+<p>函数swap中ab为参数 a b保持不变为5 6 </p>
+<p>而传入参数的为值 参数改变的时候调入的值不改变 只是值赋值给了参数</p>
+<p>参数类型为字符串的时候也是</p>
+<p>但是当参数传的是对象的时候是保持一致的 如数组变量作为对象管理者当元素在函数中操作的时候就会使用管理者对被管理的数组做变化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span>[] b)</span>	<span class="comment">//仅仅为值传递</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> t;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">		t = a[i];</span><br><span class="line">		a[i] = b[i];</span><br><span class="line">		b[i] = t;	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">	<span class="keyword">int</span>[] a = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span>[] b = &#123;<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;;</span><br><span class="line">	swap(a,b);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">		System.out.println(<span class="string">"a["</span>+i+<span class="string">"]="</span>+a[i]+<span class="string">";b["</span>+i+<span class="string">"]="</span>+b[i]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a[0]=5;b[0]=1</span><br><span class="line">a[1]=6;b[1]=2</span><br><span class="line">a[2]=7;b[2]=3</span><br><span class="line">a[3]=8;b[3]=4</span><br><span class="line">a[4]=9;b[4]=5</span><br></pre></td></tr></table></figure>
+<p>发生了交换</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201135639681.png" alt="image-20200201135639681"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201140652060.png" alt="image-20200201140652060"></p>
+<p>函数传递参数调试的时候这边stepinto后都会有一个单独的空间</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201140723012.png" alt="image-20200201140723012"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201140738747.png" alt="image-20200201140738747"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201140907928.png" alt="image-20200201140907928"></p>
+<p>本地变量的生存是在它定义的那一层大括号 在大括号{}内生存 脱离了{}就失效了</p>
+<p>在同一个大阔内不可以重复定义变量 </p>
+<p>在大范围内定义的变量在小范围内不可以重复定义</p>
+<p>此层函数的参数也是本地变量</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200201141642572.png" alt="image-20200201141642572"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/19/大整数运算/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/19/大整数运算/" itemprop="url">大整数运算</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-19T22:06:32+08:00">
+                2020-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>对于A+B的运算如果位数太多，原有的数据类型就无法进行运算和输出，这个时候就要使用大整数运算的方法来计算</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1913,7 +2078,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1926,7 +2091,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
