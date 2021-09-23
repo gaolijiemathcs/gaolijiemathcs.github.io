@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="【设计模式】观察者模式1 场景一场湖人的NBA的主场球赛将会有多种方式在各个平台直播，有视频直播与文字比分直播。而各个平台需要获取NBA比赛分数的数据，将NBA球馆内的分数显示在各个官方直播平台的比分数据栏上。并且各个官方直播平台会依据基本的数据情况进行各自的展示。  数据中心会依据比赛情况不断更新比赛数据对象。 从数据中心获取数据并不是我们这次所关注的，我们关注的是如何将每次更新比赛数据对象的情">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GaoLijie&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/2021/09/23/【设计模式】观察者模式/index.html">
+<meta property="og:site_name" content="GaoLijie&#39;s Blog">
+<meta property="og:description" content="【设计模式】观察者模式1 场景一场湖人的NBA的主场球赛将会有多种方式在各个平台直播，有视频直播与文字比分直播。而各个平台需要获取NBA比赛分数的数据，将NBA球馆内的分数显示在各个官方直播平台的比分数据栏上。并且各个官方直播平台会依据基本的数据情况进行各自的展示。  数据中心会依据比赛情况不断更新比赛数据对象。 从数据中心获取数据并不是我们这次所关注的，我们关注的是如何将每次更新比赛数据对象的情">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/gaolijiemathcs/image-hosting@master/20210923/1.2e3yhz8exnms.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gaolijiemathcs/image-hosting/master/20210923/image-20210918160633757.5kjox5qne1o0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gaolijiemathcs/image-hosting/master/20210923/image-20210918163539743.7g4cdqvvdjs0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gaolijiemathcs/image-hosting/master/20210923/image-20210918175016978.4ezxbj5jnfy0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gaolijiemathcs/image-hosting/master/20210923/image-20210923014124558.7e334e2ixyw0.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gaolijiemathcs/image-hosting/master/20210923/扫码_搜索联合传播样式-标准色版.3ekabdz0guw0.png">
+<meta property="og:updated_time" content="2021-09-23T13:49:29.305Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GaoLijie&#39;s Blog">
+<meta name="twitter:description" content="【设计模式】观察者模式1 场景一场湖人的NBA的主场球赛将会有多种方式在各个平台直播，有视频直播与文字比分直播。而各个平台需要获取NBA比赛分数的数据，将NBA球馆内的分数显示在各个官方直播平台的比分数据栏上。并且各个官方直播平台会依据基本的数据情况进行各自的展示。  数据中心会依据比赛情况不断更新比赛数据对象。 从数据中心获取数据并不是我们这次所关注的，我们关注的是如何将每次更新比赛数据对象的情">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/gaolijiemathcs/image-hosting@master/20210923/1.2e3yhz8exnms.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/09/23/【设计模式】观察者模式/">
+
+
+
+
+
+  <title> | GaoLijie's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">GaoLijie's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello world</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/23/【设计模式】观察者模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gao Lijie">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GaoLijie's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-23T21:49:29+08:00">
+                2021-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="【设计模式】观察者模式"><a href="#【设计模式】观察者模式" class="headerlink" title="【设计模式】观察者模式"></a>【设计模式】观察者模式</h1><h2 id="1-场景"><a href="#1-场景" class="headerlink" title="1 场景"></a>1 场景</h2><p>一场湖人的NBA的主场球赛将会有多种方式在各个平台直播，有视频直播与文字比分直播。而各个平台需要获取NBA比赛分数的数据，将NBA球馆内的分数显示在各个官方直播平台的比分数据栏上。并且各个官方直播平台会依据基本的数据情况进行各自的展示。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/gaolijiemathcs/image-hosting@master/20210923/1.2e3yhz8exnms.png" alt="image-20210918151841108"></p>
+<p>数据中心会依据比赛情况不断更新比赛数据对象。</p>
+<p>从数据中心获取数据并不是我们这次所关注的，我们关注的是如何将每次更新比赛数据对象的情况，同步给各个官方直播平台的方式。如何做到松耦合并且并且具备扩展性。</p>
+<h2 id="2-场景实现"><a href="#2-场景实现" class="headerlink" title="2 场景实现"></a>2 场景实现</h2><p>很直观我们需要做的任务就是，每当比赛数据对象被更改的时候，我就去将这些数据通知给各种各样的平台。</p>
+<p>伪代码可能长这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GameData</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 比分数据</span></span><br><span class="line">	<span class="comment">// 总比分</span></span><br><span class="line">	<span class="keyword">private</span> Score score;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 比赛时间戳 单位 秒</span></span><br><span class="line">	<span class="keyword">private</span> Long currentTime;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 球员得分情况</span></span><br><span class="line">	<span class="keyword">private</span> PlayersData players;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 各大平台的比分板实例变量(需要实例化)</span></span><br><span class="line">	<span class="keyword">private</span> TencentSportBoard txboard;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> CCTVSportBoard cctvBoard;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> WeiboSportBoard WeiboBoard;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dataChanged</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// getXXX() 方法为GameData类中 向数据中心取得最新测量值的方法</span></span><br><span class="line">		Score score = getScore();</span><br><span class="line">		Long curTime = getCurrentTime();</span><br><span class="line">		PlayersData ps = getPlayersData();</span><br><span class="line">		</span><br><span class="line">		<span class="comment">// 更新</span></span><br><span class="line">		txboard.update(score, curTime, ps);</span><br><span class="line">		cctvBoard.update(score, curTime, ps);</span><br><span class="line">		WeiboBoard.update(score, curTime, ps);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// GameData其他方法</span></span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样实现方式不好的地方在哪里？</p>
+<p>这个GameData更新各个平台的方式，是将具体的平台对象进行更新，这会导致后续如果我们要增加或者去除某个平台的接入，我们都需要去修改这个GameData对象中将更新数据通知出去部分的代码。并且通知的步骤的代码update(score, curTime, ps)是可以被复用的，可以复用封装。</p>
+<h2 id="3-观察者模式"><a href="#3-观察者模式" class="headerlink" title="3 观察者模式"></a>3 观察者模式</h2><h3 id="3-1-生活栗子"><a href="#3-1-生活栗子" class="headerlink" title="3.1 生活栗子"></a>3.1 生活栗子</h3><p>更好一点的实现方式就要使用设计模式中的观察者模式。什么是观察者模式？可以从微信公众号的使用方式理解这个模式。当微信公众号推送了一篇新的文章，微信公众号订阅者都会收到一个新推文的消息。</p>
+<p>（1）用户可以订阅微信公众号</p>
+<p>（2）微信公众号作者写一篇新文章在微信公众号上发布</p>
+<p>（3）微信公众号向所有订阅者推送新文章，所有订阅者会收到该新文章推送</p>
+<p>（4）当订阅者不满意该作者的公众号，用户可以取消订阅不会再收到该公众号新文推送</p>
+<p>而我们这里可以将微信公众号称为 Subject 主题对象，订阅者称为 Observer 观察者。</p>
+<p><strong>观察者模式 = 发布者(主题对象) + 订阅者(观察者)</strong></p>
+<p>主题对象中，有微信文章列表的List，当主题对象的数据发生改变的时候，就会将对应的数据发送到观察者的手上。例如微信公众号有新文章，就会将文章推送到观察者手中。</p>
+<p>而这个过程并不会感知到具体订阅者是什么对象，在主题对象的视角下，只有订阅者Observer的概念，观察者订阅了这个主题对象，主题对象就向订阅者推送消息。当不是这个主题对象的订阅者，就不会收到最新的推送。</p>
+<p><img src="https://raw.githubusercontent.com/gaolijiemathcs/image-hosting/master/20210923/image-20210918160633757.5kjox5qne1o0.png" alt="image-20210918160633757"></p>
+<p>每个用户有自主的取消订阅与订阅的能力。</p>
+<h3 id="3-2-定义与类图"><a href="#3-2-定义与类图" class="headerlink" title="3.2 定义与类图"></a>3.2 定义与类图</h3><h4 id="1、定义"><a href="#1、定义" class="headerlink" title="1、定义"></a>1、定义</h4><p>观察者模式：定义了对象之间一对多的依赖，当被依赖者(主题对象)改变状态的时候，所有的依赖者对象(订阅者)都会收到依赖对象(主题对象)改变的通知并且自动更新状态。</p>
+<p>简而言之，一对多的对象关系，”一”的对象改变状态，其他依赖者(观察者)都感知到。</p>
+<h4 id="2、类图"><a href="#2、类图" class="headerlink" title="2、类图"></a>2、类图</h4><p><img src="https://raw.githubusercontent.com/gaolijiemathcs/image-hosting/master/20210923/image-20210918163539743.7g4cdqvvdjs0.png" alt="image-20210918163539743"></p>
+<p>通过抽象的方式，将统一的主题对象接口基本功能抽象出：register注册观察者、remove移除观察者、notify通知观察者（当主题对象状态发生改变通知所有的当前观察者）。</p>
+<p>而观察者中抽象出update方法，当订阅的主题状态发生变化，调用update改变需要定订阅的数据。</p>
+<p>例如微信公众号有获取最新一篇文章的功能，而update更新的就是最新文章对象。</p>
+<h3 id="3-3-松耦合设计优势"><a href="#3-3-松耦合设计优势" class="headerlink" title="3.3 松耦合设计优势"></a>3.3 松耦合设计优势</h3><p>两个对象松耦合，但是之间仍然可以交互，只是不知道对方具体的细节，观察者模式是一种对象松耦合的对象设计方式，让主题对象与观察者之间松耦合。</p>
+<p>1、主题对象不依赖具体的类</p>
+<p>因为站在主题对象角度，主题对象只知道观察者实现了Observer接口。主题对象不需要知道观察者具体的类，在写代码的时候只要用接口来代表观察者，不需要知道具体的实现类。方便观察者增删。</p>
+<p>2、新增观察者类型不需要修改主题对象代码</p>
+<p>新类型的对象出现，只要实现Observer类，然后注册为观察者，主题对象不在意会直接发送通知给所有实现观察者接口的对象。</p>
+<p>松耦合的设计模式可以构建更加有弹性的面向对象系统，更好应对对象的变化，因为对象依赖程度降低了。</p>
+<h2 id="4-观察者模式场景实现"><a href="#4-观察者模式场景实现" class="headerlink" title="4 观察者模式场景实现"></a>4 观察者模式场景实现</h2><h3 id="4-1-类图"><a href="#4-1-类图" class="headerlink" title="4.1 类图"></a>4.1 类图</h3><p><img src="https://raw.githubusercontent.com/gaolijiemathcs/image-hosting/master/20210923/image-20210918175016978.4ezxbj5jnfy0.png" alt="image-20210918175016978"></p>
+<h3 id="4-2-具体实现"><a href="#4-2-具体实现" class="headerlink" title="4.2 具体实现"></a>4.2 具体实现</h3><h4 id="1、比赛数据定义"><a href="#1、比赛数据定义" class="headerlink" title="1、比赛数据定义"></a>1、比赛数据定义</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Player</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer score;</span><br><span class="line">    <span class="keyword">private</span> Integer fouls;  <span class="comment">// 犯规数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Score</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer homeTeamScore;	<span class="comment">// 主队得分情况</span></span><br><span class="line">    <span class="keyword">private</span> Integer awayTeamScore;	<span class="comment">// 客队得分情况</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2、接口实现"><a href="#2、接口实现" class="headerlink" title="2、接口实现"></a>2、接口实现</h4><p>（1）主题对象接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeObserver</span><span class="params">(Observer o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyObservers</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）观察者对象接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Score score, Long currentTime, ArrayList&lt;Player&gt; playersData)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）展示接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DisplayElement</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3、GameData主题对象实现主题接口"><a href="#3、GameData主题对象实现主题接口" class="headerlink" title="3、GameData主题对象实现主题接口"></a>3、GameData主题对象实现主题接口</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GameData</span> <span class="keyword">implements</span> <span class="title">Subject</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Observer&gt; observers;</span><br><span class="line">    <span class="keyword">private</span> Long currentTime;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Player&gt; playerDatas;</span><br><span class="line">    <span class="keyword">private</span> Score score;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GameData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        observers = <span class="keyword">new</span> ArrayList&lt;Observer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerObserver</span><span class="params">(Observer o)</span> </span>&#123;</span><br><span class="line">        observers.add(o);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeObserver</span><span class="params">(Observer o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i = observers.indexOf(o);</span><br><span class="line">        <span class="keyword">if</span>(i &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            observers.remove(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyObservers</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; observers.size(); i++) &#123;</span><br><span class="line">            Observer observer = (Observer) observers.get(i);</span><br><span class="line">            observer.update(score, currentTime, playerDatas);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dataChanged</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        notifyObservers();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">measureGameData</span><span class="params">(Score score, Long currentTime, ArrayList&lt;Player&gt; playerDatas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.score = score;</span><br><span class="line">        <span class="keyword">this</span>.currentTime = currentTime;</span><br><span class="line">        <span class="keyword">this</span>.playerDatas = playerDatas;</span><br><span class="line">        dataChanged();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 其他方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4、比分牌实现"><a href="#4、比分牌实现" class="headerlink" title="4、比分牌实现"></a>4、比分牌实现</h4><p>（1）Tx比分牌</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TencentSportBoard</span> <span class="keyword">implements</span> <span class="title">Observer</span>, <span class="title">DisplayElement</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long currentTime;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Player&gt; playerDatas;</span><br><span class="line">    <span class="keyword">private</span> Score score;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Subject gameData;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TencentSportBoard</span><span class="params">(Subject gameData)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.gameData = gameData;</span><br><span class="line">        <span class="comment">// 当前观察者注册到主题对象中</span></span><br><span class="line">        gameData.registerObserver(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Here is TencentSport: "</span>);</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.score);</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.currentTime);</span><br><span class="line">        <span class="keyword">for</span>(Player player : playerDatas) &#123;</span><br><span class="line">            System.out.println(player);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Score score, Long currentTime, ArrayList&lt;Player&gt; playersData)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.currentTime = currentTime;</span><br><span class="line">        <span class="keyword">this</span>.playerDatas = playersData;</span><br><span class="line">        <span class="keyword">this</span>.score = score;</span><br><span class="line">        display();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）CCTV比分牌</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CCTVSportBoard</span> <span class="keyword">implements</span> <span class="title">Observer</span>, <span class="title">DisplayElement</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long currentTime;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Player&gt; playerDatas;</span><br><span class="line">    <span class="keyword">private</span> Score score;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Subject gameData;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CCTVSportBoard</span><span class="params">(GameData gameData)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.gameData = gameData;</span><br><span class="line">        gameData.registerObserver(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Here is CCTVSport: "</span>);</span><br><span class="line">        System.out.println(score);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Score score, Long currentTime, ArrayList&lt;Player&gt; playersData)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.currentTime = currentTime;</span><br><span class="line">        <span class="keyword">this</span>.playerDatas = playersData;</span><br><span class="line">        <span class="keyword">this</span>.score = score;</span><br><span class="line">        display();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）weibo比分牌</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeiboSportBoard</span> <span class="keyword">implements</span> <span class="title">Observer</span>, <span class="title">DisplayElement</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long currentTime;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Player&gt; playerDatas;</span><br><span class="line">    <span class="keyword">private</span> Score score;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Subject gameData;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">WeiboSportBoard</span><span class="params">(GameData gameData)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.gameData = gameData;</span><br><span class="line">        gameData.registerObserver(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Here is WeiboSport: "</span>);</span><br><span class="line">        ArrayList&lt;Player&gt; mvps = getMvp(playerDatas);</span><br><span class="line">        <span class="keyword">for</span>(Player p : mvps) &#123;</span><br><span class="line">            System.out.println(p);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Player&gt; <span class="title">getMvp</span><span class="params">(ArrayList&lt;Player&gt; ps)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> maxScore = <span class="number">0</span>;</span><br><span class="line">        ArrayList&lt;Player&gt; ans = <span class="keyword">new</span> ArrayList&lt;Player&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ps.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(maxScore &lt; ps.get(i).getScore()) &#123;</span><br><span class="line">                maxScore = ps.get(i).getScore();</span><br><span class="line">                ans.clear();</span><br><span class="line">                ans.add(ps.get(i));</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(maxScore == ps.get(i).getScore()) &#123;</span><br><span class="line">                ans.add(ps.get(i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Score score, Long currentTime, ArrayList&lt;Player&gt; playersData)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.currentTime = currentTime;</span><br><span class="line">        <span class="keyword">this</span>.playerDatas = playersData;</span><br><span class="line">        <span class="keyword">this</span>.score = score;</span><br><span class="line">        display();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5、测试类与测试结果"><a href="#5、测试类与测试结果" class="headerlink" title="5、测试类与测试结果"></a>5、测试类与测试结果</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaplesCenter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        GameData gameData = <span class="keyword">new</span> GameData();</span><br><span class="line">        TencentSportBoard tencentSportBoard = <span class="keyword">new</span> TencentSportBoard(gameData);</span><br><span class="line">        CCTVSportBoard cctvSportBoard = <span class="keyword">new</span> CCTVSportBoard(gameData);</span><br><span class="line">        WeiboSportBoard weiboSportBoard = <span class="keyword">new</span> WeiboSportBoard(gameData);</span><br><span class="line"></span><br><span class="line">        Score score = <span class="keyword">new</span> Score(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        Long currentTime = <span class="number">1631966274L</span>;</span><br><span class="line">        ArrayList&lt;Player&gt; playerDatas = <span class="keyword">new</span> ArrayList&lt;Player&gt;();</span><br><span class="line">        Player p1 = <span class="keyword">new</span> Player(<span class="string">"Kobe"</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        playerDatas.add(p1);</span><br><span class="line"></span><br><span class="line">        gameData.measureGameData(score, currentTime, playerDatas);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"========================="</span>);</span><br><span class="line"></span><br><span class="line">        playerDatas.clear();</span><br><span class="line">        p1.setScore(<span class="number">81</span>);</span><br><span class="line">        playerDatas.add(p1);</span><br><span class="line">        currentTime = <span class="number">1631966551L</span>;</span><br><span class="line">        score.setAwayTeamScore(<span class="number">102</span>);</span><br><span class="line">        score.setHomeTeamScore(<span class="number">122</span>);</span><br><span class="line">        gameData.measureGameData(score, currentTime, playerDatas);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Here is TencentSport: </span><br><span class="line">Score&#123;homeTeamScore=0, awayTeamScore=0&#125;</span><br><span class="line">1631966274</span><br><span class="line">Player&#123;name=&apos;Kobe&apos;, score=0, fouls=0&#125;</span><br><span class="line">Here is CCTVSport: </span><br><span class="line">Score&#123;homeTeamScore=0, awayTeamScore=0&#125;</span><br><span class="line">Here is WeiboSport: </span><br><span class="line">Player&#123;name=&apos;Kobe&apos;, score=0, fouls=0&#125;</span><br><span class="line">=========================</span><br><span class="line">Here is TencentSport: </span><br><span class="line">Score&#123;homeTeamScore=122, awayTeamScore=102&#125;</span><br><span class="line">1631966551</span><br><span class="line">Player&#123;name=&apos;Kobe&apos;, score=81, fouls=0&#125;</span><br><span class="line">Here is CCTVSport: </span><br><span class="line">Score&#123;homeTeamScore=122, awayTeamScore=102&#125;</span><br><span class="line">Here is WeiboSport: </span><br><span class="line">Player&#123;name=&apos;Kobe&apos;, score=81, fouls=0&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-Java内置观察者模式"><a href="#5-Java内置观察者模式" class="headerlink" title="5 Java内置观察者模式"></a>5 Java内置观察者模式</h2><h3 id="5-1-重写栗子"><a href="#5-1-重写栗子" class="headerlink" title="5.1 重写栗子"></a>5.1 重写栗子</h3><p>原来的方式我们是自己实现观察者模式，Subject为我们的主题扩展为Observable接口，观察者从原来自己写的Observer接口改为实现Observaer接口。</p>
+<p>在原有的Player、Score对象，以及Display接口保持不变的情况下，我们以TencentSportBoard进行改造。</p>
+<p>（1）主题对象继承Observable类</p>
+<p>首先我们对GameData这个主题Subject进行重写。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Observer_util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Observer.Observer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Observable;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现Observable 为Subject</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GameData</span> <span class="keyword">extends</span> <span class="title">Observable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long currentTime;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Player&gt; playerDatas;</span><br><span class="line">    <span class="keyword">private</span> Score score;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GameData</span><span class="params">()</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 不需要追踪、注册、删除观察者（超类已经完成）</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dataChanged</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 在调用notifyObservers() 之前需要调用setChanged来表明数据状态已经改变</span></span><br><span class="line">        setChanged();</span><br><span class="line">        <span class="comment">// 在明确了数据改变过后才会通知观察者</span></span><br><span class="line">        <span class="comment">// 我们没有传输GameData的数据 使用的是“拉” 的方式</span></span><br><span class="line">        notifyObservers();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">measureGameData</span><span class="params">(Score score, Long currentTime, ArrayList&lt;Player&gt; playerDatas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.score = score;</span><br><span class="line">        <span class="keyword">this</span>.currentTime = currentTime;</span><br><span class="line">        <span class="keyword">this</span>.playerDatas = playerDatas;</span><br><span class="line">        dataChanged();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这种写法需要使用“拉”的方式 所以观察者会使用这个方法来获取GameData的数据</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Long <span class="title">getCurrentTime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> currentTime;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Player&gt; <span class="title">getPlayerDatas</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> playerDatas;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Score <span class="title">getScore</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> score;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们对比原来的gameData中的measureGameData方法调用dataChanged()为一个个观察者进行更新，是一种直接将修改的数据”推”给observer的方式。</p>
+<p>自己实现的推的方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyObservers</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; observers.size(); i++) &#123;</span><br><span class="line">            Observer observer = (Observer) observers.get(i);</span><br><span class="line">            observer.update(score, currentTime, playerDatas);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dataChanged</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        notifyObservers();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">measureGameData</span><span class="params">(Score score, Long currentTime, ArrayList&lt;Player&gt; playerDatas)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.score = score;</span><br><span class="line">        <span class="keyword">this</span>.currentTime = currentTime;</span><br><span class="line">        <span class="keyword">this</span>.playerDatas = playerDatas;</span><br><span class="line">        dataChanged();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>而现在是交由Observable进行setChange通知发生改变，再进行notifyObsers()。由父类进行完成信息的更新，没有传入我们修改的参数，而是在需要使用的时候将obs对象”拉”过来。</p>
+<p>（2）观察者实现Observer接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Observer_util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Observable;</span><br><span class="line"><span class="keyword">import</span> java.util.Observer;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 观察者需要实现java.util内置的Observer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TencentSportBoard</span> <span class="keyword">implements</span> <span class="title">Observer</span>, <span class="title">DisplayElement</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 需要定义Observable类属性 在构造器启动的时候将参数初始化</span></span><br><span class="line">    Observable observable;</span><br><span class="line">    <span class="keyword">private</span> Long currentTime;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Player&gt; playerDatas;</span><br><span class="line">    <span class="keyword">private</span> Score score;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造器 需要一个Observer当做参数 并且将TencentSportBoard.observable作为参数传入</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TencentSportBoard</span><span class="params">(Observable observable)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.observable = observable;</span><br><span class="line">        <span class="comment">// 将当前对象登记注册为观察者</span></span><br><span class="line">        observable.addObserver(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  这里是以"拉"的方式表示将数据从Observable（Subject）拉取的</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> obs 对象为Observable对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> arg 数据对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Observable obs, Object arg)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 先确定这个数据对象是GameData类型 然后利用get方法获取对应的数据 并且展示</span></span><br><span class="line">        <span class="keyword">if</span>(obs <span class="keyword">instanceof</span> GameData) &#123;</span><br><span class="line">            GameData gameData = (GameData) obs;</span><br><span class="line">            <span class="keyword">this</span>.currentTime = gameData.getCurrentTime();</span><br><span class="line">            <span class="keyword">this</span>.playerDatas = gameData.getPlayerDatas();</span><br><span class="line">            <span class="keyword">this</span>.score = gameData.getScore();</span><br><span class="line">            display();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Here is TencentSport: "</span>);</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.score);</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.currentTime);</span><br><span class="line">        <span class="keyword">for</span>(Player player : playerDatas) &#123;</span><br><span class="line">            System.out.println(player);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里着重看update的方法，实际上是Observable对象发生了数据更新，会调用update方法，使得观察者拉取到了最新的主题对象，从而进行展示。数据是带在obs对象上，没有直接将数据参数带过来。</p>
+<p>（3）测试类StaplesCenter</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Observer_util;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaplesCenter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        GameData gameData = <span class="keyword">new</span> GameData();</span><br><span class="line">        TencentSportBoard tencentSportBoard = <span class="keyword">new</span> TencentSportBoard(gameData);</span><br><span class="line"></span><br><span class="line">        Score score = <span class="keyword">new</span> Score(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        Long currentTime = <span class="number">1631966274L</span>;</span><br><span class="line">        ArrayList&lt;Player&gt; playerDatas = <span class="keyword">new</span> ArrayList&lt;Player&gt;();</span><br><span class="line">        Player p1 = <span class="keyword">new</span> Player(<span class="string">"Kobe"</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        playerDatas.add(p1);</span><br><span class="line"></span><br><span class="line">        gameData.measureGameData(score, currentTime, playerDatas);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试结果</p>
+<p><img src="https://raw.githubusercontent.com/gaolijiemathcs/image-hosting/master/20210923/image-20210923014124558.7e334e2ixyw0.png" alt="image-20210923014124558"></p>
+<h3 id="5-2-Observer类与Observable类分析"><a href="#5-2-Observer类与Observable类分析" class="headerlink" title="5.2 Observer类与Observable类分析"></a>5.2 Observer类与Observable类分析</h3><p>1、Observer类分析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface Observer &#123;</span><br><span class="line">	// 需要实现这个接口完成成为观察者 所以观察者要有 Observable observable的成员属性</span><br><span class="line">	void update(Observable e, Object arg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>GameDate在初始化的时候会把这个主题Observable在初始化观察者的时候传入 相当于将观察者注册到了这个主题下面。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 观察者需要实现java.util内置的Observer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TencentSportBoard</span> <span class="keyword">implements</span> <span class="title">Observer</span>, <span class="title">DisplayElement</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 需要定义Observable类属性 在构造器启动的时候将参数初始化</span></span><br><span class="line">    Observable observable;</span><br><span class="line">    <span class="keyword">private</span> Long currentTime;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Player&gt; playerDatas;</span><br><span class="line">    <span class="keyword">private</span> Score score;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造器 需要一个Observer当做参数 并且将TencentSportBoard.observable作为参数传入</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TencentSportBoard</span><span class="params">(Observable observable)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.observable = observable;</span><br><span class="line">        <span class="comment">// 将当前对象登记注册为观察者</span></span><br><span class="line">        observable.addObserver(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在构造函数的时候会把observable初始化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaplesCenter</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        GameData gameData = <span class="keyword">new</span> GameData();</span><br><span class="line">        TencentSportBoard tencentSportBoard = <span class="keyword">new</span> TencentSportBoard(gameData);</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、Observable类分析</p>
+<p>源码内容与注释分析：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Observable</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 用于标记当前主题的数据是否被更改了 主题数据如果被更改要先setChanged() 将这个flag变为true代表被修改了</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> changed = <span class="keyword">false</span>;</span><br><span class="line">    <span class="comment">// 把所有的观察者对象都存在这个Vector里面 通过这样的方式统一通知观察者</span></span><br><span class="line">    <span class="keyword">private</span> Vector&lt;Observer&gt; obs;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Observable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        obs = <span class="keyword">new</span> Vector&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 观察者调用 将观察者自己注册到主题Observable类obs对象当中</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">addObserver</span><span class="params">(Observer o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(o == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">        &#125; (!obs.contains(o)) &#123;</span><br><span class="line">            obs.addElement(o);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 观察者可以将自己从订阅的主题去掉</span></span><br><span class="line">    <span class="function">publc <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">deleteObserver</span><span class="params">(Observer o)</span> </span>&#123;</span><br><span class="line">        obs.removeElement(o);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 主题对象GameData可以调用父类的方法 进行对观察者的统一更新数据</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyObservers</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 通知所有的观察者 </span></span><br><span class="line">        notifyObservers(<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">notifyObservers</span><span class="params">(Object arg)</span> </span>&#123;</span><br><span class="line">        Object[] arrLocal;</span><br><span class="line">        <span class="keyword">synchronized</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!changed) &#123;</span><br><span class="line">                <span class="comment">// 如果没更改就直接返回 不会出现数据更新的通知</span></span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 将注册的观察者vector列表转换为数组对象</span></span><br><span class="line">            arrLocal = obs.toArray();</span><br><span class="line">            <span class="comment">// 将数据更改恢复为false 可见通知观察者是一次性的</span></span><br><span class="line">            clearChanged();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = arrLocal.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="comment">// 此处实际有数据的是this，而参数arg实际上为null 这里为实际上推送观察者进行update的地方</span></span><br><span class="line">            <span class="comment">// 思考这个的arrLocal的对象的次序就不会是我们加入的次序的方式，这里和toArray的方式顺序有关系。</span></span><br><span class="line">            ((Observer) arrLocal[i]).update(<span class="keyword">this</span>, arg);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">deleteObservers</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        obs.removeAllElements();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// protected 的变量可以同一个包中的其他类访问</span></span><br><span class="line">    <span class="comment">// 声明为protected类型是为了只能在继承的时候访问从基类继承的protected方法 但是不能访问这个基类的实例对象的protected的方法。只能继承使用，不能外部实例对象调用。 下同</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">setChanged</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		changed = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">clearChanged</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    	changed = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">hasChanged</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> changed;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">countObservers</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> obs.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Observable是一个类，所以主题在使用这个对象的时候，只能继承下来，如果某个类想要实现主题需要继承Observable同时又想拥有某个其他超类的能力，就会出现困难，Java不支持多继承。所以Observable的复用潜力有所下降，而我们使用设计模式的目标之一就是提升代码的复用能力。</p>
+<p>并且因为Observable没有接口类，自己无法建立实现。这里注意setChanged方法使用protected类型，这导致你必须继承这个Observable，否则不能创建自己的实例对象调用这个protected方法，无法组合使用。而面向对象设计原则：“面向接口编程，不针对实现编程“，”多用组合，少用继承“ 也与这样的方式有所违背。</p>
+<p>你也可以自己实现一套观察者模式，善于自己灵活运用，增加扩展性。</p>
+<h2 id="6-小结"><a href="#6-小结" class="headerlink" title="6 小结"></a>6 小结</h2><p>（1）观察者模式完成对象一对多的信息传达方式，Subject（Observable可观测者）使用统一的接口来更新观察者Observer。</p>
+<p>（2）观察者和可观察者松耦合的方式，可观察者不知道观察者的细节只知道实现了观察者的接口（update方法）（留心推和拉的方式）</p>
+<p>（3）有Java内置类和自己实现的方式，各有优劣，主要是掌握设计的思想。</p>
+<p>（4）面向对象的原则：封装。多用组合少用继承。针对接口编程，不针对实现编程。松耦合，提高复用率。</p>
+<p>（5）一句话描述观察者模式：在对象之间定义一对多的依赖，当一个对象发生变化，依赖这个对象的观察者都会收到通知并且更新。</p>
+<p>在其他的一些框架与应用场景中也使用了观察者模式，大家可以主动探索与发现。</p>
+<p>参考文献：</p>
+<p>《Head First 设计模式》</p>
+<p>完整代码已上传github：<a href="https://github.com/gaolijiemathcs/DesignPatterns" target="_blank" rel="noopener">https://github.com/gaolijiemathcs/DesignPatterns</a></p>
+<p>这是路遥知码力的第一篇公众号文章，希望能每周输出一篇有质量的公众号文章，欢迎关注交流！感谢阅读！</p>
+<p>不积跬步无以至千里，下次见！</p>
+<p><img src="https://raw.githubusercontent.com/gaolijiemathcs/image-hosting/master/20210923/扫码_搜索联合传播样式-标准色版.3ekabdz0guw0.png" alt="3"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/18/C-面试基础语法指南-1/" rel="next" title="C++面试基础语法指南(1)">
+                <i class="fa fa-chevron-left"></i> C++面试基础语法指南(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Gao Lijie">
+            
+              <p class="site-author-name" itemprop="name">Gao Lijie</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/gaolijiemathcs" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="gaolijiemathcs@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【设计模式】观察者模式"><span class="nav-number">1.</span> <span class="nav-text">【设计模式】观察者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-场景"><span class="nav-number">1.1.</span> <span class="nav-text">1 场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-场景实现"><span class="nav-number">1.2.</span> <span class="nav-text">2 场景实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-观察者模式"><span class="nav-number">1.3.</span> <span class="nav-text">3 观察者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-生活栗子"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 生活栗子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-定义与类图"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 定义与类图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、定义"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">1、定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、类图"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">2、类图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-松耦合设计优势"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 松耦合设计优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-观察者模式场景实现"><span class="nav-number">1.4.</span> <span class="nav-text">4 观察者模式场景实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-类图"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 类图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-具体实现"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、比赛数据定义"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">1、比赛数据定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、接口实现"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">2、接口实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、GameData主题对象实现主题接口"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">3、GameData主题对象实现主题接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、比分牌实现"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">4、比分牌实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5、测试类与测试结果"><span class="nav-number">1.4.2.5.</span> <span class="nav-text">5、测试类与测试结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Java内置观察者模式"><span class="nav-number">1.5.</span> <span class="nav-text">5 Java内置观察者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-重写栗子"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 重写栗子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Observer类与Observable类分析"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2 Observer类与Observable类分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-小结"><span class="nav-number">1.6.</span> <span class="nav-text">6 小结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gao Lijie</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

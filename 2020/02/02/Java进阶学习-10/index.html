@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Java学习,">
 
 
 
@@ -79,14 +79,26 @@
 
 
 
+<meta name="description" content="多继承在OOP语言中(除C++)都是不被允许的。  而Animal是一个体系 里面包括了Fox和Rabbit。但是Cell为一个细胞 或者一个格子，位于filed当中。view是显示结果的。 但是cell和animal本身是没有关系的 不能说动物是格子或者动物是细胞。 接口(1)接口是纯抽象类 ​    1)所有的成员函数都是抽象函数 ​    2)所有的成员变量都是public static">
+<meta name="keywords" content="Java学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java进阶学习-10">
+<meta property="og:title" content="Java进阶学习-10 接口">
 <meta property="og:url" content="http://yoursite.com/2020/02/02/Java进阶学习-10/index.html">
 <meta property="og:site_name" content="GaoLijie&#39;s Blog">
+<meta property="og:description" content="多继承在OOP语言中(除C++)都是不被允许的。  而Animal是一个体系 里面包括了Fox和Rabbit。但是Cell为一个细胞 或者一个格子，位于filed当中。view是显示结果的。 但是cell和animal本身是没有关系的 不能说动物是格子或者动物是细胞。 接口(1)接口是纯抽象类 ​    1)所有的成员函数都是抽象函数 ​    2)所有的成员变量都是public static">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-02T15:54:57.579Z">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200203142050528.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200203142310425.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200203142529135.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200203143030074.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200203151034937.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200203152013448.png">
+<meta property="og:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200203152057373.png">
+<meta property="og:updated_time" content="2020-02-03T07:27:28.929Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java进阶学习-10">
+<meta name="twitter:title" content="Java进阶学习-10 接口">
+<meta name="twitter:description" content="多继承在OOP语言中(除C++)都是不被允许的。  而Animal是一个体系 里面包括了Fox和Rabbit。但是Cell为一个细胞 或者一个格子，位于filed当中。view是显示结果的。 但是cell和animal本身是没有关系的 不能说动物是格子或者动物是细胞。 接口(1)接口是纯抽象类 ​    1)所有的成员函数都是抽象函数 ​    2)所有的成员变量都是public static">
+<meta name="twitter:image" content="c:/Users/36987/AppData/Roaming/Typora/typora-user-images/image-20200203142050528.png">
 
 
 
@@ -122,7 +134,7 @@
 
 
 
-  <title>Java进阶学习-10 | GaoLijie's Blog</title>
+  <title>Java进阶学习-10 接口 | GaoLijie's Blog</title>
   
 
 
@@ -266,7 +278,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java进阶学习-10</h1>
+          <h1 class="post-title" itemprop="name headline">Java进阶学习-10 接口</h1>
         
 
         <div class="post-meta">
@@ -316,7 +328,54 @@
       
 
       
-        
+        <p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203142050528.png" alt="image-20200203142050528"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203142310425.png" alt="image-20200203142310425"></p>
+<p>多继承在OOP语言中(除C++)都是不被允许的。</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203142529135.png" alt="image-20200203142529135"></p>
+<p>而Animal是一个体系 里面包括了Fox和Rabbit。但是Cell为一个细胞 或者一个格子，位于filed当中。view是显示结果的。</p>
+<p>但是cell和animal本身是没有关系的 不能说动物是格子或者动物是细胞。</p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>(1)接口是纯抽象类</p>
+<p>​    1)所有的成员函数都是抽象函数</p>
+<p>​    2)所有的成员变量都是public static final</p>
+<p>(2)接口规定了长什么样，但是不管里面有什么</p>
+<p>此处Cell就作为接口 一个纯抽象的类</p>
+<p>Cell.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cell;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.Graphics;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cell</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">(Graphics g, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> size)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>cell只做一件事情就是draw只进行将fox和rabbit画在field上</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203143030074.png" alt="image-20200203143030074"></p>
+<p>例如Fox中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Fox</span> <span class="keyword">extends</span> <span class="title">Animal</span> <span class="keyword">implements</span> <span class="title">Cell</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+<p>继承了Animal 同时实现了接口Cell 故可以放到field中</p>
+<p>在Filed.java中实现了cell放在filed的函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Cell <span class="title">place</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> col, Cell o)</span> </span>&#123;</span><br><span class="line">	Cell ret = field[row][col];</span><br><span class="line">	field[row][col] = o;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此处理解 Cell作为一个纯抽象的类 不会制造Cell 的对象，此处Cell object的变量含义是 所有实现了Cell接口的类的对象都可以交给Cell o的对象。只管是不是一个Cell 如果是Cell o就可以接收绘在Field上</p>
+<p>故此时在Fox.java中要实现draw函数向上造型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(Graphics g, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> alpha = (<span class="keyword">int</span>)((<span class="number">1</span>-getAgePercent())*<span class="number">255</span>);</span><br><span class="line">	g.setColor(<span class="keyword">new</span> Color(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, alpha));<span class="comment">//(int)((20-getAge())/20.0*255)));</span></span><br><span class="line">	g.fillRect(x, y, size, size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在Fox中实现draw的函数 这样通过Cell接口 可以在Field上绘制图像。</p>
+<h2 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cell</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">(Graphics g, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> size)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>interface是一种特殊的class</p>
+<p>interface是指接口，其中只有抽象方法，没有数据域，不能用其创建对象，可以继承其他接口，但是不能实现其他接口。</p>
+<p>class是指类，不能有抽象方法，可以有数据域，可以创建对象，可以实现接口不能继承接口。</p>
+<h2 id="实现接口"><a href="#实现接口" class="headerlink" title="实现接口"></a>实现接口</h2><p>类用extends 接口用implements</p>
+<p>类可以实现很多接口</p>
+<p>接口可以继承接口 但是不能继承类</p>
+<p>接口不能实现接口</p>
+<h2 id="面向接口的编程方式"><a href="#面向接口的编程方式" class="headerlink" title="面向接口的编程方式"></a>面向接口的编程方式</h2><p>接口是当你需要一个东西 不是定义一个类 而是定义一个接口出来</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203151034937.png" alt="image-20200203151034937"></p>
+<p>如此处Cell是 Field实现的 之后才实现Animal的内容使得通过Cell接口使得Animal与Field连接在一起。</p>
+<p>设计程序的时候先定义接口，再实现类</p>
+<p>任何需要在函数间传入传出的一定是接口而不是具体的类</p>
+<p>是Java成功的关键 因为很适合多人同时写一个大程序，使用接口分隔开每一个部件。</p>
+<p>架构做的好的程序是有很多接口的。</p>
+<p>但也是java被批评的要点，因为代码量膨胀很快，因为写一个类要先写一个接口。程序容易臃肿。</p>
+<h2 id="Cell-和-Field的关系"><a href="#Cell-和-Field的关系" class="headerlink" title="Cell 和 Field的关系"></a>Cell 和 Field的关系</h2><p>Cell在Field中，但是Cell的很多操作需要Field的数据</p>
+<p>方法一：</p>
+<p>​    让每一个Cell有一个Field的管理者(Cell知道Field)</p>
+<p>方法二：</p>
+<p>​    由外部第三方建立两者之间的关系(Cell不知道Field) 此处就是不知道</p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203152013448.png" alt="image-20200203152013448"></p>
+<p><img src="C:\Users\36987\AppData\Roaming\Typora\typora-user-images\image-20200203152057373.png" alt="image-20200203152057373"></p>
+
       
     </div>
     
@@ -330,6 +389,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java学习/" rel="tag"># Java学习</a>
+          
+        </div>
       
 
       
@@ -349,6 +414,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/03/Java进阶学习-11/" rel="prev" title="Java进阶学习-11">
+                Java进阶学习-11 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -402,8 +471,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -420,7 +498,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">91</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -433,7 +511,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -473,6 +551,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口"><span class="nav-number">1.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#interface"><span class="nav-number">2.</span> <span class="nav-text">interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现接口"><span class="nav-number">3.</span> <span class="nav-text">实现接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向接口的编程方式"><span class="nav-number">4.</span> <span class="nav-text">面向接口的编程方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cell-和-Field的关系"><span class="nav-number">5.</span> <span class="nav-text">Cell 和 Field的关系</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -493,7 +587,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
